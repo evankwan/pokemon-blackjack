@@ -7,6 +7,7 @@ import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
+import Player from './components/Player';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -58,6 +59,7 @@ function App() {
         sprite: pokemonObject.sprites.front_default
       }
       // add the chosenPokemon object to the new array
+      console.log(chosenPokemon);
       return chosenPokemon;
     })
 
@@ -66,7 +68,7 @@ function App() {
       .then((familyArray) => {
         setPlayerPokemon(familyArray)
       }).catch((error) => {
-        console.log(error);
+        console.log(error, "API call failed");
       })
   }, [])
 
@@ -131,7 +133,15 @@ function App() {
         <Dealer 
           hand={currentDeck.slice(0, 5)} 
           dealerPokemon={dealerPokemon}
-          leftSprite={true}/>
+          />
+        
+        {playerPokemon.length > 0 
+        ?
+         <Player
+          hand={currentDeck.slice(0, 2)}
+          playerPokemon={playerPokemon}
+          />
+        : null }
 
         <div className="actions">
 
