@@ -1,12 +1,12 @@
-const Hand = ({ cards }) => {
+const Hand = ({cards}) => {
   return (
     <div className="hand">
       <ul className="hand__card-list">
-        {cards.map((card) => {
+        {cards.map((card, index) => {
           const { image, value, suit } = card;
           const alt = `${value.toLowerCase()} of ${suit.toLowerCase()}`;
           return (
-            <li className="hand__card-item">
+            <li key={index} className="hand__card-item">
               <img className="hand__card-img" src={image} alt={alt} />
             </li>
           );

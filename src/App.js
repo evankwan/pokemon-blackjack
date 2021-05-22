@@ -1,10 +1,18 @@
 import './App.css';
 import { useEffect, useState } from 'react'
+<<<<<<< HEAD
+=======
 import ActionBtn from './components/ActionBtn';
+>>>>>>> main
 import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
+<<<<<<< HEAD
+import Dealer from './components/Dealer';
+import Hand from './components/Hand';
+=======
+>>>>>>> main
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -98,9 +106,22 @@ function App() {
     getDeck();
   }, []);
     
-
   return (
     <>
+<<<<<<< HEAD
+    <h1>Check console</h1>
+    {/* title will include h1 and deal button to start game
+    {/* will only appear when game state is false */}
+      <Dealer 
+      hand={currentDeck.slice(0, 5)} 
+      dealerPokemon={dealerPokemon}
+      leftSprite={true}
+      />
+    {/* <Hand cards={currentDeck}/> */}
+    {/* <Sprite pokemon={playerPokemon} leftSprite={true} />
+    <Sprite pokemon={dealerPokemon}  /> */}
+      {/* <Title /> */}
+=======
       {
         // if the game is not running, render title screen
         !gameState
@@ -111,6 +132,7 @@ function App() {
             </div>
       }
       
+>>>>>>> main
       {/* div to hold xp bars */}
       
 
