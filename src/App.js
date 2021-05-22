@@ -60,8 +60,8 @@ function App() {
 
     // once all promises have resolved, set playerPokemon state to the chosenFamily
     Promise.all(chosenFamily)
-      .then((responses) => {
-        setPlayerPokemon(chosenFamily)
+      .then((familyArray) => {
+        setPlayerPokemon(familyArray)
       }).catch((error) => {
         console.log(error);
       })
