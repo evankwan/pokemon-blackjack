@@ -1,9 +1,10 @@
-import './App.css';
+import '../App.css';
 import { useEffect, useState } from 'react'
 import Title from './Title'
 import ExperienceBar from './ExperienceBar'
-import randomizer from './utils/randomizer';
+import randomizer from '../utils/randomizer';
 import Sprite from './Sprite';
+import ActionBtn from './ActionBtn';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -93,31 +94,49 @@ function App() {
     {/* will only appear when game state is false */}
     <Sprite pokemon={playerPokemon} leftSprite={true} />
     <Sprite pokemon={dealerPokemon}  />
-      {/* <Title /> */}
+      <Title />
       {/* div to hold xp bars */}
-      {/* <div>
+      <div>
         <ExperienceBar />
       </div>
 
-      <div className="gameBoard"> */}
-        {/* dealer component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Dealer />
-        <GameMessage /> */}
-        {/* player component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Player />
+      <div className="gameBoard">
+        {/* dealer component holds hand component and sprite component
+        needs hand state */}
+        {/* <Dealer /> */}
+        {/* <GameMessage /> */}
+        {/* player component holds hand component and sprite component
+        needs hand state */}
+        {/* <Player /> */}
 
         <div className="actions">
+
           {/* only show deal when game state is false */}
-          {/* <button>Deal</button> */}
+          <ActionBtn
+            name={"Deal"}
+            className={"btn btn__deal"}
+            /> 
+          <div className="btn__container">
+
           {/* only show hit, double, stand, if game state is true */}
-          {/* <button>Hit</button> */}
-          {/* show double only when player hand is 2 cards*/}
-          {/* <button>Double</button>
-          <button>Stand</button>
+          <ActionBtn
+            name={"Hit"}
+            className={"btn btn__hit"}
+            />
+          {/* show double only when player hand is 2 cards */}
+
+          <ActionBtn 
+            name={"Double"}
+            className={"btn btn__double"}
+            />
+
+          <ActionBtn 
+            name={"Stand"}
+            className={"btn btn__stand"}
+            />
+            </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
