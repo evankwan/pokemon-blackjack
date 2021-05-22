@@ -8,7 +8,6 @@ const Dealer = ({ hand, playerPokemon, dealerPokemon }) => {
             <div className="dealer__container">
                 <Sprite pokemon={dealerPokemon} />
                 <Hand cards={hand} />
-                <Sprite pokemon={playerPokemon} leftSprite={true} />
             </div>
         </div>
     )
