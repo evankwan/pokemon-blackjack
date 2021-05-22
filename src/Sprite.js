@@ -1,9 +1,9 @@
-const Sprite = ({ pokemon: { name, sprite }, leftImage = false }) => {
+const Sprite = ({ pokemon: { name, sprite }, leftSprite = false }) => {
     return (
         <div className="sprite">
             <div className="sprite__container">
                 <img
-                className={leftImage ? "sprite__left-img" : "" }
+                className={leftSprite ? "sprite__left-img" : "" }
                 src={sprite} 
                 alt={`The pokemon ${name}`} 
                 />
