@@ -94,7 +94,6 @@ function App() {
     {/* will only appear when game state is false */}
       <Dealer 
       hand={currentDeck.slice(0, 5)} 
-      playerPokemon={playerPokemon}
       dealerPokemon={dealerPokemon}
       leftSprite={true}
       />
