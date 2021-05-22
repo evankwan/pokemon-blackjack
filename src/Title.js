@@ -1,10 +1,10 @@
 const Title = () => {
   return (
-    <>
-      <h1>Welcome to Pokemon Blackjack!</h1>
+    <header id="header" className="header">
+      <h1 className="header__title">Welcome to Pokemon Blackjack!</h1>
 
-      <h2>How to Play:</h2>
-      <ol>
+      <h2 className="header__list-header">How to Play:</h2>
+      <ol className="header__list-container">
         <li>Bet and win Exp for your Pokemon</li>
         <li>Play until your cards total 21 (Don't go over!)</li>
         <li>"Hit" to get 1 more card</li>
@@ -13,8 +13,8 @@ const Title = () => {
         <li>Collect your Exp, and evolve your Pokemon!</li>
       </ol>
 
-      <button type="button">Play Now</button>
-    </>
+      <button className="btn btn__play" type="button">Play Now</button>
+    </header>
   );
 }
 

@@ -1,14 +1,15 @@
 import './App.css';
 import { useEffect, useState } from 'react'
+import Title from './Title'
 
 function App() {
-  const [ dealerHand, setDealerHand ] = useState([]);
-  const [ playerHand, setPlayerHand ] = useState([]);
-  const [ playerPokemon, setPlayerPokemon ] = useState([]);
-  const [ currentDeck, setCurrentDeck ] = useState([]);
-  const [ gameState, setGameState ] = useState(false);
-  const [ currentBet, setCurrentBet ] = useState(100);
-  const [ balance, setBalance ] = useState(200);
+  const [dealerHand, setDealerHand] = useState([]);
+  const [playerHand, setPlayerHand] = useState([]);
+  const [playerPokemon, setPlayerPokemon] = useState([]);
+  const [currentDeck, setCurrentDeck] = useState([]);
+  const [gameState, setGameState] = useState(false);
+  const [currentBet, setCurrentBet] = useState(100);
+  const [balance, setBalance] = useState(200);
 
   const availablePokemon = [];
 
@@ -23,12 +24,12 @@ function App() {
   useEffect(() => {
     // generate the 6 decks and set state t
   }, [])
-  
+
 
   return (
     <>
-    {/* title will include h1 and deal button to start game */}
-    {/* will only appear when game state is false */}
+      {/* title will include h1 and deal button to start game */}
+      {/* will only appear when game state is false */}
       <Title />
       {/* div to hold xp bars */}
       <div>
