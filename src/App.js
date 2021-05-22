@@ -1,9 +1,11 @@
 import './App.css';
 import { useEffect, useState } from 'react'
-import Title from './Title'
-import ExperienceBar from './ExperienceBar'
+import Title from './components/Title'
+import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
-import Sprite from './Sprite';
+import Sprite from './components/Sprite';
+import Dealer from './components/Dealer';
+import Hand from './components/Hand';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -85,14 +87,20 @@ function App() {
     getDeck();
   }, []);
     
-
   return (
     <>
     <h1>Check console</h1>
     {/* title will include h1 and deal button to start game
     {/* will only appear when game state is false */}
-    <Sprite pokemon={playerPokemon} leftSprite={true} />
-    <Sprite pokemon={dealerPokemon}  />
+      <Dealer 
+      hand={currentDeck.slice(0, 5)} 
+      playerPokemon={playerPokemon}
+      dealerPokemon={dealerPokemon}
+      leftSprite={true}
+      />
+    {/* <Hand cards={currentDeck}/> */}
+    {/* <Sprite pokemon={playerPokemon} leftSprite={true} />
+    <Sprite pokemon={dealerPokemon}  /> */}
       {/* <Title /> */}
       {/* div to hold xp bars */}
       {/* <div>
