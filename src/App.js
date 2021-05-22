@@ -1,18 +1,12 @@
 import './App.css';
 import { useEffect, useState } from 'react'
-<<<<<<< HEAD
-=======
 import ActionBtn from './components/ActionBtn';
->>>>>>> main
 import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
-<<<<<<< HEAD
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
-=======
->>>>>>> main
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -108,20 +102,14 @@ function App() {
     
   return (
     <>
-<<<<<<< HEAD
     <h1>Check console</h1>
     {/* title will include h1 and deal button to start game
     {/* will only appear when game state is false */}
-      <Dealer 
-      hand={currentDeck.slice(0, 5)} 
-      dealerPokemon={dealerPokemon}
-      leftSprite={true}
-      />
+      
     {/* <Hand cards={currentDeck}/> */}
     {/* <Sprite pokemon={playerPokemon} leftSprite={true} />
     <Sprite pokemon={dealerPokemon}  /> */}
       {/* <Title /> */}
-=======
       {
         // if the game is not running, render title screen
         !gameState
@@ -132,7 +120,6 @@ function App() {
             </div>
       }
       
->>>>>>> main
       {/* div to hold xp bars */}
       
 
@@ -141,9 +128,10 @@ function App() {
         {/* needs hand state */}
         {/* <Dealer />
         <GameMessage /> */}
-        {/* player component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Player /> */}
+        <Dealer 
+          hand={currentDeck.slice(0, 5)} 
+          dealerPokemon={dealerPokemon}
+          leftSprite={true}/>
 
         <div className="actions">
 
@@ -151,26 +139,33 @@ function App() {
           <ActionBtn
             name={"Deal"}
             className={"btn btn__deal"}
-            /> 
+          />
           <div className="btn__container">
 
             {/* only show hit, double, stand, if game state is true */}
             <ActionBtn
               name={"Hit"}
               className={"btn btn__hit"}
-              />
+            />
             {/* show double only when player hand is 2 cards */}
 
-            <ActionBtn 
+            <ActionBtn
               name={"Double"}
               className={"btn btn__double"}
-              />
+            />
 
-            <ActionBtn 
+            <ActionBtn
               name={"Stand"}
               className={"btn btn__stand"}
-              />
+            />
           </div>
+
+
+        {/* player component holds hand component and sprite component */}
+        {/* needs hand state */}
+        {/* <Player /> */}
+
+
         </div>
       </div>
     </>
