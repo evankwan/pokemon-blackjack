@@ -84,3 +84,43 @@ body {
   font-size: 24px;
 }
 
+.sprite__container {
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.sprite {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min-content;
+}
+
+.sprite__name {
+    position: absolute;
+    bottom: -5px;
+    text-align: center;
+    min-width: 96px;
+    color: #ffff00;
+    background-color: #142b68;
+    padding: 5px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    left: 50px;
+}
+
+.sprite__left-img {
+    transform: scaleX(-1);
+}
