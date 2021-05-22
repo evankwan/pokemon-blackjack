@@ -3,7 +3,7 @@ const Sprite = ({ pokemon: { name, sprite }, leftImage = false }) => {
         <div className="sprite">
             <div className="sprite__container">
                 <img
-                className={leftImage ? "sprite__leftImage" : "" }
+                className={leftImage ? "sprite__left-img" : "" }
                 src={sprite} 
                 alt={`The pokemon ${name}`} 
                 />

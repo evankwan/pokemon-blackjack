@@ -45,6 +45,6 @@ img {
     left: 50px;
 }
 
-.sprite__leftImage {
+.sprite__left-img {
     transform: scaleX(-1);
 }
