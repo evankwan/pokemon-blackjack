@@ -11,8 +11,37 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 /* General Styles */
 body {
   color: #142b68;
-  
 }
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.hand {
+  width: 100%;
+}
+
+.hand__card-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  background: pink;
+  width: 100%;
+}
+
+.hand__card-item {
+  --w: Min(Max(20px, 8vw), 50px);
+  width: var(--w);
+  /* -1 * ((width * 4) - width) / 2 */
+  transform: translateX(calc(var(--w) * -1.5));
+}
+
+.hand__card-img {
+  display: block;
+  /* overflow so that cards will overlap */
+  width: 400%;
 
 /* Title Styles */
 .header {
@@ -94,11 +123,6 @@ body {
     overflow: hidden;
 }
 
-img {
-    display: block;
-    width: 100%;
-}
-
 .sprite {
     position: relative;
     display: flex;
@@ -123,4 +147,5 @@ img {
 
 .sprite__left-img {
     transform: scaleX(-1);
+
 }
