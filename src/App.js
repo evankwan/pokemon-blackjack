@@ -1,11 +1,18 @@
 import './App.css';
 import { useEffect, useState } from 'react'
+<<<<<<< HEAD
+=======
+import ActionBtn from './components/ActionBtn';
+>>>>>>> main
 import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
+<<<<<<< HEAD
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
+=======
+>>>>>>> main
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -15,6 +22,7 @@ function App() {
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(100);
   const [balance, setBalance] = useState(200);
+  const [currentPlayer, setCurrentPlayer] = useState('');
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -32,29 +40,40 @@ function App() {
     [155, 156, 157],
     [158, 159, 160]
   ];
-
-  // function to compare users score to dealers
-  // function to test if users score is less than / equal 21
   
+  // object holding the dealer's pokemon
   const dealerPokemon = { 
     name: "mr-mime", 
     sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png"
   };
+
+  const handleGameStart = () => {
+    setGameState(true);
+  }
   
   useEffect(() => {
-    // generate random pokemon index from availablePokemon array, make the API call, and set the playerPokemon state
-    const getPokemon = async (id) => {
-      const pokemonId = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-      const pokemonObject = await pokemonId.json();
+    // generate random pokemon family from availablePokemon array 
+    const pokemonFamily = randomizer(availablePokemon);
+
+    // make the API calls for all three pokemon in the evolution line
+    const chosenFamily = pokemonFamily.map(async (pokemonId) => {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
+      const pokemonObject = await response.json();
       const chosenPokemon = {
         name: pokemonObject.name,
         sprite: pokemonObject.sprites.front_default
       }
-      setPlayerPokemon(chosenPokemon);
-    }
-    const pokemonFamily = randomizer(availablePokemon);
+      // add the chosenPokemon object to the new array
+      return chosenPokemon;
+    })
 
-    getPokemon(pokemonFamily[0]);
+    // once all promises have resolved, set playerPokemon state to the chosenFamily
+    Promise.all(chosenFamily)
+      .then((familyArray) => {
+        setPlayerPokemon(familyArray)
+      }).catch((error) => {
+        console.log(error);
+      })
   }, [])
 
   useEffect(() => {
@@ -89,6 +108,7 @@ function App() {
     
   return (
     <>
+<<<<<<< HEAD
     <h1>Check console</h1>
     {/* title will include h1 and deal button to start game
     {/* will only appear when game state is false */}
@@ -101,30 +121,58 @@ function App() {
     {/* <Sprite pokemon={playerPokemon} leftSprite={true} />
     <Sprite pokemon={dealerPokemon}  /> */}
       {/* <Title /> */}
+=======
+      {
+        // if the game is not running, render title screen
+        !gameState
+          ? <Title startGame={handleGameStart}/>
+        // if the game is running, render game UI
+          : <div>
+              <ExperienceBar />
+            </div>
+      }
+      
+>>>>>>> main
       {/* div to hold xp bars */}
-      {/* <div>
-        <ExperienceBar />
-      </div>
+      
 
-      <div className="gameBoard"> */}
+      <div className="gameBoard"> 
         {/* dealer component holds hand component and sprite component */}
         {/* needs hand state */}
         {/* <Dealer />
         <GameMessage /> */}
         {/* player component holds hand component and sprite component */}
         {/* needs hand state */}
-        {/* <Player />
+        {/* <Player /> */}
 
         <div className="actions">
+
           {/* only show deal when game state is false */}
-          {/* <button>Deal</button> */}
-          {/* only show hit, double, stand, if game state is true */}
-          {/* <button>Hit</button> */}
-          {/* show double only when player hand is 2 cards*/}
-          {/* <button>Double</button>
-          <button>Stand</button>
+          <ActionBtn
+            name={"Deal"}
+            className={"btn btn__deal"}
+            /> 
+          <div className="btn__container">
+
+            {/* only show hit, double, stand, if game state is true */}
+            <ActionBtn
+              name={"Hit"}
+              className={"btn btn__hit"}
+              />
+            {/* show double only when player hand is 2 cards */}
+
+            <ActionBtn 
+              name={"Double"}
+              className={"btn btn__double"}
+              />
+
+            <ActionBtn 
+              name={"Stand"}
+              className={"btn btn__stand"}
+              />
+          </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

@@ -18,6 +18,11 @@ img {
     width: 100%;
 }
 
+.gameBoard {
+  min-height: 100vh;
+  position: relative;
+}
+
 .hand {
   width: 100%;
 }
@@ -99,6 +104,27 @@ img {
 
 .btn:hover {
   background-color: #ffd000;
+}
+
+.btn__container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btn__hit,
+.btn__double,
+.btn__stand {
+  margin: 0px 5px;
+  flex: 0 0 calc((100% / 3) - 10px );
+}
+
+.btn__deal {
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
 }
 
 /* Experience Bar Styles */
