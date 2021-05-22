@@ -8,3 +8,65 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
+/* General Styles */
+body {
+  color: #142b68;
+  
+}
+
+/* Title Styles */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #edfeff;
+  min-height: 100vh;
+}
+
+.header__title {
+  font-size: 50px;
+  letter-spacing: 1px;
+}
+
+.header__rules-container {
+  border: 2px solid #ff0;
+  box-shadow: 1px 1px #ffd000, -1px -1px #ffd000;
+  margin-bottom: 40px; 
+  
+}
+
+.header__list-header {
+  letter-spacing: 1px;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.header__list-container {
+  padding: 45px;
+  font-weight: bold;
+}
+
+.header__list-container li {
+  /* list-style: none; */
+  font-size: 18px;
+  padding: 2px 0px;
+}
+
+/* Button Styles */
+/* NOTE subject to change */
+.btn {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 35px;
+  background-color: #ff0;
+  color: #142b68;
+  border: 2px solid #142b68;
+  border-radius: 5px;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #ffd000;
+}
