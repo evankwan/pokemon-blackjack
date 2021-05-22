@@ -1,4 +1,4 @@
-const Title = () => {
+const Title = ({ startGame }) => {
   return (
     <header id="header" className="header">
       <h1 className="header__title">Welcome to Pokemon Blackjack!</h1>
@@ -15,7 +15,13 @@ const Title = () => {
         </ol>
       </div>
 
-      <button className="btn btn__play" type="button">Play Now</button>
+      <button 
+        className="btn btn__play" 
+        type="button"
+        onClick={startGame}
+      >
+        Play Now
+      </button>
     </header>
   );
 }

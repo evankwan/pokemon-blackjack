@@ -7,7 +7,6 @@ const Sprite = ({ pokemon: { name, sprite }, leftSprite = false }) => {
                 src={sprite} 
                 alt={`The pokemon ${name}`} 
                 />
-                
             </div>
             <p className="sprite__name">{name}</p>
         </div>
