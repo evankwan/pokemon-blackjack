@@ -1,5 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react'
+import Sprite from './Sprite'
 
 function App() {
   const [ dealerHand, setDealerHand ] = useState([]);
@@ -32,8 +33,12 @@ function App() {
 
   // function to compare users score to dealers
   // function to test if users score is less than / equal 21
-
-
+  
+  const dealerPokemon = { 
+    name: "mr-mime", 
+    sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png"
+  };
+  
   useEffect(() => {
     // generate random pokemon index from availablePokemon array, make the API call, and set the playerPokemon state
     const getPokemon = async (id) => {
@@ -43,7 +48,6 @@ function App() {
         name: pokemonObject.name,
         sprite: pokemonObject.sprites.front_default
       }
-      console.log(chosenPokemon);
       setPlayerPokemon(chosenPokemon);
     }
 
@@ -51,6 +55,7 @@ function App() {
 
     getPokemon(pokemonFamily[0]);
   }, [])
+
 
   // useEffect(() => {
   //   // generate the 6 decks and set state t
@@ -62,6 +67,8 @@ function App() {
     <h1>Check console</h1>
     {/* title will include h1 and deal button to start game
     {/* will only appear when game state is false */}
+    <Sprite pokemon={playerPokemon} leftImage={true} />
+    <Sprite pokemon={dealerPokemon}  />
       {/* <Title /> */}
       {/* div to hold xp bars */}
       {/* <div>
