@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react'
 import Title from './Title'
+import ExperienceBar from './ExperienceBar'
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);

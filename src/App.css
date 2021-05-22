@@ -70,3 +70,17 @@ body {
 .btn:hover {
   background-color: #ffd000;
 }
+
+/* Experience Bar Styles */
+.expbar {
+  width: 90%;
+  height: 40px;
+  text-align: center;
+  border: 3px solid #142b68;
+  margin: 0 auto;
+}
+
+.expbar__title {
+  font-size: 24px;
+}
+
