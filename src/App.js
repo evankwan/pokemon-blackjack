@@ -1,5 +1,7 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
+import Title from './Title'
+import ExperienceBar from './ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './Sprite';
 
