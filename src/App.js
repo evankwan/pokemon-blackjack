@@ -1,17 +1,10 @@
-import '../App.css';
+import './App.css';
 import { useEffect, useState } from 'react'
-<<<<<<< HEAD:src/components/App.js
-import Title from './Title'
-import ExperienceBar from './ExperienceBar'
-import randomizer from '../utils/randomizer';
-import Sprite from './Sprite';
-import ActionBtn from './ActionBtn';
-=======
+import ActionBtn from './components/ActionBtn';
 import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
->>>>>>> main:src/App.js
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -108,27 +101,6 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD:src/components/App.js
-    <h1>Check console</h1>
-    {/* title will include h1 and deal button to start game
-    {/* will only appear when game state is false */}
-    <Sprite pokemon={playerPokemon} leftSprite={true} />
-    <Sprite pokemon={dealerPokemon}  />
-      <Title />
-      {/* div to hold xp bars */}
-      <div>
-        <ExperienceBar />
-      </div>
-
-      <div className="gameBoard">
-        {/* dealer component holds hand component and sprite component
-        needs hand state */}
-        {/* <Dealer /> */}
-        {/* <GameMessage /> */}
-        {/* player component holds hand component and sprite component
-        needs hand state */}
-        {/* <Player /> */}
-=======
       {
         // if the game is not running, render title screen
         !gameState
@@ -142,15 +114,14 @@ function App() {
       {/* div to hold xp bars */}
       
 
-      {/* <div className="gameBoard">  */}
+      <div className="gameBoard"> 
         {/* dealer component holds hand component and sprite component */}
         {/* needs hand state */}
         {/* <Dealer />
         <GameMessage /> */}
         {/* player component holds hand component and sprite component */}
         {/* needs hand state */}
-        {/* <Player />
->>>>>>> main:src/App.js
+        {/* <Player /> */}
 
         <div className="actions">
 
@@ -161,23 +132,23 @@ function App() {
             /> 
           <div className="btn__container">
 
-          {/* only show hit, double, stand, if game state is true */}
-          <ActionBtn
-            name={"Hit"}
-            className={"btn btn__hit"}
-            />
-          {/* show double only when player hand is 2 cards */}
+            {/* only show hit, double, stand, if game state is true */}
+            <ActionBtn
+              name={"Hit"}
+              className={"btn btn__hit"}
+              />
+            {/* show double only when player hand is 2 cards */}
 
-          <ActionBtn 
-            name={"Double"}
-            className={"btn btn__double"}
-            />
+            <ActionBtn 
+              name={"Double"}
+              className={"btn btn__double"}
+              />
 
-          <ActionBtn 
-            name={"Stand"}
-            className={"btn btn__stand"}
-            />
-            </div>
+            <ActionBtn 
+              name={"Stand"}
+              className={"btn btn__stand"}
+              />
+          </div>
         </div>
       </div>
     </>
