@@ -1,19 +1,25 @@
+/**
+ * Takes card object and returns a value number or string "ACE"
+ * @param {array} currentDeck
+ * @param {function} setPlayerHand
+ * @param {function} setDealerHand
+ * @param {function} setCurrentDeck
+ */
+
 const initialDeal = (currentDeck, setPlayerHand, setDealerHand, setCurrentDeck) => {
-  const newPlayerHand = [];
-  const newDealerHand = [];
+  // spread currentDeck into new variable
   const deck = [...currentDeck];
 
-  for (let i = 0; i < 2; i++) {
-    let currentCard = deck.splice(0, 1);
-    newPlayerHand.push(currentCard[0]);
-    currentCard = deck.splice(0, 1);
-    newDealerHand.push(currentCard[0]);
-  }
+  // remove the top 4 cards from the deck
+  const cardsDealt = deck.splice(0, 4);
+  
+  // add first and third cards into player's hand
+  setPlayerHand([cardsDealt[0], cardsDealt[2]]);
 
-  console.log(newPlayerHand);
-  console.log(newDealerHand);
-  setPlayerHand(newPlayerHand);
-  setDealerHand(newDealerHand);
+  // add second and fourth cards into dealer's hand
+  setDealerHand([cardsDealt[1], cardsDealt[3]]);
+
+  // set deck state with missing top 4 cards
   setCurrentDeck(deck);
 }
 
