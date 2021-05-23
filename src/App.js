@@ -11,6 +11,8 @@ import Hand from './components/Hand';
 import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
+import dealerLogic from './utils/dealerLogic';
+import { getScore } from './utils/score';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -21,6 +23,8 @@ function App() {
   const [currentBet, setCurrentBet] = useState(100);
   const [balance, setBalance] = useState(200);
   const [currentPlayer, setCurrentPlayer] = useState('');
+
+
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -47,6 +51,8 @@ function App() {
 
   const handleGameStart = () => {
     setGameState(true);
+    setDealerHand([])
+    setPlayerHand([])
   }
 
   const handleDeal = () => {
@@ -54,7 +60,16 @@ function App() {
   }
 
   const handleHit = () => {
-    dealOneCard(currentDeck, playerHand, setPlayerHand, setCurrentDeck);
+    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+    setPlayerHand(updatedHand)
+    setCurrentDeck(deck)
+    if (getScore(updatedHand) > 21) {
+      setGameState(false)
+    }
+  }
+
+  const handleStand = () => {
+    dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
   }
   
   useEffect(() => {
@@ -165,6 +180,7 @@ function App() {
                     <ActionBtn
                       name={"Stand"}
                       className={"btn btn__stand"}
+                      handleClick={handleStand}
                     />
                   </div>
 
