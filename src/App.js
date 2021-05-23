@@ -91,7 +91,7 @@ function App() {
             image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
             value: card.value, // "10'"
             suit: card.suit, // "SPADES"
-          }));
+          }));          
           return cards;
         });
       setCurrentDeck(deck);
