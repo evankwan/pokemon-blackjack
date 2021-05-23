@@ -122,9 +122,10 @@ img {
 }
 
 .btn__deal {
-  width: 100%;
+  width: calc(100% - 10px);
   position: absolute;
   bottom: 50px;
+  margin: 0px 5px;
 }
 
 /* Experience Bar Styles */
