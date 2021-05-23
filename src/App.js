@@ -9,6 +9,7 @@ import GameMessage from './components/GameMessage';
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
 import Player from './components/Player';
+import initialDeal from './utils/initialDeal';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -46,6 +47,10 @@ function App() {
   const handleGameStart = () => {
     setGameState(true);
   }
+
+  const handleDeal = () => {
+    initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+  }
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
@@ -60,7 +65,6 @@ function App() {
         sprite: pokemonObject.sprites.front_default
       }
       // add the chosenPokemon object to the new array
-      console.log(chosenPokemon);
       return chosenPokemon;
     })
 
@@ -111,69 +115,64 @@ function App() {
           <Title startGame={handleGameStart} />
         ) : (
           // if the game is running, render game UI
-          <div>
-            <ExperienceBar />
-          </div>
+          <>
+              <div className="gameBoard">
+                <div>
+                  <ExperienceBar />
+                </div>
+                
+                
+                <Dealer
+                  hand={dealerHand}
+                  dealerPokemon={dealerPokemon}
+                />
+
+                <GameMessage message={"Deal"} />
+
+                {playerPokemon.length > 0
+                  ?
+                  <Player
+                    hand={playerHand}
+                    playerPokemon={playerPokemon}
+                  />
+                  : null}
+
+                <div className="actions">
+                  {/* only show deal when game state is false */}
+                  <ActionBtn
+                    name={"Deal"}
+                    className={"btn btn__deal"}
+                    handleClick={handleDeal}
+                  />
+                  <div className="btn__container">
+                    {/* only show hit, double, stand, if game state is true */}
+                    <ActionBtn
+                      name={"Hit"}
+                      className={"btn btn__hit"}
+                    />
+                    {/* show double only when player hand is 2 cards */}
+                    <ActionBtn
+                      name={"Double"}
+                      className={"btn btn__double"}
+                    />
+
+                    <ActionBtn
+                      name={"Stand"}
+                      className={"btn btn__stand"}
+                    />
+                  </div>
+
+
+                  {/* player component holds hand component and sprite component */}
+                  {/* needs hand state */}
+                  {/* <Player /> */}
+
+
+                </div>
+              </div>
+          </>
         )
       }
-      {/* div to hold xp bars */}
-
-      <div className="gameBoard">
-        {/* dealer component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Dealer />  */}
-        <GameMessage message={"Deal"} />
-        {/* player component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Player /> */}
-        {/* <Dealer />
-        <GameMessage /> */}
-        <Dealer 
-          hand={currentDeck.slice(0, 5)} 
-          dealerPokemon={dealerPokemon}
-          />
-        
-        {playerPokemon.length > 0 
-        ?
-        <Player
-          hand={currentDeck.slice(0, 2)}
-          playerPokemon={playerPokemon}
-          />
-        : null }
-
-        <div className="actions">
-          {/* only show deal when game state is false */}
-          <ActionBtn
-            name={"Deal"}
-            className={"btn btn__deal"}
-          />
-          <div className="btn__container">
-            {/* only show hit, double, stand, if game state is true */}
-            <ActionBtn
-              name={"Hit"}
-              className={"btn btn__hit"}
-            />
-            {/* show double only when player hand is 2 cards */}
-
-            <ActionBtn
-              name={"Double"}
-              className={"btn btn__double"}
-            />
-
-            <ActionBtn
-              name={"Stand"}
-              className={"btn btn__stand"}
-            />
-          </div>
-
-
-        {/* player component holds hand component and sprite component */}
-        {/* needs hand state */}
-        {/* <Player /> */}
-
-
-        </div>
-      </div>
     </>
   );
 }

@@ -1,11 +1,18 @@
 const ActionBtn = (props) => {
   const {
     name,
-    className
+    className,
+    handleClick
   } = props
   return (  
     <>
-      <button className={className} type="button">{name}</button>
+      <button 
+        className={className} 
+        type="button"
+        onClick={handleClick}
+      >
+        {name}
+      </button>
     </>
   );
 }
