@@ -12,6 +12,7 @@ import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
 import dealerLogic from './utils/dealerLogic';
+import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 
 function App() {
@@ -23,8 +24,6 @@ function App() {
   const [currentBet, setCurrentBet] = useState(100);
   const [balance, setBalance] = useState(200);
   const [currentPlayer, setCurrentPlayer] = useState('');
-
-
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -84,12 +83,26 @@ function App() {
   }
 
   const handleStand = (updatedDeck) => {
+    setCurrentPlayer('dealer')
     const {hand, deck} = dealerLogic(dealerHand, updatedDeck)
     
     setDealerHand(hand)
     setCurrentDeck(deck)
-    setCurrentPlayer('dealer')
+    setCurrentPlayer('finished')
   }
+
+  useEffect(() => {
+    if (currentPlayer === 'finished') {
+      console.log(getScore(playerHand));
+      console.log(getScore(dealerHand));
+      if (getScore(playerHand) < 21) {
+        if (playerPokemon.length > 1) {
+          const evolvedLine = evolvePokemon(playerPokemon);
+          setPlayerPokemon(evolvedLine);
+        }
+      }
+    }
+  }, [currentPlayer])
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
