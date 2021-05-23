@@ -6,7 +6,6 @@ const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => 
   let hand = [...dealerHand]
   let deck = [...currentDeck]
   let dealerScore = getScore(dealerHand)
-  console.log(dealerScore);
 
 
   while (dealerScore < 17) {
@@ -14,9 +13,6 @@ const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => 
     hand = updatedValues.updatedHand
     deck = updatedValues.deck;
     dealerScore = getScore(hand)
-    console.log(hand);
-    console.log(dealerScore);
-
   }
 
   return {hand, deck}

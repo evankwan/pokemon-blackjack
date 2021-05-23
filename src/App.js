@@ -72,7 +72,6 @@ function App() {
 
   const handleDouble = () => {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
-    console.log(updatedHand, deck);
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
     setCurrentBet(currentBet * 2)

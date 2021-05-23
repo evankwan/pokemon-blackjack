@@ -32,25 +32,34 @@ export function getCardValue(card) {
  * @returns {number} score
  */
 export function getScore(cards) {
-  let sorted = [...cards]
-  sorted.sort((a, b) => b.value - a.value)
-  sorted.reverse()
-  console.log("SORTED!!", sorted);
-  let score = sorted.reduce((accumulatedScore, card) => {
+  // mapping hand into an array of values and then sorting, so the 'ACE' values are at the end
+  let cardValues = cards.map((card) => {
     const cardValue = getCardValue(card);
+    return cardValue
+  })
+  cardValues.sort();
 
-    if (typeof cardValue === 'number') {
-      accumulatedScore += cardValue;
+  let score = cardValues.reduce((accumulatedScore, card, index) => {
+
+    if (typeof card === 'number') {
+      accumulatedScore += card;
       return accumulatedScore;
     }
-    // If the added score does not exceed 21, ACE counts as 11
-    if (cardValue === 'ACE' && accumulatedScore + 11 <= 21) {
-      return accumulatedScore + 11;
+
+    // if this is the last ace, test if it can be 1 or 11
+    if(card === 'ACE' && index === (cardValues.length - 1)) {
+      if (accumulatedScore + 11 > 21) {
+        return accumulatedScore + 1;
+      } else {
+        return accumulatedScore + 11;
+      }
     }
-    // If the added score exceeds 21, ACE counts as 1
-    if (card.value === 'ACE' && accumulatedScore + 11 > 21) {
+
+    // if this is NOT the last ace, assign it a value of 1
+    if (card === 'ACE') {
       return accumulatedScore + 1;
     }
+
     return accumulatedScore;
   }, 0);
 

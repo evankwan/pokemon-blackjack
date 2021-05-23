@@ -14,7 +14,7 @@ const dealOneCard = (currentDeck, currentHand) => {
     // spread currentDeck into new variable
     const deck = [...currentDeck];
 
-    // remove the top 2 cards from the deck
+    // remove the top card from the deck
     const cardsDealt = deck.splice(0, 1);
 
     // adding one card to the existing currentHand array (to prevent overriding the player or dealer's hand)

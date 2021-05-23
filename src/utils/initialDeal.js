@@ -12,6 +12,7 @@ const initialDeal = (currentDeck, setPlayerHand, setDealerHand, setCurrentDeck) 
 
   // remove the top 4 cards from the deck
   const cardsDealt = deck.splice(0, 4);
+  console.log(cardsDealt);
   
   // add first and third cards into player's hand
   setPlayerHand([cardsDealt[0], cardsDealt[2]]);

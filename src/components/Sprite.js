@@ -1,6 +1,5 @@
 const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition }) => {
 
-    // console.log(pokemon);
     const { name, sprite }  = pokemon
 
     return (
