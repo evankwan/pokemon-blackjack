@@ -9,11 +9,11 @@ const ActionBtn = (props) => {
       <button 
         className={className} 
         type="button"
-        onClick={
-          name === 'Deal'
-          ? dealCards
-          : dealCards
-        }
+        onClick={() => {
+          if (name === 'Deal') {
+            dealCards();
+          }
+        }}
       >
         {name}
       </button>
