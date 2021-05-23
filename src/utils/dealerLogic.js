@@ -2,9 +2,10 @@ import dealOneCard from './dealOneCard';
 import {getScore} from './score';
 
 
-const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => {
+const dealerLogic = (dealerHand, currentDeck) => {
   let hand = [...dealerHand]
   let deck = [...currentDeck]
+  hand[1].class= "";
   let dealerScore = getScore(dealerHand)
 
 

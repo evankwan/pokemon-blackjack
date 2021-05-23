@@ -93,8 +93,6 @@ function App() {
 
   useEffect(() => {
     if (currentPlayer === 'finished') {
-      console.log(getScore(playerHand));
-      console.log(getScore(dealerHand));
       if (getScore(playerHand) < 21) {
         if (playerPokemon.length > 1) {
           const evolvedLine = evolvePokemon(playerPokemon);
