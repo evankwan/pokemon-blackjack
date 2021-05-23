@@ -1,5 +1,5 @@
 /**
- * Takes card object and returns a value number or string "ACE"
+ * 
  * @param {array} currentDeck
  * @param {function} setPlayerHand
  * @param {function} setDealerHand

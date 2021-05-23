@@ -26,7 +26,7 @@ const cards = [
 describe('getScore', () => {
   it('should return correct score', () => {
     expect(getScore(cards.slice(0, 1))).toBe(5);
-    expect(getScore(cards.slice(0, 2))).toBe(7);
+    expect(getScore(cards.slice(0, 2))).toBe(8);
     expect(getScore(cards.slice(0, 3))).toBe(18);
 
     const aceAfterJack = [...cards.slice(0, 2), cards[3], cards[2]];

@@ -2,18 +2,14 @@ const ActionBtn = (props) => {
   const {
     name,
     className,
-    dealCards
+    handleClick
   } = props
   return (  
     <>
       <button 
         className={className} 
         type="button"
-        onClick={() => {
-          if (name === 'Deal') {
-            dealCards();
-          }
-        }}
+        onClick={handleClick}
       >
         {name}
       </button>

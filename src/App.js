@@ -142,7 +142,7 @@ function App() {
                   <ActionBtn
                     name={"Deal"}
                     className={"btn btn__deal"}
-                    dealCards={handleDeal}
+                    handleClick={handleDeal}
                   />
                   <div className="btn__container">
                     {/* only show hit, double, stand, if game state is true */}
