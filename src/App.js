@@ -139,7 +139,7 @@ function App() {
         ) : (
           // if the game is running, render game UI
           <>
-              <div className="gameBoard">
+              <div className="wrapper gameBoard">
                 <div>
                   <ExperienceBar />
                 </div>
@@ -162,11 +162,14 @@ function App() {
 
                 <div className="actions">
                   {/* only show deal when game state is false */}
-                  <ActionBtn
+                  { playerHand.length === 0 
+                  ?
+                    <ActionBtn
                     name={"Deal"}
                     className={"btn btn__deal"}
                     handleClick={handleDeal}
                   />
+                  :
                   <div className="btn__container">
                     {/* only show hit, double, stand, if game state is true */}
                     <ActionBtn
@@ -186,6 +189,7 @@ function App() {
                       handleClick={handleStand}
                     />
                   </div>
+                  }
 
 
                   {/* player component holds hand component and sprite component */}
