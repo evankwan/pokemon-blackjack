@@ -10,6 +10,10 @@ import GameMessage from './components/GameMessage';
 =======
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
+<<<<<<< HEAD
+import Player from './components/Player';
+=======
+>>>>>>> main
 >>>>>>> main
 
 function App() {
@@ -62,6 +66,7 @@ function App() {
         sprite: pokemonObject.sprites.front_default
       }
       // add the chosenPokemon object to the new array
+      console.log(chosenPokemon);
       return chosenPokemon;
     })
 
@@ -70,7 +75,7 @@ function App() {
       .then((familyArray) => {
         setPlayerPokemon(familyArray)
       }).catch((error) => {
-        console.log(error);
+        console.log(error, "API call failed");
       })
   }, [])
 
@@ -150,7 +155,19 @@ function App() {
         <Dealer 
           hand={currentDeck.slice(0, 5)} 
           dealerPokemon={dealerPokemon}
+<<<<<<< HEAD
+          />
+        
+        {playerPokemon.length > 0 
+        ?
+         <Player
+          hand={currentDeck.slice(0, 2)}
+          playerPokemon={playerPokemon}
+          />
+        : null }
+=======
           leftSprite={true}/>
+>>>>>>> main
 >>>>>>> main
 
         <div className="actions">

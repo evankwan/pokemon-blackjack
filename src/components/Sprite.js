@@ -1,4 +1,8 @@
-const Sprite = ({ pokemon: { name, sprite }, leftSprite = false }) => {
+const Sprite = ({ pokemon, leftSprite }) => {
+
+    // console.log(pokemon);
+    const { name, sprite }  = pokemon
+
     return (
         <div className="sprite">
             <div className="sprite__container">
