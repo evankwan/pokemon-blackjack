@@ -53,10 +53,12 @@ function App() {
     setGameState(true);
     setDealerHand([])
     setPlayerHand([])
+
   }
 
   const handleDeal = () => {
     initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+    setCurrentPlayer('player1')
   }
 
   const handleHit = () => {
@@ -70,6 +72,7 @@ function App() {
 
   const handleStand = () => {
     dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
+    setCurrentPlayer('dealer')
   }
   
   useEffect(() => {
