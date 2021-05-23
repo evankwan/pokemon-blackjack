@@ -116,7 +116,7 @@ function App() {
         ) : (
           // if the game is running, render game UI
           <>
-              <div className="gameBoard">
+              <div className="wrapper gameBoard">
                 <div>
                   <ExperienceBar />
                 </div>

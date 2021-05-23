@@ -10,12 +10,19 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 /* General Styles */
 body {
+  background-color: #edfeff;
   color: #142b68;
 }
 
 img {
     display: block;
     width: 100%;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 85%;
 }
 
 .gameBoard {
@@ -148,7 +155,7 @@ img {
     justify-content: center;
     align-items: center;
     width: 96px;
-    overflow: hidden;
+    position: relative;
 }
 
 .sprite {
@@ -173,6 +180,17 @@ img {
     left: 50px;
 }
 
+.sprite__name-dealer {
+  left: calc(50% - 96px);
+}
+
 .sprite__left-img {
     transform: scaleX(-1);
 }
+
+.sprite__dealer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
