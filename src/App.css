@@ -28,6 +28,9 @@ img {
 .gameBoard {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .hand {
@@ -39,7 +42,7 @@ img {
   padding: 0;
   display: flex;
   justify-content: center;
-  background: pink;
+  /* background: pink; */
   width: 100%;
 }
 
@@ -53,7 +56,7 @@ img {
 .hand__card-img {
   display: block;
   /* overflow so that cards will overlap */
-  width: 400%;
+  width: 250%;
 }
 
 /* Title Styles */
@@ -99,9 +102,9 @@ img {
 /* Button Styles */
 /* NOTE subject to change */
 .btn {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
-  padding: 10px 35px;
+  padding: 10px 20px;
   background-color: #ff0;
   color: #142b68;
   border: 2px solid #142b68;
@@ -114,8 +117,7 @@ img {
 }
 
 .btn__container {
-  position: absolute;
-  bottom: 0;
+
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -124,15 +126,12 @@ img {
 .btn__hit,
 .btn__double,
 .btn__stand {
-  margin: 0px 5px;
-  flex: 0 0 calc((100% / 3) - 10px );
+  flex: 0 0 calc((100% / 3));
 }
 
 .btn__deal {
-  width: calc(100% - 10px);
-  position: absolute;
-  bottom: 50px;
-  margin: 0px 5px;
+  width: 100%;
+
 }
 
 /* Experience Bar Styles */
@@ -193,4 +192,3 @@ img {
   justify-content: flex-end;
   width: 100%;
 }
-
