@@ -10,7 +10,8 @@ const Player = ({ hand, playerPokemon }) => {
         <div className="player">
             <div className="player__container">
                 <Hand cards={hand} />
-                <Sprite pokemon={currentPokemon} leftSprite={true}/>
+                <Sprite pokemon={currentPokemon} leftSprite={true} imgPosition='sprite__player'
+                spriteNamePosition='sprite__name-player' />
             </div>
         </div>
     )
