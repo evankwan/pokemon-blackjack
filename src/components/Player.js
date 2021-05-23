@@ -2,7 +2,7 @@ import Hand from './Hand';
 import Sprite from './Sprite';
 import "./Player.css";
 
-const Player = ({ hand = [], playerPokemon }) => {
+const Player = ({ hand, playerPokemon }) => {
 
     const currentPokemon = playerPokemon[0];
 
