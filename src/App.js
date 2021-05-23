@@ -70,8 +70,20 @@ function App() {
     }
   }
 
+  const handleDouble = () => {
+    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+    console.log(updatedHand, deck);
+    setPlayerHand(updatedHand)
+    setCurrentDeck(deck)
+    setCurrentBet(currentBet * 2)
+
+    handleStand()
+  }
+
   const handleStand = () => {
-    dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
+    const {hand, deck} = dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
+    setDealerHand(hand)
+    setCurrentDeck(deck)
     setCurrentPlayer('dealer')
   }
   
@@ -181,6 +193,7 @@ function App() {
                     <ActionBtn
                       name={"Double"}
                       className={"btn btn__double"}
+                      handleClick={handleDouble}
                     />
 
                     <ActionBtn

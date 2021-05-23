@@ -16,9 +16,9 @@ const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => 
     console.log(hand);
     console.log(dealerScore);
 
-    setDealerHand(hand);
-    setCurrentDeck(currentDeck);
   }
+
+  return {hand, currentDeck}
 
 }
 
