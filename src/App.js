@@ -10,6 +10,7 @@ import Dealer from './components/Dealer';
 import Hand from './components/Hand';
 import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
+import dealOneCard from './utils/dealOneCard';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -50,6 +51,10 @@ function App() {
 
   const handleDeal = () => {
     initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+  }
+
+  const handleHit = () => {
+    dealOneCard(currentDeck, playerHand, setPlayerHand, setCurrentDeck);
   }
   
   useEffect(() => {
@@ -149,6 +154,7 @@ function App() {
                     <ActionBtn
                       name={"Hit"}
                       className={"btn btn__hit"}
+                      handleClick={handleHit}
                     />
                     {/* show double only when player hand is 2 cards */}
                     <ActionBtn
