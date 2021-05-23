@@ -32,7 +32,11 @@ export function getCardValue(card) {
  * @returns {number} score
  */
 export function getScore(cards) {
-  let score = cards.reduce((accumulatedScore, card) => {
+  let sorted = [...cards]
+  sorted.sort((a, b) => b.value - a.value)
+  sorted.reverse()
+  console.log("SORTED!!", sorted);
+  let score = sorted.reduce((accumulatedScore, card) => {
     const cardValue = getCardValue(card);
 
     if (typeof cardValue === 'number') {

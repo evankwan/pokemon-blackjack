@@ -4,21 +4,22 @@ import {getScore} from './score';
 
 const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => {
   let hand = [...dealerHand]
+  let deck = [...currentDeck]
   let dealerScore = getScore(dealerHand)
   console.log(dealerScore);
 
 
   while (dealerScore < 17) {
-    const updatedValues = dealOneCard(currentDeck, hand)
+    const updatedValues = dealOneCard(deck, hand)
     hand = updatedValues.updatedHand
-    currentDeck = updatedValues.deck;
+    deck = updatedValues.deck;
     dealerScore = getScore(hand)
     console.log(hand);
     console.log(dealerScore);
 
   }
 
-  return {hand, currentDeck}
+  return {hand, deck}
 
 }
 

@@ -77,11 +77,16 @@ function App() {
     setCurrentDeck(deck)
     setCurrentBet(currentBet * 2)
 
-    handleStand()
+    if (getScore(updatedHand) > 21) {
+      setGameState(false)
+    } else {
+      handleStand(deck)
+    }
   }
 
-  const handleStand = () => {
-    const {hand, deck} = dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
+  const handleStand = (updatedDeck) => {
+    const {hand, deck} = dealerLogic(dealerHand, updatedDeck)
+    
     setDealerHand(hand)
     setCurrentDeck(deck)
     setCurrentPlayer('dealer')
@@ -199,7 +204,7 @@ function App() {
                     <ActionBtn
                       name={"Stand"}
                       className={"btn btn__stand"}
-                      handleClick={handleStand}
+                      handleClick={() => handleStand(currentDeck)}
                     />
                   </div>
                   }
