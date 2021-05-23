@@ -5,8 +5,12 @@ import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
 import Sprite from './components/Sprite';
+<<<<<<< HEAD
+import GameMessage from './components/GameMessage';
+=======
 import Dealer from './components/Dealer';
 import Hand from './components/Hand';
+>>>>>>> main
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -102,6 +106,8 @@ function App() {
     
   return (
     <>
+<<<<<<< HEAD
+=======
     <h1>Check console</h1>
     {/* title will include h1 and deal button to start game
     {/* will only appear when game state is false */}
@@ -110,39 +116,63 @@ function App() {
     {/* <Sprite pokemon={playerPokemon} leftSprite={true} />
     <Sprite pokemon={dealerPokemon}  /> */}
       {/* <Title /> */}
+>>>>>>> main
       {
         // if the game is not running, render title screen
-        !gameState
-          ? <Title startGame={handleGameStart}/>
-        // if the game is running, render game UI
-          : <div>
-              <ExperienceBar />
-            </div>
+        !gameState ? (
+          <Title startGame={handleGameStart} />
+        ) : (
+          // if the game is running, render game UI
+          <div>
+            <ExperienceBar />
+          </div>
+        )
       }
-      
-      {/* div to hold xp bars */}
-      
+<<<<<<< HEAD
 
-      <div className="gameBoard"> 
+=======
+      
+>>>>>>> main
+      {/* div to hold xp bars */}
+
+      <div className="gameBoard">
         {/* dealer component holds hand component and sprite component */}
         {/* needs hand state */}
+<<<<<<< HEAD
+        {/* <Dealer />  */}
+        <GameMessage message={"Deal"} />
+        {/* player component holds hand component and sprite component */}
+        {/* needs hand state */}
+        {/* <Player /> */}
+=======
         {/* <Dealer />
         <GameMessage /> */}
         <Dealer 
           hand={currentDeck.slice(0, 5)} 
           dealerPokemon={dealerPokemon}
           leftSprite={true}/>
+>>>>>>> main
 
         <div className="actions">
-
           {/* only show deal when game state is false */}
+<<<<<<< HEAD
+          <ActionBtn name={'Deal'} className={'btn btn__deal'} />
+=======
           <ActionBtn
             name={"Deal"}
             className={"btn btn__deal"}
           />
+>>>>>>> main
           <div className="btn__container">
-
             {/* only show hit, double, stand, if game state is true */}
+<<<<<<< HEAD
+            <ActionBtn name={'Hit'} className={'btn btn__hit'} />
+            {/* show double only when player hand is 2 cards */}
+
+            <ActionBtn name={'Double'} className={'btn btn__double'} />
+
+            <ActionBtn name={'Stand'} className={'btn btn__stand'} />
+=======
             <ActionBtn
               name={"Hit"}
               className={"btn btn__hit"}
@@ -158,6 +188,7 @@ function App() {
               name={"Stand"}
               className={"btn btn__stand"}
             />
+>>>>>>> main
           </div>
 
 
