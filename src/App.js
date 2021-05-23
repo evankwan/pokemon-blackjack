@@ -144,11 +144,14 @@ function App() {
 
                 <div className="actions">
                   {/* only show deal when game state is false */}
-                  <ActionBtn
+                  { playerHand.length === 0 
+                  ?
+                   <ActionBtn
                     name={"Deal"}
                     className={"btn btn__deal"}
                     handleClick={handleDeal}
                   />
+                  :
                   <div className="btn__container">
                     {/* only show hit, double, stand, if game state is true */}
                     <ActionBtn
@@ -165,8 +168,9 @@ function App() {
                     <ActionBtn
                       name={"Stand"}
                       className={"btn btn__stand"}
-                    />
+                    /> 
                   </div>
+                  }
 
 
                   {/* player component holds hand component and sprite component */}
