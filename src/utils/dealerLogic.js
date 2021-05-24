@@ -7,7 +7,6 @@ const dealerLogic = (dealerHand, currentDeck) => {
   let deck = [...currentDeck];
   let dealerScore = getScore(dealerHand);
 
-  console.log('initial score:', dealerScore, hand.length);
   while (dealerScore < 17) {
     const updatedValues = dealOneCard(deck, hand);
     hand = updatedValues.updatedHand;
