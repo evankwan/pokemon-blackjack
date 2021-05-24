@@ -28,6 +28,9 @@ const compareScore = (playerHand, dealerHand) => {
     if (dealerScore > 21 ) {
         return 'player';
     }
+    if (playerScore > 21) {
+        return 'dealer';
+    }
     if (playerScore > dealerScore) {
         return 'player';
     }
