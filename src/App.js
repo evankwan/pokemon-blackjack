@@ -52,7 +52,6 @@ function App() {
     setGameState(true);
     setDealerHand([])
     setPlayerHand([])
-
   }
 
   const handleDeal = () => {
@@ -123,7 +122,6 @@ function App() {
       if (playerWins) {
         playerWinsLogic();
       }
-      setGameState(false);
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon])
   
