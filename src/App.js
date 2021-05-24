@@ -14,6 +14,7 @@ import dealOneCard from './utils/dealOneCard';
 import dealerLogic from './utils/dealerLogic';
 import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
+import compareScore from './utils/compareScore';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -66,8 +67,11 @@ function App() {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
+    console.log('inside handleHit, before if')
     if (getScore(updatedHand) > 21) {
       setGameState(false)
+      // do we want to return back to the landing page on player bust?
+      // setCurrentPlayer('finished');
     }
   }
 
@@ -118,9 +122,17 @@ function App() {
     const gameIsFinished = currentPlayer === 'finished';
     if (gameIsFinished) {
       // dummy win condition that is true if the user doesn't bust
-      const playerWins = getScore(playerHand) <= 21;
+      const playerWins = compareScore(playerHand, dealerHand) === 'player';
+      const dealerWins = compareScore(playerHand, dealerHand) === 'dealer';
+      const playerTie = compareScore(playerHand, dealerHand) === 'tie';
       if (playerWins) {
         playerWinsLogic();
+      } else if (dealerWins) {
+        // allPlayersLoseLogic();
+      } else if (playerTie) {
+        // playerTieLogic(playerTie);
+        console.log('tie');
+      } else {
       }
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon])

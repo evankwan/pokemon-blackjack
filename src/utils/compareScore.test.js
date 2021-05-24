@@ -45,6 +45,16 @@ describe('compareScore', () => {
         const result = compareScore(playerHand, dealerBustHand);
         expect(result).toBe('player');
     })
+    it('should return "dealer" if dealer wins because player busts', () => {
+        const playerBustHand = [...dealerHand, {
+            image: 'https://deckofcardsapi.com/static/img/AC.png',
+            value: '9',
+            suit: 'CLUBS',
+        }];
+        const result = compareScore(playerBustHand, dealerHand);
+        expect(result).toBe('dealer');
+    })
+    
     it('should return "player" if player has blackjack, even if the dealer gets 21 with 3 cards or more', () => {
         const playerWinningHand = playerHand;
         const dealerWithTwentyOne = [
