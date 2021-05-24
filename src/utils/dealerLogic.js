@@ -2,23 +2,21 @@ import dealOneCard from './dealOneCard';
 import {getScore} from './score';
 
 
-const dealerLogic = (dealerHand, currentDeck, setDealerHand, setCurrentDeck) => {
-  let hand = [...dealerHand]
+const dealerLogic = (dealerHand, currentDeck) => {
+  let hand = [...dealerHand];
+  let deck = [...currentDeck];
+  // hand[1].class= "";
   let dealerScore = getScore(dealerHand)
-  console.log(dealerScore);
 
 
   while (dealerScore < 17) {
-    const updatedValues = dealOneCard(currentDeck, hand)
+    const updatedValues = dealOneCard(currentDeck, dealerHand)
     hand = updatedValues.updatedHand
-    currentDeck = updatedValues.deck;
-    dealerScore = getScore(hand)
-    console.log(hand);
-    console.log(dealerScore);
-
-    setDealerHand(hand);
-    setCurrentDeck(currentDeck);
+    deck = updatedValues.deck;
+    dealerScore = getScore(dealerHand)
   }
+
+  return {hand, deck}
 
 }
 

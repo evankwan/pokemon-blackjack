@@ -59,6 +59,28 @@ img {
   width: 250%;
 }
 
+.card__dealer-facedown {
+  position: relative;
+}
+
+.card__dealer-facedown::after {
+  content: '';
+  display: block;
+  background-image: url('./assets/back-of-card.png');
+  width: 250%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-position: center center;
+  background-size: cover;
+}
+
+.card__dealer-facedown img {
+  visibility: hidden;
+}
+
 /* Title Styles */
 .header {
   display: flex;
@@ -191,4 +213,21 @@ img {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+
+.sprite__betContainer {
+  position: absolute;
+  left: 100px;
+  border-radius: 50%;
+  border: 2px solid #142b68;
+  background-color: #ffff00;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sprite__betAmount {
+  margin: 0;
 }

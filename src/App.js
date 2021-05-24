@@ -12,6 +12,7 @@ import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
 import dealerLogic from './utils/dealerLogic';
+import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 
 function App() {
@@ -20,11 +21,9 @@ function App() {
   const [playerPokemon, setPlayerPokemon] = useState([]);
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
-  const [currentBet, setCurrentBet] = useState(100);
+  const [currentBet, setCurrentBet] = useState(0);
   const [balance, setBalance] = useState(200);
   const [currentPlayer, setCurrentPlayer] = useState('');
-
-
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -58,6 +57,9 @@ function App() {
 
   const handleDeal = () => {
     initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+    const bet = 100;
+    setCurrentBet(bet);
+    setBalance(balance - bet);
     setCurrentPlayer('player1')
   }
 
@@ -70,10 +72,60 @@ function App() {
     }
   }
 
-  const handleStand = () => {
-    dealerLogic(dealerHand, currentDeck, setDealerHand, setCurrentDeck)
-    setCurrentPlayer('dealer')
+  const handleDouble = () => {
+    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+    setPlayerHand(updatedHand)
+    setCurrentDeck(deck)
+    setBalance(balance - currentBet)
+    setCurrentBet(currentBet * 2)
+
+    if (getScore(updatedHand) > 21) {
+      setGameState(false)
+    } else {
+      handleStand(deck)
+    }
   }
+
+  const handleStand = (updatedDeck) => {
+    setCurrentPlayer('dealer')
+    const {hand, deck} = dealerLogic(dealerHand, updatedDeck)
+    
+    setDealerHand(hand)
+    setCurrentDeck(deck)
+    setCurrentPlayer('finished')
+  }
+
+  useEffect(() => {
+    const playerWinsLogic = () => {
+      // only evolve pokemon if there is another pokemon in the evolution line
+      const pokemonCanEvolve = playerPokemon.length > 1
+      if (pokemonCanEvolve) {
+        const evolvedLine = evolvePokemon(playerPokemon);
+        setPlayerPokemon(evolvedLine);
+      }
+
+      // if blackjack, pay 2.5x
+      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2
+      if (blackjack) {
+        setBalance(balance + (currentBet * 2.5));
+        // else pay 2x
+      } else {
+        setBalance(balance + (currentBet * 2));
+      }
+      // reset current bet
+      setCurrentBet(0);
+    }
+
+    const gameIsFinished = currentPlayer === 'finished';
+    if (gameIsFinished) {
+      // dummy win condition that is true if the user doesn't bust
+      const playerWins = getScore(playerHand) <= 21;
+      if (playerWins) {
+        playerWinsLogic();
+      }
+      setGameState(false);
+    }
+  }, [currentPlayer, balance, currentBet, playerHand, playerPokemon])
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
@@ -141,9 +193,8 @@ function App() {
           <>
               <div className="wrapper gameBoard">
                 <div>
-                  <ExperienceBar />
+                  <ExperienceBar balance={balance}/>
                 </div>
-                
                 
                 <Dealer
                   hand={dealerHand}
@@ -157,6 +208,7 @@ function App() {
                   <Player
                     hand={playerHand}
                     playerPokemon={playerPokemon}
+                    currentBet={currentBet}
                   />
                   : null}
 
@@ -181,12 +233,13 @@ function App() {
                     <ActionBtn
                       name={"Double"}
                       className={"btn btn__double"}
+                      handleClick={handleDouble}
                     />
 
                     <ActionBtn
                       name={"Stand"}
                       className={"btn btn__stand"}
-                      handleClick={handleStand}
+                      handleClick={() => handleStand(currentDeck)}
                     />
                   </div>
                   }

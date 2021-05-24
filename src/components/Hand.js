@@ -8,7 +8,7 @@ const Hand = ({cards}) => {
               const { image, value, suit } = card;
               const alt = `${value.toLowerCase()} of ${suit.toLowerCase()}`;
               return (
-                <li key={index} className="hand__card-item">
+                <li key={index} className={`hand__card-item ${card.class ? card.class : ""}`}>
                   <img className="hand__card-img" src={image} alt={alt} />
                 </li>
               );
