@@ -21,7 +21,7 @@ function App() {
   const [playerPokemon, setPlayerPokemon] = useState([]);
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
-  const [currentBet, setCurrentBet] = useState(100);
+  const [currentBet, setCurrentBet] = useState(0);
   const [balance, setBalance] = useState(200);
   const [currentPlayer, setCurrentPlayer] = useState('');
 
@@ -57,6 +57,9 @@ function App() {
 
   const handleDeal = () => {
     initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+    const bet = 100;
+    setCurrentBet(bet);
+    setBalance(balance - bet);
     setCurrentPlayer('player1')
   }
 
@@ -73,6 +76,7 @@ function App() {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
+    setBalance(balance - currentBet)
     setCurrentBet(currentBet * 2)
 
     if (getScore(updatedHand) > 21) {
@@ -93,14 +97,27 @@ function App() {
 
   useEffect(() => {
     if (currentPlayer === 'finished') {
-      if (getScore(playerHand) < 21) {
+      // dummy win condition that is true if the user doesn't bust
+      if (getScore(playerHand) <= 21) {
+        // only evolve pokemon if there is another pokemon in the evolution line
         if (playerPokemon.length > 1) {
           const evolvedLine = evolvePokemon(playerPokemon);
           setPlayerPokemon(evolvedLine);
         }
+
+        // if blackjack, pay 2.5x
+        if (getScore(playerHand) === 21 && playerHand.length === 2) {
+          setBalance(balance + (currentBet * 2.5));
+          // else pay 2x
+        } else {
+          setBalance(balance + (currentBet * 2));
+        }
+        // reset current bet
+        setCurrentBet(0);
       }
     }
   }, [currentPlayer])
+  console.log('bet:', currentBet, 'balance:', balance);
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
@@ -168,9 +185,8 @@ function App() {
           <>
               <div className="wrapper gameBoard">
                 <div>
-                  <ExperienceBar />
+                  <ExperienceBar balance={balance}/>
                 </div>
-                
                 
                 <Dealer
                   hand={dealerHand}
@@ -184,6 +200,7 @@ function App() {
                   <Player
                     hand={playerHand}
                     playerPokemon={playerPokemon}
+                    currentBet={currentBet}
                   />
                   : null}
 

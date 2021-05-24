@@ -20,7 +20,6 @@ const initialDeal = (currentDeck, setPlayerHand, setDealerHand, setCurrentDeck) 
 
   // add second and fourth cards into dealer's hand
   setDealerHand([cardsDealt[1], cardsDealt[3]]);
-  console.log(cardsDealt[3]);
 
   // set deck state with missing top 4 cards
   setCurrentDeck(deck);

@@ -1,4 +1,4 @@
-const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition }) => {
+const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentBet }) => {
 
     const { name, sprite }  = pokemon
 
@@ -10,7 +10,16 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition }) => {
                 src={sprite} 
                 alt={`The pokemon ${name}`} 
                 />
-                <p className={`sprite__name ${spriteNamePosition}`}>{name}</p>
+                {currentBet 
+                ? 
+                    <>
+                        <div className="sprite__betContainer">
+                            <p className="sprite__betAmount">{currentBet}</p>
+                        </div>
+                        <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
+                    </>
+                : null}
+                
             </div>
         </div>
     )
