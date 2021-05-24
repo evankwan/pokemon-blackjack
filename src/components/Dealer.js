@@ -8,7 +8,7 @@ const Dealer = ({ hand, dealerPokemon }) => {
             <div className="dealer__container">
                 <Sprite pokemon={dealerPokemon} imgPosition='sprite__dealer'
                 spriteNamePosition='sprite__name-dealer'/>
-                <Hand cards={hand} />
+                <Hand cards={hand} dealer={true}/>
             </div>
         </div>
     )

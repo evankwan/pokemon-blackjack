@@ -16,8 +16,6 @@ const initialDeal = (currentDeck, setPlayerHand, setDealerHand, setCurrentDeck) 
   // add first and third cards into player's hand
   setPlayerHand([cardsDealt[0], cardsDealt[2]]);
 
-  cardsDealt[3].class = 'card__dealer-facedown';
-
   // add second and fourth cards into dealer's hand
   setDealerHand([cardsDealt[1], cardsDealt[3]]);
 
