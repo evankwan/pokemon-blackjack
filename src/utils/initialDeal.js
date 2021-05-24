@@ -15,8 +15,8 @@ const initialDeal = (currentDeck) => {
 
   return {
     player: [cardsDealt[0], cardsDealt[2]],
-    // dealer: [cardsDealt[1], cardsDealt[3]],
-    dealer: [{ image: "https://deckofcardsapi.com/static/img/0D.png", value: "10", suit: "DIAMONDS" }, { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" }],
+    dealer: [cardsDealt[1], cardsDealt[3]],
+    // dealer: [{ image: "https://deckofcardsapi.com/static/img/0D.png", value: "10", suit: "DIAMONDS" }, { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" }],
     updatedDeck: deck
   }
   
