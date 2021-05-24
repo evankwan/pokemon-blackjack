@@ -96,28 +96,36 @@ function App() {
   }
 
   useEffect(() => {
-    if (currentPlayer === 'finished') {
-      // dummy win condition that is true if the user doesn't bust
-      if (getScore(playerHand) <= 21) {
-        // only evolve pokemon if there is another pokemon in the evolution line
-        if (playerPokemon.length > 1) {
-          const evolvedLine = evolvePokemon(playerPokemon);
-          setPlayerPokemon(evolvedLine);
-        }
-
-        // if blackjack, pay 2.5x
-        if (getScore(playerHand) === 21 && playerHand.length === 2) {
-          setBalance(balance + (currentBet * 2.5));
-          // else pay 2x
-        } else {
-          setBalance(balance + (currentBet * 2));
-        }
-        // reset current bet
-        setCurrentBet(0);
+    const playerWinsLogic = () => {
+      // only evolve pokemon if there is another pokemon in the evolution line
+      const pokemonCanEvolve = playerPokemon.length > 1
+      if (pokemonCanEvolve) {
+        const evolvedLine = evolvePokemon(playerPokemon);
+        setPlayerPokemon(evolvedLine);
       }
+
+      // if blackjack, pay 2.5x
+      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2
+      if (blackjack) {
+        setBalance(balance + (currentBet * 2.5));
+        // else pay 2x
+      } else {
+        setBalance(balance + (currentBet * 2));
+      }
+      // reset current bet
+      setCurrentBet(0);
     }
-  }, [currentPlayer])
-  console.log('bet:', currentBet, 'balance:', balance);
+
+    const gameIsFinished = currentPlayer === 'finished';
+    if (gameIsFinished) {
+      // dummy win condition that is true if the user doesn't bust
+      const playerWins = getScore(playerHand) <= 21;
+      if (playerWins) {
+        playerWinsLogic();
+      }
+      setGameState(false);
+    }
+  }, [currentPlayer, balance, currentBet, playerHand, playerPokemon])
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
