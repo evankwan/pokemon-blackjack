@@ -14,6 +14,7 @@ import dealOneCard from './utils/dealOneCard';
 import dealerLogic from './utils/dealerLogic';
 import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
+import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(0);
-  const [balance, setBalance] = useState(200);
-  const [currentPlayer, setCurrentPlayer] = useState('');
+  const [balance, setBalance] = useState(1000);
+  const [currentPlayer, setCurrentPlayer] = useState('none');
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -55,12 +56,23 @@ function App() {
     setPlayerHand([])
   }
 
-  const handleDeal = () => {
-    initialDeal(currentDeck, setPlayerHand, setDealerHand, setCurrentDeck);
+  const handleDeal = async () => {
+    const { player, dealer, updatedDeck } = initialDeal(currentDeck);
+    setPlayerHand(player);
+    setDealerHand(dealer);
+    setCurrentDeck(updatedDeck);
+
     const bet = 100;
     setCurrentBet(bet);
     setBalance(balance - bet);
-    setCurrentPlayer('player1')
+
+    const dealerHasBlackjack = getScore(dealer) === 21;
+    if (dealerHasBlackjack) {
+      await sleep(1000);
+      setCurrentPlayer('finished');
+    } else {
+      setCurrentPlayer('player1');
+    }
   }
 
   const handleHit = () => {
@@ -90,16 +102,16 @@ function App() {
   }
 
   const handleStand = (updatedDeck) => {
-    setCurrentPlayer('dealer')
-    const {hand, deck} = dealerLogic(dealerHand, updatedDeck)
-    
-    setDealerHand(hand)
-    setCurrentDeck(deck)
-    setCurrentPlayer('finished')
+    setCurrentPlayer('dealer');
+    const {hand, deck} = dealerLogic(dealerHand, updatedDeck);
+    setDealerHand(hand);
+    setCurrentDeck(deck);
+
+    setCurrentPlayer('finished');
   }
 
   useEffect(() => {
-    const playerWinsLogic = () => {
+    const playerWinsLogic = async () => {
       // only evolve pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
       if (pokemonCanEvolve) {
@@ -117,15 +129,19 @@ function App() {
       }
       // reset current bet
       setCurrentBet(0);
+      await sleep(1500);
+      console.log('wait');
+      setGameState(false);
     }
 
-    const gameIsFinished = currentPlayer === 'finished';
+    const gameIsFinished = (currentPlayer === 'finished');
     if (gameIsFinished) {
       // dummy win condition that is true if the user doesn't bust
       const playerWins = compareScore(playerHand, dealerHand) === 'player';
       const dealerWins = compareScore(playerHand, dealerHand) === 'dealer';
       const playerTie = compareScore(playerHand, dealerHand) === 'tie';
       if (playerWins) {
+        setCurrentPlayer('none');
         playerWinsLogic();
       } else if (dealerWins) {
         // allPlayersLoseLogic();
@@ -209,6 +225,7 @@ function App() {
                 <Dealer
                   hand={dealerHand}
                   dealerPokemon={dealerPokemon}
+                  currentTurn={currentPlayer}
                 />
 
                 <GameMessage message={"Deal"} />
