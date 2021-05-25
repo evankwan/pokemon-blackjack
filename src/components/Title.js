@@ -1,4 +1,4 @@
-const Title = ({ startGame }) => {
+const Title = ({ startGame, deckLoaded }) => {
   return (
     <header id="header" className="header">
       <h1 className="header__title">Welcome to Pokemon Blackjack!</h1>
@@ -16,11 +16,12 @@ const Title = ({ startGame }) => {
       </div>
 
       <button 
-        className="btn btn__play" 
+        className={`btn btn__play ${!deckLoaded ? 'disabled' : '' } `}
         type="button"
         onClick={startGame}
+        disabled={!deckLoaded}
       >
-        Play Now
+        {!deckLoaded ? 'Loading...' : 'Play Now ' }
       </button>
     </header>
   );

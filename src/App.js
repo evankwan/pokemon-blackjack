@@ -16,6 +16,7 @@ import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
+import fetchRetry from './utils/fetchRetry';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -79,7 +80,7 @@ function App() {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
-    console.log('inside handleHit, before if')
+    
     if (getScore(updatedHand) > 21) {
       setGameState(false)
       // do we want to return back to the landing page on player bust?
@@ -174,7 +175,7 @@ function App() {
       .then((familyArray) => {
         setPlayerPokemon(familyArray)
       }).catch((error) => {
-        console.log(error, "API call failed");
+        console.log(error, "Pokemon API call failed");
       })
   }, [])
 
@@ -183,17 +184,15 @@ function App() {
     async function getDeck() {
       // Get deckId first to fetch deck of cards.
       // deckId is also used later for shuffling existing deck when restarting the game
-      const deckId = await fetch(
+      const deckId = await fetchRetry(
         'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
       )
-        .then((res) => res.json())
         .then((data) => data.deck_id);
 
       // get 312 (52 * 6) cards with deck id
-      const deck = await fetch(
+      const deck = await fetchRetry(
         `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=312`
       )
-        .then((res) => res.json())
         .then((data) => {
           const cards = data.cards.map((card) => ({
             image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
@@ -201,19 +200,24 @@ function App() {
             suit: card.suit, // "SPADES"
           }));          
           return cards;
-        });
+        })
+        .catch((error) => {
+          console.log(error, "DoC API call failed")
+        })
       setCurrentDeck(deck);
     }
 
-    getDeck();
+    getDeck()
   }, []);
+
+  
     
   return (
     <>
       {
         // if the game is not running, render title screen
         !gameState ? (
-          <Title startGame={handleGameStart} />
+          <Title startGame={handleGameStart} deckLoaded={ currentDeck && currentDeck.length > 0}/>
         ) : (
           // if the game is running, render game UI
           <>
