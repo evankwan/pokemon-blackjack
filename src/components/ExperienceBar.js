@@ -1,17 +1,18 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 const ExperienceBar = ({ balance }) => {
 
   const [style, setStyle] = useState({})
 
-
-  setTimeout(() => {
-    const newStyle = {
-      width: `${(balance/10)}%`
-    }
-
-    setStyle(newStyle);
-  }, 100)
+  useEffect(() => {
+    setTimeout(() => {
+      const newStyle = {
+        width: `${(balance/10)}%`
+      }
+  
+      setStyle(newStyle);
+    }, 100)
+  }, [balance])
 
   return (
     <>
