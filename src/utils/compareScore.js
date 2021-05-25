@@ -8,7 +8,7 @@ import { getScore } from './score';
  * 
  * */
 
- /**
+/**
   * accepts the playerHand and dealerHand
   * return the player or dealer depending on who has highest score that is 21 or lower
   * if both scores are 21, test if hand.length is 2 and if so, return the player/dealer who has hand/length of 2
