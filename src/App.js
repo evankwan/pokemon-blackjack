@@ -25,6 +25,7 @@ function App() {
   const [currentBet, setCurrentBet] = useState(0);
   const [balance, setBalance] = useState(1000);
   const [currentPlayer, setCurrentPlayer] = useState('none');
+  const [currentMessage, setCurrentMessage] = useState('Deal');
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -51,6 +52,7 @@ function App() {
 
   const handleGameStart = () => {
     setGameState(true);
+    setCurrentMessage('Deal');
     setDealerHand([])
     setPlayerHand([])
   }
@@ -66,25 +68,39 @@ function App() {
     setBalance(balance - bet);
 
     const dealerHasBlackjack = getScore(dealer) === 21;
+    const playerHasBlackjack = getScore(player) === 21;
     if (dealerHasBlackjack) {
+      setCurrentPlayer('player1');
       await sleep(1000);
+      setCurrentPlayer('dealer');
+      setCurrentMessage('Dealer has Blackjack!');
+      await sleep(2000);
+      setCurrentPlayer('finished');
+    } else if (playerHasBlackjack) {
+      setCurrentPlayer('player1');
+      await sleep(1000);
+      setCurrentMessage('Player has Blackjack!');
+      await sleep(2000);
       setCurrentPlayer('finished');
     } else {
       setCurrentPlayer('player1');
+      setCurrentMessage("Player's turn");
     }
   }
 
-  const handleHit = () => {
+  const handleHit = async () => {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
     
     if (getScore(updatedHand) > 21) {
+      setCurrentMessage("Player Busts");
+      await sleep(2000);
       setCurrentPlayer('finished');
     }
   }
 
-  const handleDouble = () => {
+  const handleDouble = async () => {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
@@ -92,13 +108,17 @@ function App() {
     setCurrentBet(currentBet * 2)
 
     if (getScore(updatedHand) > 21) {
+      setCurrentMessage("Player Busts");
+      await sleep(2000);
       setCurrentPlayer('finished');
     } else {
       handleStand(deck)
     }
   }
 
-  const handleStand = (updatedDeck) => {
+  const handleStand = async (updatedDeck) => {
+    setCurrentMessage("Dealer's Turn");
+    await sleep(2000);
     setCurrentPlayer('dealer');
     const {hand, deck} = dealerLogic(dealerHand, updatedDeck);
     setDealerHand(hand);
@@ -109,36 +129,53 @@ function App() {
 
   useEffect(() => {
     const playerWinsLogic = async () => {
-      console.log('win');
+      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
+      setCurrentMessage(`Player Wins with ${ blackjack ? 'blackjack!' : getScore(playerHand)}`);
+      await sleep(2000);
+
+      // if blackjack, pay 2.5x
+      let payout;
+      if (blackjack) {
+        payout = currentBet * 2.5;
+        setBalance(balance + payout);
+        // else pay 2x
+      } else {
+        payout = currentBet * 2;
+        setBalance(balance + payout);
+      }
+      setCurrentMessage(`Player gains ${payout}XP!`);
+      await sleep(2000);
+
+      setCurrentMessage(`What?`);
+      await sleep(2000);
+      setCurrentMessage(`${playerPokemon[0].name} is evolving...`);
+      await sleep(2000);
       // only evolve pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
       if (pokemonCanEvolve) {
         const evolvedLine = evolvePokemon(playerPokemon);
         setPlayerPokemon(evolvedLine);
-      }
-
-      // if blackjack, pay 2.5x
-      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2
-      if (blackjack) {
-        setBalance(balance + (currentBet * 2.5));
-        // else pay 2x
-      } else {
-        setBalance(balance + (currentBet * 2));
+        await sleep(1000);
+        setCurrentMessage(`${playerPokemon[0].name} evolved into ${playerPokemon[1].name}`);
+        await sleep(2000);
       }
       // reset current bet
       setCurrentBet(0);
-      await sleep(1500);
+      await sleep(2000);
       setGameState(false);
     }
 
     const playerLosesLogic = async () => {
-      console.log('loss');
-      await sleep(1500);
+      const blackjack = getScore(dealerHand) === 21 && dealerHand.length === 2;
+      setCurrentMessage(`Dealer Wins with ${blackjack ? 'blackjack!' : getScore(dealerHand)}`);
+      await sleep(2000);
+      setCurrentMessage(`Player loses ${currentBet}XP!`);
+      await sleep(2000);
       setGameState(false);
     }
 
     const playerTiesLogic = async () => {
-      console.log('tie');
+      setCurrentMessage('Player Pushes!');
       setBalance(currentBet + balance);
       await sleep(1500);
       setGameState(false);
@@ -241,7 +278,7 @@ function App() {
                   currentTurn={currentPlayer}
                 />
 
-                <GameMessage message={"Deal"} />
+                <GameMessage message={currentMessage} />
 
                 {playerPokemon.length > 0
                   ?
