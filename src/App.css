@@ -163,12 +163,31 @@ img {
   text-align: center;
   border: 3px solid #142b68;
   margin: 0 auto;
+  /* new content */
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
 }
 
 .expbar__title {
   font-size: 24px;
+  /* new content */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* new content  */
+.expbar__fill {
+  width: 100%;
+  height: 100%;
+  background-color: palevioletred;
+  transition: width 0.5s;
+}
+/* new content */
+
+/* Sprite Styles */
 .sprite__container {
     border-radius: 50%;
     border: 1px solid black;
