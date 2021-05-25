@@ -231,3 +231,13 @@ img {
 .sprite__betAmount {
   margin: 0;
 }
+
+.disabled {
+  opacity: .5;
+  background-color: #f1f1f1;
+  border: 2px solid #686868;
+}
+
+.disabled:hover {
+  background-color: #f1f1f1;
+}

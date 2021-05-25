@@ -2,14 +2,16 @@ const ActionBtn = (props) => {
   const {
     name,
     className,
-    handleClick
+    handleClick,
+    disabled = false
   } = props
   return (  
     <>
       <button 
-        className={className} 
+        className={`${className} ${disabled ? "disabled" : ""}`} 
         type="button"
         onClick={handleClick}
+        disabled={disabled}
       >
         {name}
       </button>

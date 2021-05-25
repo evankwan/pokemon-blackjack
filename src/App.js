@@ -4,10 +4,8 @@ import ActionBtn from './components/ActionBtn';
 import Title from './components/Title'
 import ExperienceBar from './components/ExperienceBar'
 import randomizer from './utils/randomizer';
-import Sprite from './components/Sprite';
 import GameMessage from './components/GameMessage';
 import Dealer from './components/Dealer';
-import Hand from './components/Hand';
 import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
@@ -82,9 +80,7 @@ function App() {
     setCurrentDeck(deck)
     
     if (getScore(updatedHand) > 21) {
-      setGameState(false)
-      // do we want to return back to the landing page on player bust?
-      // setCurrentPlayer('finished');
+      setCurrentPlayer('finished');
     }
   }
 
@@ -96,7 +92,7 @@ function App() {
     setCurrentBet(currentBet * 2)
 
     if (getScore(updatedHand) > 21) {
-      setGameState(false)
+      setCurrentPlayer('finished');
     } else {
       handleStand(deck)
     }
@@ -113,6 +109,7 @@ function App() {
 
   useEffect(() => {
     const playerWinsLogic = async () => {
+      console.log('win');
       // only evolve pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
       if (pokemonCanEvolve) {
@@ -131,28 +128,40 @@ function App() {
       // reset current bet
       setCurrentBet(0);
       await sleep(1500);
-      console.log('wait');
+      setGameState(false);
+    }
+
+    const playerLosesLogic = async () => {
+      console.log('loss');
+      await sleep(1500);
+      setGameState(false);
+    }
+
+    const playerTiesLogic = async () => {
+      console.log('tie');
+      setBalance(currentBet + balance);
+      await sleep(1500);
       setGameState(false);
     }
 
     const gameIsFinished = (currentPlayer === 'finished');
+    
     if (gameIsFinished) {
+      setCurrentPlayer('none');
       // dummy win condition that is true if the user doesn't bust
       const playerWins = compareScore(playerHand, dealerHand) === 'player';
       const dealerWins = compareScore(playerHand, dealerHand) === 'dealer';
       const playerTie = compareScore(playerHand, dealerHand) === 'tie';
       if (playerWins) {
-        setCurrentPlayer('none');
         playerWinsLogic();
       } else if (dealerWins) {
-        // allPlayersLoseLogic();
+        playerLosesLogic();
       } else if (playerTie) {
-        // playerTieLogic(playerTie);
-        console.log('tie');
+        playerTiesLogic(playerTie);
       } else {
       }
     }
-  }, [currentPlayer, balance, currentBet, playerHand, playerPokemon])
+  }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
   
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
@@ -265,6 +274,7 @@ function App() {
                       name={"Double"}
                       className={"btn btn__double"}
                       handleClick={handleDouble}
+                      disabled={playerHand.length > 2 || currentPlayer !== 'player1'}
                     />
 
                     <ActionBtn
