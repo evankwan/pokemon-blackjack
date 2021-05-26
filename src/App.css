@@ -228,25 +228,13 @@ img {
 
 /* SPRITE STYLES */
 .sprite__container {
-<<<<<<< HEAD
-  border-radius: 50%;
-  border: 1px solid #333333;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 112px;
-  position: relative;
+  /* width: 112px; */
   margin-bottom: 20px;
-=======
-    /* border-radius: 50%;
-    border: 1px solid black; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--sprite-width); 
-    /* width: 90px; */
-    position: relative;        
->>>>>>> main
+  width: var(--sprite-width);
+  position: relative;        
 }
 
 .sprite {
@@ -258,11 +246,9 @@ img {
 }
 
 .sprite__name {
-<<<<<<< HEAD
   position: absolute;
-  bottom: -5px;
   text-align: center;
-  min-width: 112px;
+  /* min-width: 112px; */
   color: #ffff00;
   background-color: #142b68;
   padding: 5px;
@@ -271,19 +257,8 @@ img {
   font-weight: bold;
   font-size: 1.1rem;
   left: 50px;
-=======
-    position: absolute;
-    bottom: -2em;
-    text-align: center;
-    min-width: 96px;
-    color: #ffff00;
-    background-color: #142b68;
-    padding: 5px;
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    left: 50px;
->>>>>>> main
+  bottom: -2em;
+  min-width: 96px;
 }
 
 .sprite__name-dealer {

@@ -324,22 +324,9 @@ function App() {
                   {playerHand.length === 0
                     ?
                     <ActionBtn
-<<<<<<< HEAD
                       name={"Deal"}
                       className={"btn btn__deal"}
                       handleClick={handleDeal}
-=======
-                      name={"Stand"}
-                      className={"btn btn__stand"}
-                      handleClick={() => handleStand(currentDeck)}
-                      hideButtons={hideButtons}
-                      currentPlayer={currentPlayer}
-                    />
-                    <DealAgainButton
-                      dealAgain={dealAgain}
-                      deckLoaded={currentDeck && currentDeck.length > 0}
-                      hideButtons={hideButtons}
->>>>>>> main
                     />
                     :
                     <div className="btn__container">
@@ -370,10 +357,8 @@ function App() {
                       />
                       <DealAgainButton
                         dealAgain={dealAgain}
-                        startGame={handleGameStart}
                         deckLoaded={currentDeck && currentDeck.length > 0}
                         hideButtons={hideButtons}
-                        currentPlayer={currentPlayer}
                       />
 
                     </div>
