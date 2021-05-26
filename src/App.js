@@ -135,9 +135,9 @@ function App() {
     // prevent hit if score exceeds 21
     if (getScore(playerHand) <= 21 ) {
       // deal a card and return the updated hand and deck. update appropriate states
-      const { updatedHand, deck } = dealOneCard(currentDeck, playerHand);
+      const { updatedHand, updatedDeck } = dealOneCard(currentDeck, playerHand);
       setPlayerHand(updatedHand);
-      setCurrentDeck(deck);
+      setCurrentDeck(updatedDeck);
       // if the player busts
       if (getScore(updatedHand) > 21) {
         // set message and move to dealer's turn to show cards
@@ -156,9 +156,9 @@ function App() {
     // immediately set turn to dealer
     setCurrentPlayer('dealer');
     // deal one card to player and return updated hand/deck and set those states
-    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+    const { updatedHand, updatedDeck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
-    setCurrentDeck(deck)
+    setCurrentDeck(updatedDeck)
     // double the bet and remove from balance
     setBalance(balance - currentBet)
     setCurrentBet(currentBet * 2)
@@ -171,7 +171,7 @@ function App() {
       setCurrentPlayer('finished');
     } else {
       // move to dealer turn
-      handleStand(deck)
+      handleStand(updatedDeck)
     }
   }
 
@@ -182,9 +182,26 @@ function App() {
     setCurrentPlayer('dealer')
     await sleep(2000);
     // run the dealer logic and set the states
-    const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
-    setDealerHand(hand);
-    setCurrentDeck(deck);
+    let dealerScore = getScore(dealerHand);
+    let hand = [...dealerHand];
+    let deck = [...currentDeck];
+
+    while (dealerScore < 17) {
+      console.log('current hand', hand);
+      const { updatedHand, updatedDeck } = dealOneCard(deck, hand);
+      hand = updatedHand;
+      deck = updatedDeck;
+      dealerScore = getScore(hand);
+      console.log(dealerScore);
+      setDealerHand(hand);
+      setCurrentDeck(deck);
+      console.log('updated hand', hand);
+      await sleep(1000);
+    }
+
+    // const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
+    // setDealerHand(hand);
+    // setCurrentDeck(deck);
 
     // end hand
     setCurrentPlayer('finished');
