@@ -63,7 +63,7 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
 
   // boolean logic to determine if we show the Dealer's score
   const showDealerScore = () => {
-    if (dealer && (currentTurn === 'dealer' || currentTurn === 'finished')) {
+    if (dealer && (currentTurn === 'dealer' || currentTurn === 'finished' || currentTurn === 'none')) {
       return true
     }
   }

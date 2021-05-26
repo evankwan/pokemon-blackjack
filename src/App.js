@@ -28,7 +28,6 @@ function App() {
   const [balance, setBalance] = useState(1000);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
-  const [dealAgainButton, setDealAgainButton] = useState(false);
   const [error, setError] = useState();
   const [currentMessage, setCurrentMessage] = useState('Deal');
 
@@ -61,7 +60,6 @@ function App() {
     setDealerHand([])
     setPlayerHand([])
     setCurrentPlayer('player1');
-    //^^why is this not doing anything ????
   }
 
   const handleDeal = async () => {
@@ -79,14 +77,14 @@ function App() {
     const playerHasBlackjack = getScore(player) === 21;
     if (dealerHasBlackjack) {
 
-      setCurrentPlayer('player1');
+      setCurrentPlayer('pending');
       await sleep(1000);
       setCurrentPlayer('dealer');
       setCurrentMessage('Dealer has Blackjack!');
       await sleep(2000);
       setCurrentPlayer('finished');
     } else if (playerHasBlackjack) {
-      setCurrentPlayer('player1');
+      setCurrentPlayer('pending');
       await sleep(1000);
       setCurrentMessage('Player has Blackjack!');
       await sleep(2000);
@@ -98,18 +96,21 @@ function App() {
   }
 
   const handleHit = async () => {
-    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
-    setPlayerHand(updatedHand)
-    setCurrentDeck(deck)
-
-    if (getScore(updatedHand) > 21) {
-      setCurrentMessage("Player Busts");
-      await sleep(2000);
-      setCurrentPlayer('finished');
+    if (getScore(playerHand) <= 21 ) {
+      const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+      setPlayerHand(updatedHand)
+      setCurrentDeck(deck)
+      if (getScore(updatedHand) > 21) {
+        setCurrentMessage("Player Busts");
+        setCurrentPlayer("dealer");
+        await sleep(2000);
+        setCurrentPlayer('finished');
+      }
     }
   }
 
   const handleDouble = async () => {
+    setCurrentPlayer('dealer');
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
@@ -127,8 +128,8 @@ function App() {
 
   const handleStand = async (updatedDeck) => {
     setCurrentMessage("Dealer's Turn");
-    await sleep(2000);
     setCurrentPlayer('dealer');
+    await sleep(2000);
     const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
     setDealerHand(hand);
     setCurrentDeck(deck);
@@ -139,21 +140,10 @@ function App() {
   const dealAgain = () => {
     if (currentPlayer === 'none') {
       setHideButtons(true);
-      setDealAgainButton(true);
       setDealerHand([])
       setPlayerHand([])
       handleDeal();
-      // setCurrentPlayer('player1');
-      console.log(currentPlayer);
-      // console.log(gameState);
-      console.log('inside dealAgain, none');
-    } else {
-      // setCurrentPlayer('player1')
     }
-    // if (currentPlayer === 'player1') {
-    //   console.log(currentPlayer);
-    //   setHideButtons(false);
-    // } 
   }
 
   useEffect(() => {
@@ -192,8 +182,6 @@ function App() {
       setCurrentBet(0);
 
       await sleep(3000);
-      // setGameState(false);
-
       //hide all buttons and ask to deal again
       setHideButtons(true);
     }
@@ -213,7 +201,6 @@ function App() {
       setCurrentMessage('Player Pushes!');
       setBalance(currentBet + balance);
       await sleep(3000);
-      // setGameState(false);
 
       //hide all buttons and ask to deal again
       setHideButtons(true);
@@ -233,8 +220,8 @@ function App() {
         playerLosesLogic();
       } else if (playerTie) {
         playerTiesLogic(playerTie);
-      } else {
-      }
+      } 
+      
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
 
@@ -299,8 +286,6 @@ function App() {
 
   }, []);
 
-
-  console.log(currentPlayer);
 
   return (
     <>
@@ -371,10 +356,8 @@ function App() {
                     />
                     <DealAgainButton
                       dealAgain={dealAgain}
-                      startGame={handleGameStart}
                       deckLoaded={currentDeck && currentDeck.length > 0}
                       hideButtons={hideButtons}
-                      currentPlayer={currentPlayer}
                     />
 
                   </div>
