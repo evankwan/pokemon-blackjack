@@ -156,6 +156,10 @@ img {
 
 }
 
+.hideButtons {
+  display: none;
+}
+
 /* Experience Bar Styles */
 .expbar {
   width: 90%;
