@@ -10,6 +10,6 @@
   text-align: center;
   text-transform: uppercase;
   font-family: 'Carter One', cursive;
-  font-size: min(max(3rem, 10vw), 5rem);
+  font-size: min(max(3rem, 10vw), 4rem);
 
 }
