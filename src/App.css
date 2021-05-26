@@ -50,7 +50,7 @@ img {
   --w: Min(Max(20px, 8vw), 50px);
   width: var(--w);
   /* -1 * ((width * 4) - width) / 2 */
-  transform: translateX(calc(var(--w) * -1.5));
+  transform: translateX(calc(var(--w) * -.75));
 }
 
 .hand__card-img {
@@ -259,4 +259,19 @@ img {
 
 .disabled:hover {
   background-color: #f1f1f1;
+}
+
+/* score styling */
+.hand__score-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.hand__score {
+  text-align: center;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
 }
