@@ -26,7 +26,7 @@ img {
 
 .wrapper {
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 960px;
   width: 85%;
 }
 
@@ -296,6 +296,13 @@ img {
 
 /* ****************************************************** */
 /* MEDIA QUERIES */
+@media (min-width:780px) {
+  .sprite__container {
+    border: 2px solid #333333;
+    width: 132px;
+  }
+}
+
 @media (min-width: 360px) {
   .header__title {
     font-size: 4.2rem;
