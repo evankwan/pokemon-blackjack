@@ -25,11 +25,13 @@ function App() {
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(0);
-  const [balance, setBalance] = useState(1000);
+  const [balance, setBalance] = useState(1500);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
   const [error, setError] = useState();
   const [currentMessage, setCurrentMessage] = useState('Deal');
+  const [playAgain, setPlayAgain] = useState(false);
+  const [experienceNeeded, setExperienceNeeded] = useState(1500);
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -47,6 +49,8 @@ function App() {
     [155, 156, 157],
     [158, 159, 160]
   ];
+
+  const initialPokemon = [];
 
   // object holding the dealer's pokemon
   const dealerPokemon = {
@@ -69,9 +73,19 @@ function App() {
     setCurrentDeck(updatedDeck);
     setHideButtons(false);
 
-    const bet = 100;
-    setCurrentBet(bet);
-    setBalance(balance - bet);
+    if (balance >= 100) {
+      const bet = 100;
+      setCurrentBet(bet);
+      setBalance(balance - bet);
+    } else if (balance <= 0) {
+      setBalance(1000);
+      setCurrentBet(100);
+    } else {
+      const bet = balance;
+      setCurrentBet(bet);
+      setBalance(balance - bet);
+    }
+    
 
     const dealerHasBlackjack = getScore(dealer) === 21;
     const playerHasBlackjack = getScore(player) === 21;
@@ -137,7 +151,10 @@ function App() {
     setCurrentPlayer('finished');
   }
 
-  const dealAgain = () => {
+  const dealAgain = async () => {
+    if (balance <= 0) {
+      setPlayAgain(!playAgain);
+    }
     if (currentPlayer === 'none') {
       setHideButtons(true);
       setDealerHand([])
@@ -154,34 +171,38 @@ function App() {
 
       // if blackjack, pay 2.5x
       let payout;
+      let newBalance;
       if (blackjack) {
         payout = currentBet * 2.5;
-        setBalance(balance + payout);
         // else pay 2x
       } else {
         payout = currentBet * 2;
-        setBalance(balance + payout);
       }
+      newBalance = balance + payout;
+      setBalance(newBalance);
       setCurrentMessage(`Player gains ${payout}XP!`);
-      await sleep(2000);
 
-      setCurrentMessage(`What?`);
-      await sleep(2000);
-      setCurrentMessage(`${playerPokemon[0].name} is evolving...`);
-      await sleep(2000);
       // only evolve pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
-      if (pokemonCanEvolve) {
+      if (pokemonCanEvolve && newBalance >= experienceNeeded) {
+        await sleep(2000);
+        setCurrentMessage(`What?`);
+        await sleep(2000);
+        setCurrentMessage(`${playerPokemon[0].name} is evolving...`);
+        await sleep(2000);
         const evolvedLine = evolvePokemon(playerPokemon);
         setPlayerPokemon(evolvedLine);
         await sleep(1000);
         setCurrentMessage(`${playerPokemon[0].name} evolved into ${playerPokemon[1].name}`);
-        await sleep(2000);
+        setExperienceNeeded(2000);
       }
       // reset current bet
       setCurrentBet(0);
 
       await sleep(3000);
+
+      setCurrentMessage(`Deal Again?`);
+
       //hide all buttons and ask to deal again
       setHideButtons(true);
     }
@@ -192,9 +213,18 @@ function App() {
       await sleep(2000);
       setCurrentMessage(`Player loses ${currentBet}XP!`);
       await sleep(2000);
-      //hide all buttons and ask to deal again
-      setHideButtons(true);
-
+      
+      if (balance <= 0) {
+        setCurrentMessage(`${playerPokemon[0].name} ran out of XP`);
+        await sleep(2000);
+        //hide all buttons and ask to deal again
+        setHideButtons(true);
+        setCurrentMessage(`Play Again?`);
+      } else {
+        //hide all buttons and ask to deal again
+        setHideButtons(true);
+        setCurrentMessage(`Deal Again?`);
+      }
     }
 
     const playerTiesLogic = async () => {
@@ -203,6 +233,7 @@ function App() {
       await sleep(3000);
 
       //hide all buttons and ask to deal again
+      setCurrentMessage(`Deal Again?`);
       setHideButtons(true);
     }
 
@@ -226,29 +257,36 @@ function App() {
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
 
   useEffect(() => {
-    // generate random pokemon family from availablePokemon array 
-    const pokemonFamily = randomizer(availablePokemon);
 
-    // make the API calls for all three pokemon in the evolution line
-    const chosenFamily = pokemonFamily.map(async (pokemonId) => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
-      const pokemonObject = await response.json();
-      const chosenPokemon = {
-        name: pokemonObject.name,
-        sprite: pokemonObject.sprites.front_default
-      }
-      // add the chosenPokemon object to the new array
-      return chosenPokemon;
-    })
+    const getPokemon = () => {
+      // generate random pokemon family from availablePokemon array 
+      const pokemonFamily = randomizer(availablePokemon);
 
-    // once all promises have resolved, set playerPokemon state to the chosenFamily
-    Promise.all(chosenFamily)
-      .then((familyArray) => {
-        setPlayerPokemon(familyArray)
-      }).catch((error) => {
-        console.log(error, "Pokemon API call failed");
+      // make the API calls for all three pokemon in the evolution line
+      const chosenFamily = pokemonFamily.map(async (pokemonId) => {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
+        const pokemonObject = await response.json();
+        const chosenPokemon = {
+          name: pokemonObject.name,
+          sprite: pokemonObject.sprites.front_default
+        }
+        // add the chosenPokemon object to the new array
+        return chosenPokemon;
       })
-  }, [])
+
+      // once all promises have resolved, set playerPokemon state to the chosenFamily
+      Promise.all(chosenFamily)
+        .then((familyArray) => {
+          initialPokemon.push(...familyArray);
+          console.log(...initialPokemon);
+          setPlayerPokemon(familyArray)
+        }).catch((error) => {
+          console.log(error, "Pokemon API call failed");
+        })
+    }
+    
+    getPokemon();
+  }, [playAgain])
 
   useEffect(() => {
     // generate the 6 decks and set state t
@@ -298,7 +336,7 @@ function App() {
           <>
             <div className="wrapper gameBoard">
               <div>
-                <ExperienceBar balance={balance} />
+                  <ExperienceBar balance={balance} expNeeded={experienceNeeded}/>
               </div>
 
               <Dealer
