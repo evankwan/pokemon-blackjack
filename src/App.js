@@ -16,6 +16,7 @@ import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
 import fetchRetry from './utils/fetchRetry';
 import DealAgainButton from './components/DealAgainButton';
+import DocErrorModal from './components/DocErrorModal';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -28,6 +29,8 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
   const [dealAgainButton, setDealAgainButton] = useState(false);
+  const [error, setError] = useState();
+  const [currentMessage, setCurrentMessage] = useState('Deal');
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -54,6 +57,7 @@ function App() {
 
   const handleGameStart = () => {
     setGameState(true);
+    setCurrentMessage('Deal');
     setDealerHand([])
     setPlayerHand([])
     setCurrentPlayer('player1');
@@ -72,25 +76,40 @@ function App() {
     setBalance(balance - bet);
 
     const dealerHasBlackjack = getScore(dealer) === 21;
+    const playerHasBlackjack = getScore(player) === 21;
     if (dealerHasBlackjack) {
-      await sleep(3000);
+
+      setCurrentPlayer('player1');
+      await sleep(1000);
+      setCurrentPlayer('dealer');
+      setCurrentMessage('Dealer has Blackjack!');
+      await sleep(2000);
+      setCurrentPlayer('finished');
+    } else if (playerHasBlackjack) {
+      setCurrentPlayer('player1');
+      await sleep(1000);
+      setCurrentMessage('Player has Blackjack!');
+      await sleep(2000);
       setCurrentPlayer('finished');
     } else {
       setCurrentPlayer('player1');
+      setCurrentMessage("Player's turn");
     }
   }
 
-  const handleHit = () => {
+  const handleHit = async () => {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
     
     if (getScore(updatedHand) > 21) {
+      setCurrentMessage("Player Busts");
+      await sleep(2000);
       setCurrentPlayer('finished');
     }
   }
 
-  const handleDouble = () => {
+  const handleDouble = async () => {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
@@ -98,13 +117,17 @@ function App() {
     setCurrentBet(currentBet * 2)
 
     if (getScore(updatedHand) > 21) {
+      setCurrentMessage("Player Busts");
+      await sleep(2000);
       setCurrentPlayer('finished');
     } else {
       handleStand(deck)
     }
   }
 
-  const handleStand = (updatedDeck) => {
+  const handleStand = async (updatedDeck) => {
+    setCurrentMessage("Dealer's Turn");
+    await sleep(2000);
     setCurrentPlayer('dealer');
     const {hand, deck} = dealerLogic(dealerHand, updatedDeck);
     setDealerHand(hand);
@@ -135,24 +158,39 @@ function App() {
 
   useEffect(() => {
     const playerWinsLogic = async () => {
-      console.log('win');
+      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
+      setCurrentMessage(`Player Wins with ${ blackjack ? 'blackjack!' : getScore(playerHand)}`);
+      await sleep(2000);
+
+      // if blackjack, pay 2.5x
+      let payout;
+      if (blackjack) {
+        payout = currentBet * 2.5;
+        setBalance(balance + payout);
+        // else pay 2x
+      } else {
+        payout = currentBet * 2;
+        setBalance(balance + payout);
+      }
+      setCurrentMessage(`Player gains ${payout}XP!`);
+      await sleep(2000);
+
+      setCurrentMessage(`What?`);
+      await sleep(2000);
+      setCurrentMessage(`${playerPokemon[0].name} is evolving...`);
+      await sleep(2000);
       // only evolve pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
       if (pokemonCanEvolve) {
         const evolvedLine = evolvePokemon(playerPokemon);
         setPlayerPokemon(evolvedLine);
-      }
-
-      // if blackjack, pay 2.5x
-      const blackjack = getScore(playerHand) === 21 && playerHand.length === 2
-      if (blackjack) {
-        setBalance(balance + (currentBet * 2.5));
-        // else pay 2x
-      } else {
-        setBalance(balance + (currentBet * 2));
+        await sleep(1000);
+        setCurrentMessage(`${playerPokemon[0].name} evolved into ${playerPokemon[1].name}`);
+        await sleep(2000);
       }
       // reset current bet
       setCurrentBet(0);
+
       await sleep(3000);
       // setGameState(false);
 
@@ -161,17 +199,18 @@ function App() {
     }
 
     const playerLosesLogic = async () => {
-      console.log('loss');
-      await sleep(3000);
-      // setGameState(false);
-
+      const blackjack = getScore(dealerHand) === 21 && dealerHand.length === 2;
+      setCurrentMessage(`Dealer Wins with ${blackjack ? 'blackjack!' : getScore(dealerHand)}`);
+      await sleep(2000);
+      setCurrentMessage(`Player loses ${currentBet}XP!`);
+      await sleep(2000);
       //hide all buttons and ask to deal again
       setHideButtons(true);
 
     }
 
     const playerTiesLogic = async () => {
-      console.log('tie');
+      setCurrentMessage('Player Pushes!');
       setBalance(currentBet + balance);
       await sleep(3000);
       // setGameState(false);
@@ -226,40 +265,45 @@ function App() {
 
   useEffect(() => {
     // generate the 6 decks and set state t
+    
     async function getDeck() {
-      // Get deckId first to fetch deck of cards.
-      // deckId is also used later for shuffling existing deck when restarting the game
-      const deckId = await fetchRetry(
-        'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
-      )
-        .then((data) => data.deck_id);
+      try {
+        // Get deckId first to fetch deck of cards.
+        // deckId is also used later for shuffling existing deck when restarting the game
+        const { deck_id } = await fetchRetry(
+          'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
+        );
 
-      // get 312 (52 * 6) cards with deck id
-      const deck = await fetchRetry(
-        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=312`
-      )
-        .then((data) => {
-          const cards = data.cards.map((card) => ({
-            image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
-            value: card.value, // "10'"
-            suit: card.suit, // "SPADES"
-          }));          
-          return cards;
-        })
-        .catch((error) => {
-          console.log(error, "DoC API call failed")
-        })
-      setCurrentDeck(deck);
+        const failureCallback = () => {
+          setError('DoC API call failed');
+        };
+
+        // get 312 (52 * 6) cards with deck id
+        const deck = await fetchRetry(
+          `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=312`,
+          failureCallback
+        );
+
+        const cards = deck.cards.map((card) => ({
+          image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
+          value: card.value, // "10'"
+          suit: card.suit, // "SPADES"
+        }));
+        setCurrentDeck(cards);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
-    getDeck()
+    getDeck();
+
   }, []);
 
   
   console.log(currentPlayer);
 
   return (
-    <>
+    <>      
       {
         // if the game is not running, render title screen
         !gameState ? (
@@ -278,7 +322,7 @@ function App() {
                   currentTurn={currentPlayer}
                 />
 
-                <GameMessage message={"Deal"} />
+                <GameMessage message={currentMessage} />
 
                 {playerPokemon.length > 0
                   ?
@@ -347,6 +391,7 @@ function App() {
           </>
         )
       }
+      <DocErrorModal show={error}/>
     </>
   );
 }
