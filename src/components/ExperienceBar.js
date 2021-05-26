@@ -21,7 +21,7 @@ const ExperienceBar = ({ balance }) => {
           className="expbar__fill"
           style={style}
         ></div>
-        <span className="expbar__title">Player XP: {balance}/1000</span>
+        <span className="expbar__title">Exp pts: {balance}/1000</span>
       </div>
     </>
   );

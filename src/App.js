@@ -296,58 +296,39 @@ function App() {
         ) : (
           // if the game is running, render game UI
           <>
-            <div className="wrapper gameBoard">
-              <div>
-                <ExperienceBar balance={balance} />
-              </div>
+            <div className="gameBoard">
+              <div className="wrapper">
+                <div>
+                  <ExperienceBar balance={balance} />
+                </div>
 
-              <Dealer
-                hand={dealerHand}
-                dealerPokemon={dealerPokemon}
-                currentTurn={currentPlayer}
-              />
-
-              <GameMessage message={currentMessage} />
-
-              {playerPokemon.length > 0
-                ?
-                <Player
-                  hand={playerHand}
-                  playerPokemon={playerPokemon}
-                  currentBet={currentBet}
+                <Dealer
+                  hand={dealerHand}
+                  dealerPokemon={dealerPokemon}
+                  currentTurn={currentPlayer}
                 />
-                : null}
 
-              <div className="actions">
-                {/* only show deal when game state is false */}
-                {playerHand.length === 0
+                <GameMessage message={currentMessage} />
+
+                {playerPokemon.length > 0
                   ?
-                  <ActionBtn
-                    name={"Deal"}
-                    className={"btn btn__deal"}
-                    handleClick={handleDeal}
+                  <Player
+                    hand={playerHand}
+                    playerPokemon={playerPokemon}
+                    currentBet={currentBet}
                   />
-                  :
-                  <div className="btn__container">
-                    {/* only show hit, double, stand, if game state is true */}
-                    <ActionBtn
-                      name={"Hit"}
-                      className={"btn btn__hit"}
-                      handleClick={handleHit}
-                      hideButtons={hideButtons}
-                      currentPlayer={currentPlayer}
-                    />
-                    {/* show double only when player hand is 2 cards */}
-                    <ActionBtn
-                      name={"Double"}
-                      className={"btn btn__double"}
-                      handleClick={handleDouble}
-                      disabled={playerHand.length > 2 || currentPlayer !== 'player1'}
-                      hideButtons={hideButtons}
-                      currentPlayer={currentPlayer}
-                    />
+                  : null}
 
+                <div className="actions">
+                  {/* only show deal when game state is false */}
+                  {playerHand.length === 0
+                    ?
                     <ActionBtn
+<<<<<<< HEAD
+                      name={"Deal"}
+                      className={"btn btn__deal"}
+                      handleClick={handleDeal}
+=======
                       name={"Stand"}
                       className={"btn btn__stand"}
                       handleClick={() => handleStand(currentDeck)}
@@ -358,19 +339,55 @@ function App() {
                       dealAgain={dealAgain}
                       deckLoaded={currentDeck && currentDeck.length > 0}
                       hideButtons={hideButtons}
+>>>>>>> main
                     />
+                    :
+                    <div className="btn__container">
+                      {/* only show hit, double, stand, if game state is true */}
+                      <ActionBtn
+                        name={"Hit"}
+                        className={"btn btn__hit"}
+                        handleClick={handleHit}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      {/* show double only when player hand is 2 cards */}
+                      <ActionBtn
+                        name={"Double"}
+                        className={"btn btn__double"}
+                        handleClick={handleDouble}
+                        disabled={playerHand.length > 2 || currentPlayer !== 'player1'}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
 
-                  </div>
-                }
+                      <ActionBtn
+                        name={"Stand"}
+                        className={"btn btn__stand"}
+                        handleClick={() => handleStand(currentDeck)}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      <DealAgainButton
+                        dealAgain={dealAgain}
+                        startGame={handleGameStart}
+                        deckLoaded={currentDeck && currentDeck.length > 0}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+
+                    </div>
+                  }
 
 
-                {/* player component holds hand component and sprite component */}
-                {/* needs hand state */}
-                {/* <Player /> */}
+                  {/* player component holds hand component and sprite component */}
+                  {/* needs hand state */}
+                  {/* <Player /> */}
 
 
-              </div>
-            </div>
+                </div>
+                </div> {/* wrapper div */}
+            </div> {/* gameBoard div */}
           </>
         )
       }
