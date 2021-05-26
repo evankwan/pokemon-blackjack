@@ -10,30 +10,24 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
 /* GENERAL STYLES */
+html {
+  font-size: 62.5%;
+}
+
 body {
   background-color: #edfeff;
   color: #142b68;
 }
 
 img {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .wrapper {
   margin: 0 auto;
   max-width: 1280px;
   width: 85%;
-}
-
-.disabled {
-  opacity: .5;
-  background-color: #f1f1f1;
-  border: 2px solid #686868;
-}
-
-.disabled:hover {
-  background-color: #f1f1f1;
 }
 
 /* HEADER/TITLE PAGE STYLES */
@@ -47,20 +41,20 @@ img {
 }
 
 .header__title {
-  font-size: 50px;
+  font-size: 5rem;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .header__rules-container {
   border: 2px solid #ff0;
   box-shadow: 1px 1px #ffd000, -1px -1px #ffd000;
   margin-bottom: 40px; 
-  
 }
 
 .header__list-header {
   letter-spacing: 1px;
-  font-size: 28px;
+  font-size: 2.8rem;
   text-align: center;
   margin-bottom: 0px;
 }
@@ -71,7 +65,7 @@ img {
 }
 
 .header__list-container li {
-  font-size: 18px;
+  font-size: 1.8rem;
   padding: 2px 0px;
 }
 
@@ -82,10 +76,13 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background-image: radial-gradient(circle, #edfeff, #e5feff, #dcfeff, #d3fdff, #cafdff, #afebf2, #95d9e7, #7bc7dc, #4f9fc3, #2a78a8, #14518a, #142b68);
 }
 
 /* GAME MESSAGE STYLES */
+/* .game-message {
 
+} */
 
 /* SCORE STYLING */
 .hand__score-container {
@@ -108,14 +105,17 @@ img {
   height: 40px;
   text-align: center;
   border: 3px solid #142b68;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   border-radius: 15px;
-  position: relative;
   overflow: hidden;
+  background-color: #c79ba9;
+  position: relative;
+  top: 0;
 }
 
 .expbar__title {
-  font-size: 24px;
+  font-size: 2.6rem;
+  font-weight: bold;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -125,8 +125,7 @@ img {
 .expbar__fill {
   width: 100%;
   height: 100%;
-  background-color: palevioletred;
-  /* background-color: teal; */
+  background-color: #d87093;
   transition: width 0.5s;
 }
 
@@ -187,18 +186,19 @@ img {
   background-color: #ff0;
   color: #142b68;
   border: 2px solid #142b68;
+  text-shadow: 1px 1px #befcff;
   border-radius: 5px;
   outline: none;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:active {
   background-color: #ffd000;
 }
 
 .btn__container {
-
-  display: flex;
   width: 100%;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -210,22 +210,32 @@ img {
 
 .btn__deal {
   width: 100%;
-
 }
 
 .hideButtons {
   display: none;
 }
 
+.disabled {
+  opacity: .5;
+  background-color: #f1f1f1;
+  border: 2px solid #686868;
+}
+
+.disabled:hover {
+  background-color: #f1f1f1;
+}
+
 /* SPRITE STYLES */
 .sprite__container {
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid #333333;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 96px;
+  width: 112px;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .sprite {
@@ -240,13 +250,14 @@ img {
   position: absolute;
   bottom: -5px;
   text-align: center;
-  min-width: 96px;
+  min-width: 112px;
   color: #ffff00;
   background-color: #142b68;
   padding: 5px;
   margin: 0;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: 1.1rem;
   left: 50px;
 }
 
@@ -275,10 +286,26 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .sprite__betAmount {
   margin: 0;
 }
 
+/* ****************************************************** */
 /* MEDIA QUERIES */
+@media (min-width: 360px) {
+  .header__title {
+    font-size: 4.2rem;
+  }
+
+  .sprite__betContainer {
+    left: 120px;
+  }
+
+  .expbar__title {
+    font-size: 1.5rem;
+  }
+}
