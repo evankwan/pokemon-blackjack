@@ -192,9 +192,15 @@ img {
 }
 
 .btn:hover,
-.btn:active {
+.btn:active,
+.btn:focus {
   background-color: #ffd000;
 }
+
+.btn:focus {
+  outline: 3px solid #142b68;
+}
+
 
 .btn__container {
   width: 100%;
@@ -301,7 +307,6 @@ img {
 /* MEDIA QUERIES */
 @media (min-width:780px) {
   .sprite__container {
-    border: 2px solid #333333;
     width: 132px;
   }
 }
