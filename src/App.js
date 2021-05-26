@@ -15,6 +15,7 @@ import { getScore } from './utils/score';
 import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
 import fetchRetry from './utils/fetchRetry';
+import DocErrorModal from './components/DocErrorModal';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -25,7 +26,11 @@ function App() {
   const [currentBet, setCurrentBet] = useState(0);
   const [balance, setBalance] = useState(1000);
   const [currentPlayer, setCurrentPlayer] = useState('none');
+<<<<<<< HEAD
+  const [error, setError] = useState();
+=======
   const [currentMessage, setCurrentMessage] = useState('Deal');
+>>>>>>> main
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -227,39 +232,44 @@ function App() {
 
   useEffect(() => {
     // generate the 6 decks and set state t
+    
     async function getDeck() {
-      // Get deckId first to fetch deck of cards.
-      // deckId is also used later for shuffling existing deck when restarting the game
-      const deckId = await fetchRetry(
-        'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
-      )
-        .then((data) => data.deck_id);
+      try {
+        // Get deckId first to fetch deck of cards.
+        // deckId is also used later for shuffling existing deck when restarting the game
+        const { deck_id } = await fetchRetry(
+          'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
+        );
 
-      // get 312 (52 * 6) cards with deck id
-      const deck = await fetchRetry(
-        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=312`
-      )
-        .then((data) => {
-          const cards = data.cards.map((card) => ({
-            image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
-            value: card.value, // "10'"
-            suit: card.suit, // "SPADES"
-          }));          
-          return cards;
-        })
-        .catch((error) => {
-          console.log(error, "DoC API call failed")
-        })
-      setCurrentDeck(deck);
+        const failureCallback = () => {
+          setError('DoC API call failed');
+        };
+
+        // get 312 (52 * 6) cards with deck id
+        const deck = await fetchRetry(
+          `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=312`,
+          failureCallback
+        );
+
+        const cards = deck.cards.map((card) => ({
+          image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
+          value: card.value, // "10'"
+          suit: card.suit, // "SPADES"
+        }));
+        setCurrentDeck(cards);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
-    getDeck()
+    getDeck();
+
   }, []);
 
   
     
   return (
-    <>
+    <>      
       {
         // if the game is not running, render title screen
         !gameState ? (
@@ -333,6 +343,7 @@ function App() {
           </>
         )
       }
+      <DocErrorModal show={error}/>
     </>
   );
 }
