@@ -1,4 +1,4 @@
-const DealAgainButton = ({ startGame, deckLoaded, hideButtons, dealAgain, currentPlayer }) => {
+const DealAgainButton = ({ deckLoaded, hideButtons, dealAgain }) => {
     return (
             <button
                 className={`
@@ -6,7 +6,6 @@ const DealAgainButton = ({ startGame, deckLoaded, hideButtons, dealAgain, curren
                 ${hideButtons ? "btn btn__deal" : "hideButtons" }`}
                 type="button"
                 onClick={dealAgain}
-                // onClick={currentPlayer}
                 disabled={!deckLoaded}
             >
                 {!deckLoaded ? 'Loading...' : 'Deal again?'}

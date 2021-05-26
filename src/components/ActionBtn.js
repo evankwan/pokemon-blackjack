@@ -8,24 +8,21 @@ const ActionBtn = (props) => {
     currentPlayer,
   } = props
 
+  const notPlayersTurn = (currentPlayer !== 'player1' && name !== 'Deal');
 
-  // ${ hideButtons ? "hideButtons" : "" }
-      // `(this.hideButtons ? "hideButtons" : "btn btn__deal")`
-
-      //${hideButtons ? "hideButtons" + " btn btn__deal" : "" } 
-      console.log(hideButtons);
-      console.log(currentPlayer);
   return (  
     <>
-    {/* {currentPlayer === 'none' ? {} : ""} */}
       <button 
-        className={`
+        className={` 
         ${className}
-        ${disabled ? "disabled" : ""}
+        ${disabled 
+        ? "disabled" 
+        : notPlayersTurn
+        ? "disabled" : ""}
         ${hideButtons ? "hideButtons" : "" } `}
         type="button"
         onClick={handleClick}
-        disabled={disabled}
+        disabled={disabled || notPlayersTurn }
       >
         {name}
       </button>
