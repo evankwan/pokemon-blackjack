@@ -48,10 +48,10 @@ function App() {
     [155, 156, 157],
     [158, 159, 160]
   ];
-  
+
   // object holding the dealer's pokemon
-  const dealerPokemon = { 
-    name: "mr-mime", 
+  const dealerPokemon = {
+    name: "mr-mime",
     sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png"
   };
 
@@ -101,7 +101,7 @@ function App() {
     const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
     setCurrentDeck(deck)
-    
+
     if (getScore(updatedHand) > 21) {
       setCurrentMessage("Player Busts");
       await sleep(2000);
@@ -129,7 +129,7 @@ function App() {
     setCurrentMessage("Dealer's Turn");
     await sleep(2000);
     setCurrentPlayer('dealer');
-    const {hand, deck} = dealerLogic(dealerHand, updatedDeck);
+    const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
     setDealerHand(hand);
     setCurrentDeck(deck);
 
@@ -159,7 +159,7 @@ function App() {
   useEffect(() => {
     const playerWinsLogic = async () => {
       const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
-      setCurrentMessage(`Player Wins with ${ blackjack ? 'blackjack!' : getScore(playerHand)}`);
+      setCurrentMessage(`Player Wins with ${blackjack ? 'blackjack!' : getScore(playerHand)}`);
       await sleep(2000);
 
       // if blackjack, pay 2.5x
@@ -220,7 +220,7 @@ function App() {
     }
 
     const gameIsFinished = (currentPlayer === 'finished');
-    
+
     if (gameIsFinished) {
       setCurrentPlayer('none');
       // dummy win condition that is true if the user doesn't bust
@@ -237,7 +237,7 @@ function App() {
       }
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
-  
+
   useEffect(() => {
     // generate random pokemon family from availablePokemon array 
     const pokemonFamily = randomizer(availablePokemon);
@@ -265,7 +265,7 @@ function App() {
 
   useEffect(() => {
     // generate the 6 decks and set state t
-    
+
     async function getDeck() {
       try {
         // Get deckId first to fetch deck of cards.
@@ -299,45 +299,45 @@ function App() {
 
   }, []);
 
-  
+
   console.log(currentPlayer);
 
   return (
-    <>      
+    <>
       {
         // if the game is not running, render title screen
         !gameState ? (
-          <Title startGame={handleGameStart} deckLoaded={ currentDeck && currentDeck.length > 0}/>
+          <Title startGame={handleGameStart} deckLoaded={currentDeck && currentDeck.length > 0} />
         ) : (
           // if the game is running, render game UI
           <>
-              <div className="wrapper gameBoard">
-                <div>
-                  <ExperienceBar balance={balance}/>
-                </div>
-                
-                <Dealer
-                  hand={dealerHand}
-                  dealerPokemon={dealerPokemon}
-                  currentTurn={currentPlayer}
+            <div className="wrapper gameBoard">
+              <div>
+                <ExperienceBar balance={balance} />
+              </div>
+
+              <Dealer
+                hand={dealerHand}
+                dealerPokemon={dealerPokemon}
+                currentTurn={currentPlayer}
+              />
+
+              <GameMessage message={currentMessage} />
+
+              {playerPokemon.length > 0
+                ?
+                <Player
+                  hand={playerHand}
+                  playerPokemon={playerPokemon}
+                  currentBet={currentBet}
                 />
+                : null}
 
-                <GameMessage message={currentMessage} />
-
-                {playerPokemon.length > 0
+              <div className="actions">
+                {/* only show deal when game state is false */}
+                {playerHand.length === 0
                   ?
-                  <Player
-                    hand={playerHand}
-                    playerPokemon={playerPokemon}
-                    currentBet={currentBet}
-                  />
-                  : null}
-
-                <div className="actions">
-                  {/* only show deal when game state is false */}
-                  { playerHand.length === 0 
-                  ?
-                    <ActionBtn
+                  <ActionBtn
                     name={"Deal"}
                     className={"btn btn__deal"}
                     handleClick={handleDeal}
@@ -378,20 +378,20 @@ function App() {
                     />
 
                   </div>
-                  }
+                }
 
 
-                  {/* player component holds hand component and sprite component */}
-                  {/* needs hand state */}
-                  {/* <Player /> */}
+                {/* player component holds hand component and sprite component */}
+                {/* needs hand state */}
+                {/* <Player /> */}
 
 
-                </div>
               </div>
+            </div>
           </>
         )
       }
-      <DocErrorModal show={error}/>
+      <DocErrorModal show={error} />
     </>
   );
 }
