@@ -1,3 +1,5 @@
+import './Sprite.css'
+
 const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentBet }) => {
 
     const { name, sprite }  = pokemon

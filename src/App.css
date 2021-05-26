@@ -189,8 +189,8 @@ img {
 
 /* Sprite Styles */
 .sprite__container {
-    border-radius: 50%;
-    border: 1px solid black;
+    /* border-radius: 50%;
+    border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -231,7 +231,9 @@ img {
 .sprite__dealer {
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  /* This places the shadow on the other side of the screen */
+  /* width: 100%; */
+  margin-left: auto;
 }
 
 .sprite__betContainer {
