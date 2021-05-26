@@ -1,3 +1,5 @@
+import './Sprite.css'
+
 const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentBet }) => {
 
     const { name, sprite }  = pokemon
@@ -10,6 +12,8 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
                 src={sprite} 
                 alt={`The pokemon ${name}`} 
                 />
+                
+            </div>
                 {currentBet 
                 ? 
                     <>
@@ -19,8 +23,6 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
                         <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
                     </>
                 : null}
-                
-            </div>
         </div>
     )
 }

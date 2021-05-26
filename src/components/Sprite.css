@@ -1,0 +1,62 @@
+@keyframes float {
+  0% {
+    transform: translateY(0%);
+  }
+
+  50% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes float-shadow {
+  0% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scaleX(0.7);
+    opacity: 0.5;
+  }
+
+  100% {
+     transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.sprite .sprite__container {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* delay player sprite so that two sprites move in opposite direction */
+.sprite.sprite__player .sprite__container, .sprite.sprite__player::after {
+  animation-delay: 1s;
+}
+
+.sprite::after {  
+  content: '';
+  display: block;
+  position: absolute;  
+  bottom: 0;
+  width: 45%;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  animation: float-shadow 2s ease-in-out infinite;
+}
+
+.sprite {
+  --sprite-width: min(max(110px, 20vw), 160px);
+}
+
+.sprite.sprite__player {
+  margin-top: calc(var(--sprite-width) * -1);
+}
+.sprite.sprite__dealer {
+  margin-bottom: calc(var(--sprite-width) * -1);
+}

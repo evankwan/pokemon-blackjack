@@ -193,13 +193,14 @@ img {
 
 /* Sprite Styles */
 .sprite__container {
-    border-radius: 50%;
-    border: 1px solid black;
+    /* border-radius: 50%;
+    border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 96px;
-    position: relative;
+    width: var(--sprite-width); 
+    /* width: 90px; */
+    position: relative;        
 }
 
 .sprite {
@@ -212,7 +213,7 @@ img {
 
 .sprite__name {
     position: absolute;
-    bottom: -5px;
+    bottom: -2em;
     text-align: center;
     min-width: 96px;
     color: #ffff00;
@@ -233,14 +234,17 @@ img {
 }
 
 .sprite__dealer {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  /* This places the shadow on the other side of the screen */
+  /* width: 100%; */
+  margin-left: auto;
 }
 
 .sprite__betContainer {
   position: absolute;
-  left: 100px;
+  bottom: 120%;
+  right: 50%;
   border-radius: 50%;
   border: 2px solid #142b68;
   background-color: #ffff00;
