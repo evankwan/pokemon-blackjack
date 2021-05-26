@@ -25,7 +25,7 @@ function App() {
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(0);
-  const [balance, setBalance] = useState(100);
+  const [balance, setBalance] = useState(1200);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
   const [error, setError] = useState();
@@ -447,7 +447,7 @@ function App() {
                       name={"Double"}
                       className={"btn btn__double"}
                       handleClick={handleDouble}
-                      disabled={playerHand.length > 2 || currentPlayer !== 'player1' || (balance < currentBet)}
+                      disabled={playerHand.length > 2 || currentPlayer !== 'player1' || (balance < currentBet * 2)}
                         
                       hideButtons={hideButtons}
                       currentPlayer={currentPlayer}
