@@ -20,8 +20,8 @@ const initialDeal = (currentDeck) => {
       // { image: "https://deckofcardsapi.com/static/img/0D.png", value: "10", suit: "DIAMONDS" },
       // { image: "https://deckofcardsapi.com/static/img/6D.png", value: "6", suit: "DIAMONDS" },
       // { image: "https://deckofcardsapi.com/static/img/5D.png", value: "5", suit: "DIAMONDS" }, 
-      { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
-      { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
+      // { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
+      // { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
     ],
     updatedDeck: deck
   }
