@@ -1,18 +1,18 @@
 import {useEffect, useState} from 'react'
 
-const ExperienceBar = ({ balance }) => {
+const ExperienceBar = ({ balance, expNeeded }) => {
 
   const [style, setStyle] = useState({})
 
   useEffect(() => {
     setTimeout(() => {
       const newStyle = {
-        width: `${(balance/10)}%`
+        width: `${(balance/expNeeded) * 100}%`
       }
   
       setStyle(newStyle);
     }, 100)
-  }, [balance])
+  }, [balance, expNeeded])
 
   return (
     <>
@@ -21,7 +21,7 @@ const ExperienceBar = ({ balance }) => {
           className="expbar__fill"
           style={style}
         ></div>
-        <span className="expbar__title">Exp pts: {balance}/1000</span>
+        <span className="expbar__title">Player XP: {balance}/{expNeeded}</span>
       </div>
     </>
   );
