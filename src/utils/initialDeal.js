@@ -16,18 +16,15 @@ const initialDeal = (currentDeck) => {
   return {
     player: [cardsDealt[0], cardsDealt[2]],
     dealer: [cardsDealt[1], cardsDealt[3]],
-    // dealer: [{ image: "https://deckofcardsapi.com/static/img/0D.png", value: "10", suit: "DIAMONDS" }, { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" }],
+    player: [
+      // { image: "https://deckofcardsapi.com/static/img/0D.png", value: "10", suit: "DIAMONDS" },
+      // { image: "https://deckofcardsapi.com/static/img/6D.png", value: "6", suit: "DIAMONDS" },
+      // { image: "https://deckofcardsapi.com/static/img/5D.png", value: "5", suit: "DIAMONDS" }, 
+      { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
+      { image: "https://deckofcardsapi.com/static/img/aceDiamonds.png", value: "ACE", suit: "DIAMONDS" },
+    ],
     updatedDeck: deck
   }
-  
-  // // add first and third cards into player's hand
-  // setPlayerHand([cardsDealt[0], cardsDealt[2]]);
-
-  // // add second and fourth cards into dealer's hand
-  // setDealerHand([cardsDealt[1], cardsDealt[3]]);
-
-  // // set deck state with missing top 4 cards
-  // setCurrentDeck(deck);
 }
 
 export default initialDeal
