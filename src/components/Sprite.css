@@ -4,7 +4,7 @@
   }
 
   50% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
 
   100% {
@@ -20,7 +20,7 @@
 
   50% {
     transform: scaleX(0.7);
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   100% {
@@ -41,12 +41,22 @@
 .sprite::after {  
   content: '';
   display: block;
-  position: absolute;
-  left: 25px;  
+  position: absolute;  
   bottom: 0;
-  width: 50px;
+  width: 45%;
   height: 15px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.2);
   animation: float-shadow 2s ease-in-out infinite;
+}
+
+.sprite {
+  --sprite-width: min(max(110px, 20vw), 160px);
+}
+
+.sprite.sprite__player {
+  margin-top: calc(var(--sprite-width) * -1);
+}
+.sprite.sprite__dealer {
+  margin-bottom: calc(var(--sprite-width) * -1);
 }
