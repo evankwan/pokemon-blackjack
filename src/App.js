@@ -15,6 +15,7 @@ import { getScore } from './utils/score';
 import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
 import fetchRetry from './utils/fetchRetry';
+import DealAgainButton from './components/DealAgainButton';
 
 function App() {
   const [dealerHand, setDealerHand] = useState([]);
@@ -25,6 +26,8 @@ function App() {
   const [currentBet, setCurrentBet] = useState(0);
   const [balance, setBalance] = useState(1000);
   const [currentPlayer, setCurrentPlayer] = useState('none');
+  const [hideButtons, setHideButtons] = useState(false);
+  const [dealAgainButton, setDealAgainButton] = useState(false);
 
   // array of usable pokemon families
   const availablePokemon = [
@@ -53,6 +56,8 @@ function App() {
     setGameState(true);
     setDealerHand([])
     setPlayerHand([])
+    setCurrentPlayer('player1');
+    //^^why is this not doing anything ????
   }
 
   const handleDeal = async () => {
@@ -60,6 +65,7 @@ function App() {
     setPlayerHand(player);
     setDealerHand(dealer);
     setCurrentDeck(updatedDeck);
+    setHideButtons(false);
 
     const bet = 100;
     setCurrentBet(bet);
@@ -67,7 +73,7 @@ function App() {
 
     const dealerHasBlackjack = getScore(dealer) === 21;
     if (dealerHasBlackjack) {
-      await sleep(1000);
+      await sleep(3000);
       setCurrentPlayer('finished');
     } else {
       setCurrentPlayer('player1');
@@ -107,6 +113,26 @@ function App() {
     setCurrentPlayer('finished');
   }
 
+  const dealAgain = () => {
+    if (currentPlayer === 'none') {
+      setHideButtons(true);
+      setDealAgainButton(true);
+      setDealerHand([])
+      setPlayerHand([])
+      handleDeal();
+      // setCurrentPlayer('player1');
+      console.log(currentPlayer);
+      // console.log(gameState);
+      console.log('inside dealAgain, none');
+    } else {
+      // setCurrentPlayer('player1')
+    }
+    // if (currentPlayer === 'player1') {
+    //   console.log(currentPlayer);
+    //   setHideButtons(false);
+    // } 
+  }
+
   useEffect(() => {
     const playerWinsLogic = async () => {
       console.log('win');
@@ -127,21 +153,31 @@ function App() {
       }
       // reset current bet
       setCurrentBet(0);
-      await sleep(1500);
-      setGameState(false);
+      await sleep(3000);
+      // setGameState(false);
+
+      //hide all buttons and ask to deal again
+      setHideButtons(true);
     }
 
     const playerLosesLogic = async () => {
       console.log('loss');
-      await sleep(1500);
-      setGameState(false);
+      await sleep(3000);
+      // setGameState(false);
+
+      //hide all buttons and ask to deal again
+      setHideButtons(true);
+
     }
 
     const playerTiesLogic = async () => {
       console.log('tie');
       setBalance(currentBet + balance);
-      await sleep(1500);
-      setGameState(false);
+      await sleep(3000);
+      // setGameState(false);
+
+      //hide all buttons and ask to deal again
+      setHideButtons(true);
     }
 
     const gameIsFinished = (currentPlayer === 'finished');
@@ -220,7 +256,8 @@ function App() {
   }, []);
 
   
-    
+  console.log(currentPlayer);
+
   return (
     <>
       {
@@ -268,6 +305,8 @@ function App() {
                       name={"Hit"}
                       className={"btn btn__hit"}
                       handleClick={handleHit}
+                      hideButtons={hideButtons}
+                      currentPlayer={currentPlayer}
                     />
                     {/* show double only when player hand is 2 cards */}
                     <ActionBtn
@@ -275,13 +314,25 @@ function App() {
                       className={"btn btn__double"}
                       handleClick={handleDouble}
                       disabled={playerHand.length > 2 || currentPlayer !== 'player1'}
+                      hideButtons={hideButtons}
+                      currentPlayer={currentPlayer}
                     />
 
                     <ActionBtn
                       name={"Stand"}
                       className={"btn btn__stand"}
                       handleClick={() => handleStand(currentDeck)}
+                      hideButtons={hideButtons}
+                      currentPlayer={currentPlayer}
                     />
+                    <DealAgainButton
+                      dealAgain={dealAgain}
+                      startGame={handleGameStart}
+                      deckLoaded={currentDeck && currentDeck.length > 0}
+                      hideButtons={hideButtons}
+                      currentPlayer={currentPlayer}
+                    />
+
                   </div>
                   }
 
