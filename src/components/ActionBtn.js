@@ -14,12 +14,16 @@ const ActionBtn = (props) => {
     <>
       <button 
         className={` 
-        ${className}
-        ${disabled 
-        ? "disabled" 
-        : notPlayersTurn
-        ? "disabled" : ""}
-        ${hideButtons ? "hideButtons" : "" } `}
+          ${className}
+          ${disabled 
+            ? "disabled" 
+            : notPlayersTurn
+              ? "disabled" 
+              : ""}
+          ${hideButtons 
+            ? "hideButtons" 
+            : "" } 
+        `}
         type="button"
         onClick={handleClick}
         disabled={disabled || notPlayersTurn }
