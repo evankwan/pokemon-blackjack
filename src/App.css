@@ -39,14 +39,6 @@ img {
   justify-content: center;
 }
 
-.display-flex {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: -50px;
-  left: 20px;
-}
-
 /* HEADER/TITLE PAGE STYLES */
 .header {
   display: flex;
@@ -225,6 +217,13 @@ img {
   outline: 3px solid #142b68;
 }
 
+.sprite__name-bet-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
+}
 
 .btn__container {
   width: 100%;
