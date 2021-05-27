@@ -278,6 +278,7 @@ img {
   background-color: #ffff00;
   color: #142b68;
   text-shadow: 1px 1px #befcff;
+  cursor: pointer;
 }
 
 .btn:hover,
