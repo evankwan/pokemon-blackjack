@@ -4,7 +4,7 @@ A Blackjack game with a Pokémon twist. A virtual card game that pits the player
 
 As you win more hands, your Pokémon will evolve!
 
-## How to use
+### How to use
 
       1. Click "Play now"
       2. When cards are dealt, select "HIT", "2X", or "STAND" depending on the strength of your hand.
