@@ -427,52 +427,55 @@ function App() {
 
                 <ExperienceBar balance={balance} expNeeded={experienceNeeded}/>
 
-                  <Dealer
-                    hand={dealerHand}
-                    dealerPokemon={dealerPokemon}
-                    currentTurn={currentPlayer}
+                <Dealer
+                  hand={dealerHand}
+                  dealerPokemon={dealerPokemon}
+                  currentTurn={currentPlayer}
+                />
+                {/* GameMessage updates the message in the middle of the screen */}
+                <GameMessage message={currentMessage} />
+
+                {playerPokemon.length > 0
+                  ?
+                  <Player
+                    hand={playerHand}
+                    playerPokemon={playerPokemon}
+                    currentBet={currentBet}
                   />
-
-                  <GameMessage message={currentMessage} />
-
-                  {playerPokemon.length > 0
-                    ?
-                    <Player
-                      hand={playerHand}
-                      playerPokemon={playerPokemon}
-                      currentBet={currentBet}
-                    />
-                    : null}
+                  : null}
 
                   <div className="actions">
                     {/* only show deal when game state is false */}
                     {playerHand.length === 0
-                      ?
+                    ?  
                       <ActionBtn
                         name={"Deal"}
                         className={"btn btn__deal"}
                         handleClick={handleDeal}
                       />
-                      :
-                      <div className="btn__container">
-                        {/* only show hit, double, stand, if game state is true */}
-                        <ActionBtn
-                          name={"Hit"}
-                          className={"btn btn__hit"}
-                          handleClick={handleHit}
-                          hideButtons={hideButtons}
-                          currentPlayer={currentPlayer}
-                        />
-                        {/* show double only when player hand is 2 cards */}
-                        <ActionBtn
-                          name={"Double"}
-                          className={"btn btn__double"}
-                          handleClick={handleDouble}
-                          disabled={playerHand.length > 2 || currentPlayer !== 'player1' || (balance < currentBet)}
-                          hideButtons={hideButtons}
-                          currentPlayer={currentPlayer}
-                        />
-
+                    :
+                    <div className="btn__container">
+                      {/* only show hit, double, stand, if game state is true */}
+                      {/* the hit button is hidden when the hand is over */}
+                      <ActionBtn
+                        name={"Hit"}
+                        className={"btn btn__hit"}
+                        handleClick={handleHit}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      {/* show double only when player hand is 2 cards */}
+                      {/* the double button is disabled after "hit" or "stand" is clicked */}
+                      {/* the double button is hidden when the hand is over */}
+                      <ActionBtn
+                        name={"Double"}
+                        className={"btn btn__double"}
+                        handleClick={handleDouble}
+                        disabled={playerHand.length > 2 || currentPlayer !== 'player1' || (balance < currentBet)}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      {/* the stand button is hidden when the hand is over */}
                         <ActionBtn
                           name={"Stand"}
                           className={"btn btn__stand"}
@@ -488,13 +491,6 @@ function App() {
 
                       </div>
                     }
-
-
-                    {/* player component holds hand component and sprite component */}
-                    {/* needs hand state */}
-                    {/* <Player /> */}
-
-
                   </div>
               </div> {/* wrapper div */}
             </div> {/* gameBoard div */}

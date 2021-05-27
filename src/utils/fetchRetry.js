@@ -1,3 +1,4 @@
+//the purpose of fetchRetry is to handle how we deal with API call fails
 //https://blog.bearer.sh/add-retry-to-api-calls-javascript-node/
 
 /**
