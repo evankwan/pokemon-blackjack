@@ -13,7 +13,6 @@ import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 import sleep from './utils/sleep';
 import compareScore from './utils/compareScore';
-import fetchRetry from './utils/fetchRetry';
 import DealAgainButton from './components/DealAgainButton';
 import DocErrorModal from './components/DocErrorModal';
 
@@ -379,32 +378,52 @@ function App() {
   useEffect(() => {
     // generate the 6 decks and set state t
 
+    const showErrorModal = () => {
+      setError('DoC API call failed');
+    };
+
     async function getDeck() {
+      let deck_id;
       try {
         // Get deckId first to fetch deck of cards.
         // deckId is also used later for shuffling existing deck when restarting the game
-        const { deck_id } = await fetchRetry(
+        const idResponse = await fetch(
           'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6'
         );
+        if (idResponse) {          
+          const idData = await idResponse.json()  
+          deck_id = idData.deck_id;                  
+        } else {
+          showErrorModal();
+          return;  
+        }
+      } catch (deckIdError) {        
+        showErrorModal();
+        return;
+      }
 
-        const failureCallback = () => {
-          setError('DoC API call failed');
-        };
-
+      try {
         // get 312 (52 * 6) cards with deck id
-        const deck = await fetchRetry(
-          `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=312`,
-          failureCallback
+        const deckResponse = await fetch(
+          `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=312`,          
         );
 
-        const cards = deck.cards.map((card) => ({
-          image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
-          value: card.value, // "10'"
-          suit: card.suit, // "SPADES"
-        }));
-        setCurrentDeck(cards);
-      } catch (err) {
-        console.log(err);
+        if (deckResponse) {
+          const deck = await deckResponse.json()
+          const cards = deck.cards.map((card) => ({
+            image: card.image, // "https://deckofcardsapi.com/static/img/0S.png"
+            value: card.value, // "10'"
+            suit: card.suit, // "SPADES"
+          }));
+          setCurrentDeck(cards);                    
+        } else {
+          showErrorModal();
+          return;  
+        }
+  
+      } catch(deckError) {        
+        showErrorModal();
+        return
       }
     }
 
