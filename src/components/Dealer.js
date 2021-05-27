@@ -1,6 +1,5 @@
 import Hand from './Hand';
 import Sprite from './Sprite';
-import "./Dealer.css";
 
 const Dealer = ({ hand, dealerPokemon, currentTurn }) => {
     return (

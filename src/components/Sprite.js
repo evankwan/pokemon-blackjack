@@ -1,30 +1,28 @@
-import './Sprite.css'
-
 const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentBet }) => {
 
-    const { name, sprite }  = pokemon
+  const { name, sprite }  = pokemon
 
-    return (
-        <div className={`sprite ${imgPosition}`}>
-            <div className="sprite__container">
-                <img
-                className={leftSprite ? "sprite__left-img" : "" }
-                src={sprite} 
-                alt={`The pokemon ${name}`} 
-                />
-                
-            </div>
-                {currentBet 
-                ? 
-                    <div className="sprite__name-bet-container">
-                        <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
+  return (
+    <div className={`sprite ${imgPosition}`}>
+      <div className="sprite__container">
+        <img
+        className={leftSprite ? "sprite__left-img" : "" }
+        src={sprite} 
+        alt={`The pokemon ${name}`} 
+        />
+          
+      </div>
+      {currentBet 
+      ? 
+        <div className="sprite__name-bet-container">
+          <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
 
-                        <div className="sprite__betContainer">
-                            <p className="sprite__betAmount">{currentBet}</p>
-                        </div>
-                    </div>
-                : null}
+          <div className="sprite__betContainer">
+            <p className="sprite__betAmount">{currentBet}</p>
+          </div>
         </div>
+      : null}
+    </div>
     )
 }
 

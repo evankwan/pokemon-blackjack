@@ -12,6 +12,15 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
+/* 
+  order of properties 
+    - position on screen
+    - size of container
+    - box model
+    - font and inner styling
+*/
+
+
 /* GENERAL STYLES */
 html {
   font-size: 62.5%;
@@ -29,7 +38,6 @@ img {
 }
 
 .wrapper {
-  margin: 0 auto;
   max-width: 960px;
   width: 85%;
   position: relative;
@@ -37,6 +45,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0 auto;
 }
 
 /* HEADER/TITLE PAGE STYLES */
@@ -45,8 +54,8 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #edfeff;
   min-height: 100vh;
+  background-color: #edfeff;
 }
 
 .header__title {
@@ -56,16 +65,16 @@ img {
 }
 
 .header__rules-container {
+  margin-bottom: 40px; 
   border: 2px solid #ff0;
   box-shadow: 1px 1px #ffd000, -1px -1px #ffd000;
-  margin-bottom: 40px; 
 }
 
 .header__list-header {
-  letter-spacing: 1px;
-  font-size: 2.8rem;
-  text-align: center;
   margin-bottom: 0px;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .header__list-container {
@@ -74,8 +83,45 @@ img {
 }
 
 .header__list-container li {
-  font-size: 1.8rem;
   padding: 2px 0px;
+  font-size: 1.8rem;
+}
+
+/* deck of cards error modal styles */
+.bg-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;  
+  display: none;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal {
+  z-index: -1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);  
+  opacity: 0;
+  min-width: 250px; 
+  max-width: 400px; 
+  padding: 2rem;
+  background: white;   
+  font-size: initial;
+  transition: all 250ms ease;
+}
+
+.bg-overlay.show {
+  display: block;
+}
+
+.modal.show {
+  z-index: 1200;
+  transform: translate(-50%, -50%);  
+  opacity: 1;
 }
 
 /* GAMEBOARD STYLES */
@@ -94,45 +140,49 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Carter One', cursive;
+  font-size: min(max(3rem, 10vw), 4rem);
+  text-align: center;
+  text-transform: uppercase;
 }
 
 /* SCORE STYLING */
 .hand__score-container {
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .hand__score {
-  text-align: center;
   width: 100%;
   font-size: 2rem;
   font-weight: bold;
+  text-align: center;
 }
 
 /* EXPERIENCE BAR STYLES */
 .expbar {
-  width: 90%;
-  height: 40px;
-  text-align: center;
-  border: 3px solid #142b68;
-  margin: 0 auto 20px;
-  border-radius: 15px;
-  overflow: hidden;
-  background-color: #bb2725;
   position: absolute;
   left: 5%;
   top: 25px;
+  width: 90%;
+  height: 40px;
+  margin: 0 auto 20px;
+  border: 3px solid #142b68;
+  border-radius: 15px;
+  background-color: #bb2725;
+  text-align: center;
+  overflow: hidden;
 }
 
 .expbar__title {
-  font-size: 2.6rem;
-  font-weight: bold;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 2.6rem;
+  font-weight: bold;
 }
 
 .expbar__fill {
@@ -147,25 +197,54 @@ img {
   width: 100%;
 }
 
+@keyframes slide-from-right {
+  0%{
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
 .hand__card-list {
-  list-style: none;
-  padding: 0;
+  --w: Min(Max(20px, 8vw), 50px);
   display: flex;
   justify-content: center;
   width: 100%;
+  padding: 0;
+  list-style: none;
+  transform: translateX(calc(var(--w) * -.75));
 }
 
 .hand__card-item {
-  --w: Min(Max(20px, 8vw), 50px);
-  width: var(--w);
   /* -1 * ((width * 4) - width) / 2 */
-  transform: translateX(calc(var(--w) * -.75));
+  width: var(--w);
+ 
 }
+
+
 
 .hand__card-img {
   display: block;
   /* overflow so that cards will overlap */
   width: 250%;
+  --timing: cubic-bezier(.17,.67,.38,1.12);
+  /* Spring effect */
+}
+
+.dealer .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  /* Do we want to slide from left for dealer card? */
+  animation: slide-from-right 300ms var(--timing) forwards;
+}
+
+.player .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  animation: slide-from-right 300ms  var(--timing) forwards;
 }
 
 /* CARD STYLES */
@@ -175,14 +254,14 @@ img {
 
 .card__dealer-facedown::after {
   content: '';
-  display: block;
-  background-image: url('./assets/back-of-card.png');
-  width: 250%;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  display: block;
+  width: 250%;
+  background-image: url('./assets/back-of-card.png');
   background-position: center center;
   background-size: cover;
 }
@@ -198,13 +277,13 @@ img {
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
-  padding: 10px 20px;
-  background-color: #ff0;
-  color: #142b68;
-  border: 2px solid #142b68;
-  text-shadow: 1px 1px #befcff;
-  border-radius: 5px;
   outline: none;
+  border: 2px solid #142b68;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #ffff00;
+  color: #142b68;
+  text-shadow: 1px 1px #befcff;
 }
 
 .btn:hover,
@@ -226,7 +305,6 @@ img {
 }
 
 .btn__container {
-  width: 100%;
   display: flex;
 }
 
@@ -252,9 +330,9 @@ img {
 }
 
 .disabled {
-  opacity: .5;
-  background-color: #f1f1f1;
   border: 2px solid #686868;
+  background-color: #f1f1f1;
+  opacity: .5;
 }
 
 .disabled:hover {
@@ -263,11 +341,12 @@ img {
 
 /* SPRITE STYLES */
 .sprite__container {
+  position: relative;        
   display: flex;
   justify-content: center;
   align-items: center;
   width: var(--sprite-width);
-  position: relative;        
+  margin-bottom: 20px;
 }
 
 .sprite {
@@ -279,18 +358,18 @@ img {
 }
 
 .sprite__name {
-  text-align: center;
-  color: #ffff00;
-  background-color: #142b68;
-  padding: 7px 10px;
-  margin: 0;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1.1rem;
   left: 50px;
   bottom: -2em;
   min-width: 96px;
+  margin: 0;
   border-radius: 5px;
+  padding: 7px 10px;
+  background-color: #142b68;
+  color: #ffff00;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .sprite__name-dealer {
@@ -306,14 +385,14 @@ img {
 }
 
 .sprite__betContainer {
-  border-radius: 50%;
-  border: 2px solid #142b68;
-  background-color: #ffff00;
-  width: 40px;
-  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #142b68;
+  border-radius: 50%;
+  background-color: #ffff00;
   font-size: 1.4rem;
   font-weight: bold;
   margin-left: 10px;
@@ -321,6 +400,69 @@ img {
 
 .sprite__betAmount {
   margin: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0%);
+  }
+
+  50% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes float-shadow {
+  0% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scaleX(0.7);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.sprite .sprite__container {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* delay player sprite so that two sprites move in opposite direction */
+.sprite.sprite__player .sprite__container, .sprite.sprite__player::after {
+  animation-delay: 1s;
+}
+
+.sprite::after {  
+  content: '';
+  position: absolute;  
+  bottom: 0;
+  display: block;
+  width: 45%;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  animation: float-shadow 2s ease-in-out infinite;
+}
+
+.sprite {
+  --sprite-width: min(max(110px, 20vw), 160px);
+}
+
+.sprite.sprite__player {
+  margin-top: calc(var(--sprite-width) * -1);
+}
+.sprite.sprite__dealer {
+  margin-bottom: calc(var(--sprite-width) * -1);
 }
 
 /* ****************************************************** */
