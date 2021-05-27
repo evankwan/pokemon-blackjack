@@ -491,6 +491,7 @@ footer a:hover {
 @media (max-width:780px) {
   .expbar__title {
     font-size: 2rem;
+  }
 }
 
 /* iPhone 6/7/8 plus iOS 11 */
