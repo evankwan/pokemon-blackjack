@@ -45,7 +45,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: #edfeff;
 }
 
@@ -386,7 +386,6 @@ img {
   align-items: center;
   width: 60px;
   height: 60px;
-  outline: 2px double #142b68;
   border: 2px dotted #142b68;
   border-radius: 50%;
   background-color: #ffff00;
@@ -463,8 +462,80 @@ img {
   margin-bottom: calc(var(--sprite-width) * -1);
 }
 
+/* FOOTER STYLES */
+footer {
+  text-align: center;
+  font-size: 1.8rem;
+  background-color: #142b68;
+  text-shadow: #ffd000;
+  padding: 10px;
+  letter-spacing: 1px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p,
+footer a {
+  margin: 0;
+  color: #ffff00;
+}
+
+footer a:hover {
+  color: #EA593E;
+}
+
 /* ****************************************************** */
 /* MEDIA QUERIES */
+/* tablets */
+@media (max-width:780px) {
+  .expbar__title {
+    font-size: 2rem;
+}
+
+/* iPhone 6/7/8 plus iOS 11 */
+@media (max-width: 500px) {
+  .header__title {
+    font-size: 3.4rem;
+  }
+
+  .expbar__title {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    font-size: 1.5rem;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -40px;
+  }
+
+  .header__rules-container {
+    margin-bottom: 0px; 
+    border: none;
+    box-shadow: none
+  }
+
+  .header__list-header {
+    margin-bottom: 0px;
+    font-size: 2.2rem;
+  }
+
+  .header__list-container {
+    padding-top: 20px;
+  }
+
+  .header__list-container li {
+    font-size: 1.4rem;
+  }
+
+  footer {
+    font-size: 1.4rem;
+  }
+}
+  
+/* iPhone 5 */
 @media (max-width: 320px) {
   .btn {
     font-size: 1.2rem;
@@ -484,29 +555,5 @@ img {
 
   .sprite__name-bet-container {
     bottom: -30px;
-  }
-}
-
-@media (max-width: 360px) {
-  .header__title {
-    font-size: 4.2rem;
-  }
-
-  .expbar__title {
-    font-size: 1.5rem;
-  }
-
-  .btn {
-    font-size: 1.5rem;
-  }
-
-  .sprite__name-bet-container {
-    bottom: -40px;
-  }
-}
-
-@media (max-width:780px) {
-  .sprite__container {
-    width: 132px;
   }
 }
