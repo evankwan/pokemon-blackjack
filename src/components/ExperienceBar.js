@@ -19,12 +19,13 @@ const ExperienceBar = ({ balance, expNeeded }) => {
 
   return (
     <>
-      <div className="expbar">
+      <div aria-live="polite" aria-label="Your current experience points to bet with" tab-index="0" className="expbar">
         <div 
           className="expbar__fill"
           style={style}
         ></div>
-        <span className="expbar__title">Player XP: {balance}/{expNeeded}</span>
+        <span
+        className="expbar__title">Player XP: {balance}/{expNeeded}</span>
       </div>
     </>
   );

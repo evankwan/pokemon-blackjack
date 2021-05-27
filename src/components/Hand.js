@@ -77,7 +77,7 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
           : ``}
       `}
       >
-      <p className="hand__score">{score > 0 ? formattedScore(score) : ``}</p>
+      <p aria-live="polite" className="hand__score">{score > 0 ? formattedScore(score) : ``}</p>
     </div>;
 
   return (
@@ -103,6 +103,7 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
                 key={index} 
                 className={`hand__card-item ${dealerCardFaceDown ? "card__dealer-facedown" : ""}`}>
                   <img 
+                  aria-live="polite"
                   className="hand__card-img" 
                   src={image} 
                   alt={alt} />
