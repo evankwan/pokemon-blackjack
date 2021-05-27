@@ -358,7 +358,7 @@ img {
   padding: 7px 10px;
   /* background-color: #142b68; */
   color: #222;
-  font-size: calc(1rem + 1vw);
+  font-size: min(calc(1rem + 1vw), 2rem);
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
