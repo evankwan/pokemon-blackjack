@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* SETUP CSS */
 html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
 
 .clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
@@ -8,106 +12,60 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-/* General Styles */
+/* GENERAL STYLES */
+html {
+  font-size: 62.5%;
+}
+
 body {
   background-color: #edfeff;
   color: #142b68;
+  font-family: 'Montserrat', sans-serif;
 }
 
 img {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .wrapper {
-  margin: 0 auto;
-  max-width: 1280px;
+  max-width: 960px;
   width: 85%;
-}
-
-.gameBoard {
-  min-height: 100vh;
   position: relative;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-}
-
-.hand {
-  width: 100%;
-}
-
-.hand__card-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
   justify-content: center;
-  /* background: pink; */
-  width: 100%;
+  margin: 0 auto;
 }
 
-.hand__card-item {
-  --w: Min(Max(20px, 8vw), 50px);
-  width: var(--w);
-  /* -1 * ((width * 4) - width) / 2 */
-  transform: translateX(calc(var(--w) * -1.5));
-}
-
-.hand__card-img {
-  display: block;
-  /* overflow so that cards will overlap */
-  width: 250%;
-}
-
-.card__dealer-facedown {
-  position: relative;
-}
-
-.card__dealer-facedown::after {
-  content: '';
-  display: block;
-  background-image: url('./assets/back-of-card.png');
-  width: 250%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-position: center center;
-  background-size: cover;
-}
-
-.card__dealer-facedown img {
-  visibility: hidden;
-}
-
-/* Title Styles */
+/* HEADER/TITLE PAGE STYLES */
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #edfeff;
   min-height: 100vh;
+  background-color: #edfeff;
 }
 
 .header__title {
-  font-size: 50px;
+  font-size: 5rem;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .header__rules-container {
+  margin-bottom: 40px; 
   border: 2px solid #ff0;
   box-shadow: 1px 1px #ffd000, -1px -1px #ffd000;
-  margin-bottom: 40px; 
-  
 }
 
 .header__list-header {
-  letter-spacing: 1px;
-  font-size: 28px;
-  text-align: center;
   margin-bottom: 0px;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .header__list-container {
@@ -116,108 +74,295 @@ img {
 }
 
 .header__list-container li {
-  /* list-style: none; */
-  font-size: 18px;
   padding: 2px 0px;
+  font-size: 1.8rem;
 }
 
-/* Button Styles */
-/* NOTE subject to change */
-.btn {
-  font-size: 18px;
+/* deck of cards error modal styles */
+.bg-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;  
+  display: none;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal {
+  z-index: -1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);  
+  opacity: 0;
+  min-width: 250px; 
+  max-width: 400px; 
+  padding: 2rem;
+  background: white;   
+  font-size: initial;
+  transition: all 250ms ease;
+}
+
+.bg-overlay.show {
+  display: block;
+}
+
+.modal.show {
+  z-index: 1200;
+  transform: translate(-50%, -50%);  
+  opacity: 1;
+}
+
+/* GAMEBOARD STYLES */
+.gameBoard {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-image: radial-gradient(circle, #edfeff, #e5feff, #dcfeff, #d3fdff, #cafdff, #afebf2, #95d9e7, #7bc7dc, #4f9fc3, #2a78a8, #14518a, #142b68);
+}
+
+/* GAME MESSAGE STYLES */
+.game-message {
+  margin: 0;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Carter One', cursive;
+  font-size: min(max(3rem, 10vw), 4rem);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* SCORE STYLING */
+.hand__score-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.hand__score {
+  width: 100%;
+  font-size: 2rem;
   font-weight: bold;
-  padding: 10px 20px;
-  background-color: #ff0;
-  color: #142b68;
+  text-align: center;
+}
+
+.hide-score {
+  visibility: hidden;
+}
+
+/* EXPERIENCE BAR STYLES */
+.expbar {
+  position: absolute;
+  left: 5%;
+  top: 15px;
+  width: 90%;
+  height: 40px;
+  margin: 0 auto 20px;
+  border: 2px solid #142b68;
+  border-radius: 15px;
+  background-color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.expbar__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #111;
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
+.expbar__fill {
+  width: 100%;
+  height: 100%;
+  background-color: #f62f26;
+  border-right: 2px solid #124b68;
+  transition: width 0.5s;
+}
+
+/* HAND STYLES */
+.hand {
+  width: 100%;
+}
+
+@keyframes slide-from-right {
+  0%{
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.hand__card-list {
+  --w: Min(Max(20px, 8vw), 50px);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  transform: translateX(calc(var(--w) * -.75));
+}
+
+.hand__card-item {
+  /* -1 * ((width * 4) - width) / 2 */
+  width: var(--w);
+}
+
+.hand__card-img {
+  display: block;
+  /* overflow so that cards will overlap */
+  width: 250%;
+  --timing: cubic-bezier(.17,.67,.38,1.12);
+  /* Spring effect */
+}
+
+.dealer .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  /* Do we want to slide from left for dealer card? */
+  animation: slide-from-right 300ms var(--timing) forwards;
+}
+
+.player .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  animation: slide-from-right 300ms  var(--timing) forwards;
+}
+
+/* CARD STYLES */
+.card__dealer-facedown {
+  position: relative;
+}
+
+.card__dealer-facedown::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+  width: 250%;
+  background-image: url('./assets/back-of-card.png');
+  background-position: center center;
+  background-size: cover;
+}
+
+.card__dealer-facedown img {
+  visibility: hidden;
+}
+
+/* BUTTON STYLES */
+.btn {
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  outline: none;
   border: 2px solid #142b68;
   border-radius: 5px;
-  outline: none;
+  padding: 10px 20px;
+  background-color: #ffff00;
+  color: #142b68;
+  text-shadow: 1px 1px #befcff;
+  cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:active,
+.btn:focus {
   background-color: #ffd000;
 }
 
-.btn__container {
+.btn:focus {
+  outline: 3px solid #142b68;
+}
 
+.btn__container {
   display: flex;
+}
+
+.actions {
+  position: absolute;
+  bottom: 15px;
   width: 100%;
-  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .btn__hit,
 .btn__double,
 .btn__stand {
-  flex: 0 0 calc((100% / 3));
+  flex: 1 auto calc((100% / 3));
 }
 
 .btn__deal {
   width: 100%;
-
 }
 
-/* Experience Bar Styles */
-.expbar {
-  width: 90%;
-  height: 40px;
-  text-align: center;
-  border: 3px solid #142b68;
-  margin: 0 auto;
-  /* new content */
-  border-radius: 15px;
-  position: relative;
-  overflow: hidden;
+.hideButtons {
+  display: none;
 }
 
-.expbar__title {
-  font-size: 24px;
-  /* new content */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.disabled {
+  border: 2px solid #686868;
+  background-color: #f1f1f1;
+  opacity: .5;
 }
 
-/* new content  */
-.expbar__fill {
-  width: 100%;
-  height: 100%;
-  background-color: palevioletred;
-  transition: width 0.5s;
+.disabled:hover {
+  background-color: #f1f1f1;
 }
-/* new content */
 
-/* Sprite Styles */
+/* SPRITE STYLES */
 .sprite__container {
-    border-radius: 50%;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 96px;
-    position: relative;
+  position: relative;        
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--sprite-width);
+  margin-bottom: 20px;
 }
 
 .sprite {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: min-content;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min-content;
+}
+
+.sprite__name-bet-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
 }
 
 .sprite__name {
-    position: absolute;
-    bottom: -5px;
-    text-align: center;
-    min-width: 96px;
-    color: #ffff00;
-    background-color: #142b68;
-    padding: 5px;
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    left: 50px;
+  min-width: 96px;
+  margin: 0;
+  border-radius: 5px;
+  padding: 7px 10px;
+  /* background-color: #142b68; */
+  color: #222;
+  font-size: calc(1rem + 1vw);
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .sprite__name-dealer {
@@ -225,38 +370,140 @@ img {
 }
 
 .sprite__left-img {
-    transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .sprite__dealer {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  margin-left: auto;
 }
 
 .sprite__betContainer {
-  position: absolute;
-  left: 100px;
-  border-radius: 50%;
-  border: 2px solid #142b68;
-  background-color: #ffff00;
-  width: 40px;
-  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 60px;
+  height: 60px;
+  outline: 2px double #142b68;
+  border: 2px dotted #142b68;
+  border-radius: 50%;
+  background-color: #ffff00;
+  font-size: calc(1rem + .75vw);
+  font-weight: bold;
+  margin-left: 10px;
+  overflow: hidden;
 }
 
 .sprite__betAmount {
   margin: 0;
 }
 
-.disabled {
-  opacity: .5;
-  background-color: #f1f1f1;
-  border: 2px solid #686868;
+@keyframes float {
+  0% {
+    transform: translateY(0%);
+  }
+
+  50% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
 }
 
-.disabled:hover {
-  background-color: #f1f1f1;
+@keyframes float-shadow {
+  0% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scaleX(0.7);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.sprite .sprite__container {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* delay player sprite so that two sprites move in opposite direction */
+.sprite.sprite__player .sprite__container, .sprite.sprite__player::after {
+  animation-delay: 1s;
+}
+
+.sprite::after {  
+  content: '';
+  position: absolute;  
+  bottom: 0;
+  display: block;
+  width: 45%;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  animation: float-shadow 2s ease-in-out infinite;
+}
+
+.sprite {
+  --sprite-width: min(max(110px, 20vw), 160px);
+}
+
+.sprite.sprite__player {
+  margin-top: calc(var(--sprite-width) * -1);
+}
+.sprite.sprite__dealer {
+  margin-bottom: calc(var(--sprite-width) * -1);
+}
+
+/* ****************************************************** */
+/* MEDIA QUERIES */
+@media (min-width: 320px) {
+  .btn {
+    font-size: 1.2rem;
+  }
+
+  .expbar__title {
+    font-size: 1.3rem;
+  }
+
+  .actions {
+    bottom: 5px;
+  }
+
+  .expbar {
+    top: 5px;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -30px;
+  }
+}
+
+@media (min-width: 360px) {
+  .header__title {
+    font-size: 4.2rem;
+  }
+
+  .expbar__title {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    font-size: 1.5rem;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -40px;
+  }
+}
+
+@media (min-width:780px) {
+  .sprite__container {
+    width: 132px;
+  }
 }

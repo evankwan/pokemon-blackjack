@@ -1,8 +1,7 @@
-import './GameMessage.css';
-
+//GameMessage updates the message in the middle of the screen
 const GameMessage = ({message}) => {
   return (    
-      <span className={"game-message"}>{message}</span>    
+      <h2 className={"game-message"}>{message}</h2>    
   )
 }
 
