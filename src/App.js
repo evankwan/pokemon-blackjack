@@ -9,7 +9,6 @@ import Dealer from './components/Dealer';
 import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
-import dealerLogic from './utils/dealerLogic';
 import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 import sleep from './utils/sleep';
@@ -180,28 +179,27 @@ function App() {
     // move to dealer's turn
     setCurrentMessage("Dealer's Turn");
     setCurrentPlayer('dealer')
-    await sleep(2000);
+    await sleep(1200);
     // run the dealer logic and set the states
     let dealerScore = getScore(dealerHand);
     let hand = [...dealerHand];
-    let deck = [...currentDeck];
+    let deck = [...updatedDeck];
 
+    // loop until dealer can no longer play
     while (dealerScore < 17) {
-      console.log('current hand', hand);
+      // deal another card and set states
       const { updatedHand, updatedDeck } = dealOneCard(deck, hand);
       hand = updatedHand;
       deck = updatedDeck;
-      dealerScore = getScore(hand);
-      console.log(dealerScore);
       setDealerHand(hand);
       setCurrentDeck(deck);
-      console.log('updated hand', hand);
+
+      // re-calculate score
+      dealerScore = getScore(hand);
+      // pause before moving to next iteration
       await sleep(1000);
     }
-
-    // const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
-    // setDealerHand(hand);
-    // setCurrentDeck(deck);
+    await sleep(500);
 
     // end hand
     setCurrentPlayer('finished');
@@ -225,7 +223,7 @@ function App() {
 
   useEffect(() => {
     // logic for player iwnning
-    const playerWinsLogic = async () => {
+    const winCurrentHand = async () => {
       // boolean for if player got blackjack
       const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
       setCurrentMessage(`Player Wins with ${blackjack ? 'blackjack!' : getScore(playerHand)}`);
@@ -277,7 +275,7 @@ function App() {
     }
 
     // logic for player losing
-    const playerLosesLogic = async () => {
+    const loseCurrentHand = async () => {
       // boolean for if dealer got blackjack
       const blackjack = getScore(dealerHand) === 21 && dealerHand.length === 2;
       // alert user of how dealer won
@@ -306,7 +304,7 @@ function App() {
     }
 
     // logic if player pushes, renamed to Ties to remove confusion with Array.push
-    const playerTiesLogic = async () => {
+    const tieCurrentHand = async () => {
       // alert user and adjust balance to replace bet
       setCurrentMessage('Player Pushes!');
       setBalance(currentBet + balance);
@@ -332,11 +330,11 @@ function App() {
       const dealerWins = compareScore(playerHand, dealerHand) === 'dealer';
       const playerTie = compareScore(playerHand, dealerHand) === 'tie';
       if (playerWins) {
-        playerWinsLogic();
+        winCurrentHand();
       } else if (dealerWins) {
-        playerLosesLogic();
+        loseCurrentHand();
       } else if (playerTie) {
-        playerTiesLogic(playerTie);
+        tieCurrentHand(playerTie);
       } 
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
