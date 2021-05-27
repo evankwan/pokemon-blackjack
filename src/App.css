@@ -165,7 +165,7 @@ img {
 .expbar {
   position: absolute;
   left: 5%;
-  top: 25px;
+  top: 15px;
   width: 90%;
   height: 40px;
   margin: 0 auto 20px;
@@ -221,7 +221,6 @@ img {
 .hand__card-item {
   /* -1 * ((width * 4) - width) / 2 */
   width: var(--w);
- 
 }
 
 
@@ -296,21 +295,13 @@ img {
   outline: 3px solid #142b68;
 }
 
-.sprite__name-bet-container {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: -50px;
-  left: 20px;
-}
-
 .btn__container {
   display: flex;
 }
 
 .actions {
   position: absolute;
-  bottom: 35px;
+  bottom: 15px;
   width: 100%;
   margin: 0 auto;
 }
@@ -357,9 +348,15 @@ img {
   width: min-content;
 }
 
+.sprite__name-bet-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
+}
+
 .sprite__name {
-  left: 50px;
-  bottom: -2em;
   min-width: 96px;
   margin: 0;
   border-radius: 5px;
@@ -467,9 +464,25 @@ img {
 
 /* ****************************************************** */
 /* MEDIA QUERIES */
-@media (min-width:780px) {
-  .sprite__container {
-    width: 132px;
+@media (min-width: 320px) {
+  .btn {
+    font-size: 1.2rem;
+  }
+
+  .expbar__title {
+    font-size: 1.3rem;
+  }
+
+  .actions {
+    bottom: 5px;
+  }
+
+  .expbar {
+    top: 5px;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -30px;
   }
 }
 
@@ -484,5 +497,15 @@ img {
 
   .btn {
     font-size: 1.5rem;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -40px;
+  }
+}
+
+@media (min-width:780px) {
+  .sprite__container {
+    width: 132px;
   }
 }
