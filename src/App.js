@@ -9,7 +9,6 @@ import Dealer from './components/Dealer';
 import Player from './components/Player';
 import initialDeal from './utils/initialDeal';
 import dealOneCard from './utils/dealOneCard';
-import dealerLogic from './utils/dealerLogic';
 import evolvePokemon from './utils/evolvePokemon';
 import { getScore } from './utils/score';
 import sleep from './utils/sleep';
@@ -135,9 +134,9 @@ function App() {
     // prevent hit if score exceeds 21
     if (getScore(playerHand) <= 21 ) {
       // deal a card and return the updated hand and deck. update appropriate states
-      const { updatedHand, deck } = dealOneCard(currentDeck, playerHand);
+      const { updatedHand, updatedDeck } = dealOneCard(currentDeck, playerHand);
       setPlayerHand(updatedHand);
-      setCurrentDeck(deck);
+      setCurrentDeck(updatedDeck);
       // if the player busts
       if (getScore(updatedHand) > 21) {
         // set message and move to dealer's turn to show cards
@@ -156,9 +155,9 @@ function App() {
     // immediately set turn to dealer
     setCurrentPlayer('dealer');
     // deal one card to player and return updated hand/deck and set those states
-    const { updatedHand, deck } = dealOneCard(currentDeck, playerHand)
+    const { updatedHand, updatedDeck } = dealOneCard(currentDeck, playerHand)
     setPlayerHand(updatedHand)
-    setCurrentDeck(deck)
+    setCurrentDeck(updatedDeck)
     // double the bet and remove from balance
     setBalance(balance - currentBet)
     setCurrentBet(currentBet * 2)
@@ -171,7 +170,7 @@ function App() {
       setCurrentPlayer('finished');
     } else {
       // move to dealer turn
-      handleStand(deck)
+      handleStand(updatedDeck)
     }
   }
 
@@ -180,11 +179,27 @@ function App() {
     // move to dealer's turn
     setCurrentMessage("Dealer's Turn");
     setCurrentPlayer('dealer')
-    await sleep(2000);
+    await sleep(1200);
     // run the dealer logic and set the states
-    const { hand, deck } = dealerLogic(dealerHand, updatedDeck);
-    setDealerHand(hand);
-    setCurrentDeck(deck);
+    let dealerScore = getScore(dealerHand);
+    let hand = [...dealerHand];
+    let deck = [...updatedDeck];
+
+    // loop until dealer can no longer play
+    while (dealerScore < 17) {
+      // deal another card and set states
+      const { updatedHand, updatedDeck } = dealOneCard(deck, hand);
+      hand = updatedHand;
+      deck = updatedDeck;
+      setDealerHand(hand);
+      setCurrentDeck(deck);
+
+      // re-calculate score
+      dealerScore = getScore(hand);
+      // pause before moving to next iteration
+      await sleep(1000);
+    }
+    await sleep(500);
 
     // end hand
     setCurrentPlayer('finished');
@@ -208,7 +223,7 @@ function App() {
 
   useEffect(() => {
     // logic for player iwnning
-    const playerWinsLogic = async () => {
+    const winCurrentHand = async () => {
       // boolean for if player got blackjack
       const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
       setCurrentMessage(`Player Wins with ${blackjack ? 'blackjack!' : getScore(playerHand)}`);
@@ -260,7 +275,7 @@ function App() {
     }
 
     // logic for player losing
-    const playerLosesLogic = async () => {
+    const loseCurrentHand = async () => {
       // boolean for if dealer got blackjack
       const blackjack = getScore(dealerHand) === 21 && dealerHand.length === 2;
       // alert user of how dealer won
@@ -289,7 +304,7 @@ function App() {
     }
 
     // logic if player pushes, renamed to Ties to remove confusion with Array.push
-    const playerTiesLogic = async () => {
+    const tieCurrentHand = async () => {
       // alert user and adjust balance to replace bet
       setCurrentMessage('Player Pushes!');
       setBalance(currentBet + balance);
@@ -315,11 +330,11 @@ function App() {
       const dealerWins = compareScore(playerHand, dealerHand) === 'dealer';
       const playerTie = compareScore(playerHand, dealerHand) === 'tie';
       if (playerWins) {
-        playerWinsLogic();
+        winCurrentHand();
       } else if (dealerWins) {
-        playerLosesLogic();
+        loseCurrentHand();
       } else if (playerTie) {
-        playerTiesLogic(playerTie);
+        tieCurrentHand(playerTie);
       } 
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand])
