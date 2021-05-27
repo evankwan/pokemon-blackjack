@@ -424,9 +424,8 @@ function App() {
           <>
             <div className="gameBoard">
               <div className="wrapper">
-                <div>
-                  <ExperienceBar balance={balance} expNeeded={experienceNeeded}/>
-                </div>
+
+                <ExperienceBar balance={balance} expNeeded={experienceNeeded}/>
 
                 <Dealer
                   hand={dealerHand}
@@ -444,15 +443,16 @@ function App() {
                     currentBet={currentBet}
                   />
                   : null}
-                <div className="actions">
-                  {/* only show deal when game state is false */}
-                  {playerHand.length === 0
-                    ?
-                    <ActionBtn
-                      name={"Deal"}
-                      className={"btn btn__deal"}
-                      handleClick={handleDeal}
-                    />
+
+                  <div className="actions">
+                    {/* only show deal when game state is false */}
+                    {playerHand.length === 0
+                    ?  
+                      <ActionBtn
+                        name={"Deal"}
+                        className={"btn btn__deal"}
+                        handleClick={handleDeal}
+                      />
                     :
                     <div className="btn__container">
                       {/* only show hit, double, stand, if game state is true */}
@@ -476,25 +476,23 @@ function App() {
                         currentPlayer={currentPlayer}
                       />
                       {/* the stand button is hidden when the hand is over */}
-                      <ActionBtn
-                        name={"Stand"}
-                        className={"btn btn__stand"}
-                        handleClick={() => handleStand(currentDeck)}
-                        hideButtons={hideButtons}
-                        currentPlayer={currentPlayer}
-                      />
-                      {/* show the deal again button after each hand is over */}
-                      <DealAgainButton
-                        dealAgain={dealAgain}
-                        deckLoaded={currentDeck && currentDeck.length > 0}
-                        hideButtons={hideButtons}
-                      />
+                        <ActionBtn
+                          name={"Stand"}
+                          className={"btn btn__stand"}
+                          handleClick={() => handleStand(currentDeck)}
+                          hideButtons={hideButtons}
+                          currentPlayer={currentPlayer}
+                        />
+                        <DealAgainButton
+                          dealAgain={dealAgain}
+                          deckLoaded={currentDeck && currentDeck.length > 0}
+                          hideButtons={hideButtons}
+                        />
 
-                    </div>
-                  }
-
-                </div>
-                </div> {/* wrapper div */}
+                      </div>
+                    }
+                  </div>
+              </div> {/* wrapper div */}
             </div> {/* gameBoard div */}
           </>
         )
