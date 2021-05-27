@@ -484,31 +484,15 @@ footer a:hover {
 
 /* ****************************************************** */
 /* MEDIA QUERIES */
-/* iPhone 5 */
-@media (max-width: 320px) {
-  .btn {
-    font-size: 1.2rem;
-  }
-
+/* tablets */
+@media (max-width:780px) {
   .expbar__title {
-    font-size: 1.3rem;
-  }
-
-  .actions {
-    bottom: 5px;
-  }
-
-  .expbar {
-    top: 5px;
-  }
-
-  .sprite__name-bet-container {
-    bottom: -30px;
+    font-size: 2rem;
   }
 }
 
 /* iPhone 6/7/8 plus iOS 11 */
-@media (max-width: 415px) {
+@media (max-width: 500px) {
   .header__title {
     font-size: 3.4rem;
   }
@@ -549,9 +533,25 @@ footer a:hover {
   }
 }
 
-/* tablets */
-@media (max-width:780px) {
+/* iPhone 5 */
+@media (max-width: 320px) {
+  .btn {
+    font-size: 1.2rem;
+  }
+
   .expbar__title {
-    font-size: 2rem;
+    font-size: 1.3rem;
+  }
+
+  .actions {
+    bottom: 5px;
+  }
+
+  .expbar {
+    top: 5px;
+  }
+
+  .sprite__name-bet-container {
+    bottom: -30px;
   }
 }
