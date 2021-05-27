@@ -4,7 +4,9 @@ A Blackjack game with a Pokémon twist. A virtual card game that pits the player
 
 As you win more hands, your Pokémon will evolve!
 
+<p align="center">
 ![Screen Shot 2021-05-27 at 7 46 58 PM](https://user-images.githubusercontent.com/46538962/119910160-88d01c00-bf24-11eb-90a8-2e7bb77bb997.png)
+</p>
 
 ### How to use
 
