@@ -378,21 +378,46 @@ img {
   margin-left: auto;
 }
 
-.sprite__betContainer {
+.sprite__betContainer-spread {
   position: absolute;
-  right: -60px;
+  left: 0;
+  height: 60px;
+  width: calc(85vw);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.sprite__betContainer-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  top: 0;
+  width: 200px;
+}
+
+.sprite__betContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border: 2px dotted #142b68;
   border-radius: 50%;
   background-color: #ffff00;
-  font-size: calc(1rem + .75vw);
+  font-size: 2.6rem;
   font-weight: bold;
-  margin-left: 10px;
   overflow: hidden;
+}
+
+.currentBet {
+  position: absolute;
+  bottom: -80px;
+  color: #222;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .sprite__betAmount {
@@ -491,6 +516,20 @@ footer a:hover {
 @media (max-width:780px) {
   .expbar__title {
     font-size: 2rem;
+  }
+
+  .sprite__betContainer-text {
+    width: 120px;
+  }
+
+  .sprite__betContainer {
+    font-size: min(calc(1rem + 1.5vw), 2rem);
+  }
+
+  .currentBet {
+    bottom: -50px;
+    font-size: 1.6rem;
+  }
 }
 
 /* iPhone 6/7/8 plus iOS 11 */
@@ -530,6 +569,10 @@ footer a:hover {
     font-size: 1.4rem;
   }
 
+  .sprite__betContainer {
+    font-size: calc(1rem + 1.5vw);
+  }
+
   footer {
     font-size: 1.4rem;
   }
@@ -554,6 +597,23 @@ footer a:hover {
   }
 
   .sprite__name-bet-container {
-    bottom: -30px;
+    bottom: 0;
+  }
+
+  .sprite__betContainer-text {
+    width: 100px;
+  }
+
+  .sprite__betContainer {
+    width: 60px;
+    height: 60px;
+    font-size: calc(1rem + .75vw);
+  }
+
+  .currentBet {
+    bottom: -50px;
+    color: #222;
+    font-size: 1.4rem;
+    font-weight: bold;
   }
 }
