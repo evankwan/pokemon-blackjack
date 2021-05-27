@@ -192,25 +192,54 @@ img {
   width: 100%;
 }
 
+@keyframes slide-from-right {
+  0%{
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
 .hand__card-list {
+  --w: Min(Max(20px, 8vw), 50px);
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 0;
   list-style: none;
+  transform: translateX(calc(var(--w) * -.75));
 }
 
 .hand__card-item {
-  --w: Min(Max(20px, 8vw), 50px);
-  width: var(--w);
   /* -1 * ((width * 4) - width) / 2 */
-  transform: translateX(calc(var(--w) * -.75));
+  width: var(--w);
+ 
 }
+
+
 
 .hand__card-img {
   display: block;
   /* overflow so that cards will overlap */
   width: 250%;
+  --timing: cubic-bezier(.17,.67,.38,1.12);
+  /* Spring effect */
+}
+
+.dealer .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  /* Do we want to slide from left for dealer card? */
+  animation: slide-from-right 300ms var(--timing) forwards;
+}
+
+.player .hand__card-img {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  animation: slide-from-right 300ms  var(--timing) forwards;
 }
 
 /* CARD STYLES */
