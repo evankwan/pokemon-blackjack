@@ -1,6 +1,6 @@
 const GameMessage = ({message}) => {
   return (    
-      <span className={"game-message"}>{message}</span>    
+      <h2 className={"game-message"}>{message}</h2>    
   )
 }
 

@@ -12,17 +12,18 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
         />
           
       </div>
-        {currentBet 
-        ? 
-          <>
-            <div className="sprite__betContainer">
-              <p className="sprite__betAmount">{currentBet}</p>
-            </div>
-            <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
-          </>
-        : null}
+      {currentBet 
+      ? 
+        <div className="sprite__name-bet-container">
+          <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
+
+          <div className="sprite__betContainer">
+            <p className="sprite__betAmount">{currentBet}</p>
+          </div>
+        </div>
+      : null}
     </div>
-  )
+    )
 }
 
 export default Sprite;

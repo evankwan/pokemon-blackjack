@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+.game-message {
+  /* always centered in screen regardless of where this component is placed within App */
+  /* position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  
+  /* display: block; */
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Carter One', cursive;
+  font-size: min(max(3rem, 10vw), 4rem);
+
+}
