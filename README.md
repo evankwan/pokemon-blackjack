@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Pokémon Blackjack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Blackjack game with a Pokémon twist. A virtual card game that pits the player versus the dealer. The objective of the game is to beat the dealer. This can be accomplished by getting Blackjack (your first two cards have a score of 21) or by getting a final score that that is higher than the dealer's score without exceeding 21. In essence, you want to get as close to 21 as possible. 
 
-## Available Scripts
+As you win more hands, your Pokémon will evolve!
 
-In the project directory, you can run:
+## How to use
 
-### `yarn start`
+    /*:
+      1. Click "Play now"
+      2. When cards are dealt, select "HIT", "2X", or "STAND" depending on the strength of your hand.
+     */
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Definitions
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* **Current Bet:** The value of XP you are risking each hand played.
+  * On each hand, you are betting 100 XP points. Each hand won returns 100 XP, (unless you have doubled down, if returns).
 
-### `yarn test`
+* **Card Score:** The value (score) of your hand show below youre cards and above the dealer's cards.
+  * Cards are counted as their respective numbers, face cards as ten, and ace as either eleven or one.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Hit:** This gives you another card from the deck.
+  * Adding a new card will increase your card count.
 
-### `yarn build`
+* **Stand:** If your final card count has exceeded 21, you have "busted".
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **Double:** Allows the player the option to double their wager (an additional 100XP in this case for a total of 200 XP on the hand).
+  * This action can only be done once.
+  * Upon doubling, your hand will be give one more final card.
+  * If you win the hand, you will recieve double your wager.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* **Bust:** Keep the cards you have and proceed with the round.
+ * When you or the dealer goes bust it means that the value of the hand went over twenty-one. 
+ * When you bust you lose.
+ * If you have not already busted, when the dealer busts, you will win.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **Blackjack:** 
+ * If a player or dealer's first two cards amount to a card count of 21, this is known as a "Blackjack".
+ * The round is immediately over, and your wager is surrendered, if the dealer is dealt a "Blackjack".
+ * If a player gets "Blackjack", they get 2.5x the initial wager.
 
-### `yarn eject`
+* **Pokémon evolve:** 
+ * Each Pokémon can evolve twice! 
+ * The evolution happens at the 1500XP and 2000XP levels.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+__For fun and entertainment only.__

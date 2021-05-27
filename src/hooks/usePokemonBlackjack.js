@@ -32,7 +32,7 @@ const usePokemonBlackjack = () => {
   const [dealerHand, setDealerHand] = useState([]);
   const [playerHand, setPlayerHand] = useState([]);
   const [currentBet, setCurrentBet] = useState(false);
-  const [balance, setBalance] = useState(1400);
+  const [balance, setBalance] = useState(2600);
   const [playAgain, setPlayAgain] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [buttonsHidden, setButtonsHidden] = useState(false);
