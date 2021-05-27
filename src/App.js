@@ -24,7 +24,7 @@ function App() {
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(0);
-  const [balance, setBalance] = useState(1200);
+  const [balance, setBalance] = useState(1400);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
   const [error, setError] = useState();
@@ -213,7 +213,7 @@ function App() {
       setPlayAgain(!playAgain);
     }
     if (currentPlayer === 'none') {
-      // reset hand
+      // after the first hand has been played, reset hand
       setHideButtons(true);
       setDealerHand([])
       setPlayerHand([])
@@ -222,7 +222,8 @@ function App() {
   }
 
   useEffect(() => {
-    // logic for player iwnning
+    
+    // logic for player winning
     const winCurrentHand = async () => {
       // boolean for if player got blackjack
       const blackjack = getScore(playerHand) === 21 && playerHand.length === 2;
@@ -243,8 +244,13 @@ function App() {
       setBalance(newBalance);
       setCurrentMessage(`Player gains ${payout}XP!`);
 
-      // only evolve pokemon if there is another pokemon in the evolution line
+      // pokemonCanEvolve handles the evolution of each pokemon 
+      // each of the pokemon from availablePokemon has an evoluiton line
+      // each pokemon start at the first level of the evolution line. this is represented as the [0] index of its respective array.
+      // each pokemon can only evolve up to the 3rd pokemon in the evolution line
+      // we will only evolve the pokemon if there is another pokemon in the evolution line
       const pokemonCanEvolve = playerPokemon.length > 1
+      console.log(playerPokemon);
       if (pokemonCanEvolve && newBalance >= experienceNeeded) {
 
         await sleep(2000);
@@ -458,6 +464,7 @@ function App() {
                         currentPlayer={currentPlayer}
                       />
                       {/* show double only when player hand is 2 cards */}
+                        {/* the double button is disabled after "hit" or "stand" is clicked */}
                       <ActionBtn
                         name={"Double"}
                         className={"btn btn__double"}
@@ -474,6 +481,7 @@ function App() {
                         hideButtons={hideButtons}
                         currentPlayer={currentPlayer}
                       />
+                      {/* show the deal again button after each hand is over */}
                       <DealAgainButton
                         dealAgain={dealAgain}
                         deckLoaded={currentDeck && currentDeck.length > 0}
@@ -482,12 +490,6 @@ function App() {
 
                     </div>
                   }
-
-
-                  {/* player component holds hand component and sprite component */}
-                  {/* needs hand state */}
-                  {/* <Player /> */}
-
 
                 </div>
                 </div> {/* wrapper div */}
