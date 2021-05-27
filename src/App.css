@@ -12,15 +12,6 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-/* 
-  order of properties 
-    - position on screen
-    - size of container
-    - box model
-    - font and inner styling
-*/
-
-
 /* GENERAL STYLES */
 html {
   font-size: 62.5%;
@@ -159,6 +150,10 @@ img {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+}
+
+.hide-score {
+  visibility: hidden;
 }
 
 /* EXPERIENCE BAR STYLES */

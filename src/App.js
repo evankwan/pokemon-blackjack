@@ -63,8 +63,6 @@ function App() {
     // empty hands
     setDealerHand([])
     setPlayerHand([])
-    // set the current player
-    setCurrentPlayer('player1');
   }
 
   // determines the size of Bet
@@ -87,6 +85,8 @@ function App() {
   }
 
   const handleDeal = async () => {
+    // set the current player
+    setCurrentPlayer('player1');
     // run the initial deal and set the player and dealer hands and the new deck
     const { player, dealer, updatedDeck } = initialDeal(currentDeck);
     setPlayerHand(player);
@@ -448,12 +448,6 @@ function App() {
                     {/* only show deal when game state is false */}
                     {playerHand.length === 0
                     ?  
-                      <ActionBtn
-                        name={"Deal"}
-                        className={"btn btn__deal"}
-                        handleClick={handleDeal}
-                      />
-                    :
                     <div className="btn__container">
                       {/* only show hit, double, stand, if game state is true */}
                       {/* the hit button is hidden when the hand is over */}
@@ -476,22 +470,21 @@ function App() {
                         currentPlayer={currentPlayer}
                       />
                       {/* the stand button is hidden when the hand is over */}
-                        <ActionBtn
-                          name={"Stand"}
-                          className={"btn btn__stand"}
-                          handleClick={() => handleStand(currentDeck)}
-                          hideButtons={hideButtons}
-                          currentPlayer={currentPlayer}
-                        />
-                        <DealAgainButton
-                          dealAgain={dealAgain}
-                          deckLoaded={currentDeck && currentDeck.length > 0}
-                          hideButtons={hideButtons}
-                        />
-
-                      </div>
-                    }
-                  </div>
+                      <ActionBtn
+                        name={"Stand"}
+                        className={"btn btn__stand"}
+                        handleClick={() => handleStand(currentDeck)}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      <DealAgainButton
+                        dealAgain={dealAgain}
+                        deckLoaded={currentDeck && currentDeck.length > 0}
+                        hideButtons={hideButtons}
+                      />
+                    </div>
+                  : null}
+                </div>
               </div> {/* wrapper div */}
             </div> {/* gameBoard div */}
           </>
