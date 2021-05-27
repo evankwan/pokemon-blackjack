@@ -17,17 +17,23 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
       {
         typeof currentBet === 'number'
         ?
-          <div className="sprite__name-bet-container">
-            <p className={`sprite__name ${spriteNamePosition}`}>{name}</p>
-
+          <>
+            <div className="sprite__name-bet-container">
+              <p className={`sprite__name ${spriteNamePosition}`}>{name}</p>
+            </div>
             {/* if there is a bet, show the bet coin */}
             {name !== 'mr-mime'
               ?
-              <div className="sprite__betContainer">
-                <p className="sprite__betAmount">{currentBet}</p>
+              <div className="sprite__betContainer-spread">
+                <div className="sprite__betContainer-text">            
+                  <div className="sprite__betContainer">
+                    <p className="sprite__betAmount">{currentBet}</p>
+                  </div>
+                  <p className="currentBet">Current Bet</p>
+                </div>
               </div>
               : null}
-          </div>
+          </>
         : null}     
     </div>
     )
