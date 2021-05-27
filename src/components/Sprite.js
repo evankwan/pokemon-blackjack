@@ -13,10 +13,11 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
         />
           
       </div>
-      {/* if there is a current bet, show the current bet and pokemon name */}
+      {/* sprite name and bet container */}
       <div className="sprite__name-bet-container">
         <p className={`sprite__name ${spriteNamePosition}`}>{name}</p>
 
+        {/* if there is a bet, show the bet coin */}
         {currentBet
           ?
             <div className="sprite__betContainer">
