@@ -7,6 +7,7 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
     <div className={`sprite ${imgPosition}`}>
       <div className="sprite__container">
         <img
+        role="presentation"
         className={leftSprite ? "sprite__left-img" : "" }
         src={sprite} 
         alt={`The pokemon ${name}`} 
