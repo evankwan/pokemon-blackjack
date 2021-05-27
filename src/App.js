@@ -66,22 +66,26 @@ function App() {
   }
 
   // determines the size of Bet
-  const determineBet = () => {
+  const determineBet = async () => {
+    let bet = 0;
     // if possible, set bet to 100 XP
     if (balance >= 100) {
-      const bet = 100;
+      bet = 100;
       setCurrentBet(bet);
       setBalance(balance - bet);
       // if there is no XP in balance, reset to 1000
     } else if (balance <= 0) {
+      bet = 100;
       setBalance(1000);
       setCurrentBet(100);
       // if between 0 and 100, bet the remaining balance
     } else {
-      const bet = balance;
+      bet = balance;
       setCurrentBet(bet);
       setBalance(balance - bet);
     }
+    setCurrentMessage(`Player bets ${bet}XP`);
+    await sleep(1500);
   }
 
   const handleDeal = async () => {
@@ -96,7 +100,7 @@ function App() {
     setHideButtons(false);
 
     // set the current bet
-    determineBet();
+    await determineBet();
 
     // booleans to determine blackjacks
     const dealerHasBlackjack = getScore(dealer) === 21;
