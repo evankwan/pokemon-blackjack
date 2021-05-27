@@ -1,11 +1,14 @@
 import {useEffect, useState} from 'react'
 
+// dispalys the experience bar at the top of the screen
 const ExperienceBar = ({ balance, expNeeded }) => {
 
   const [style, setStyle] = useState({})
 
+  // update the experience bar when balance is adjusted
   useEffect(() => {
     setTimeout(() => {
+      // sets width based on % of exp needed
       const newStyle = {
         width: `${(balance/expNeeded) * 100}%`
       }
@@ -16,12 +19,13 @@ const ExperienceBar = ({ balance, expNeeded }) => {
 
   return (
     <>
-      <div className="expbar">
+      <div aria-live="polite" aria-label="Your current experience points to bet with" tab-index="0" className="expbar">
         <div 
           className="expbar__fill"
           style={style}
         ></div>
-        <span className="expbar__title">Player XP: {balance}/{expNeeded}</span>
+        <span
+        className="expbar__title">Player XP: {balance}/{expNeeded}</span>
       </div>
     </>
   );
