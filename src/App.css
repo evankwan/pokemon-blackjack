@@ -379,6 +379,8 @@ img {
 }
 
 .sprite__betContainer {
+  position: absolute;
+  right: -60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -463,7 +465,7 @@ img {
 
 /* ****************************************************** */
 /* MEDIA QUERIES */
-@media (min-width: 320px) {
+@media (max-width: 320px) {
   .btn {
     font-size: 1.2rem;
   }
@@ -485,7 +487,7 @@ img {
   }
 }
 
-@media (min-width: 360px) {
+@media (max-width: 360px) {
   .header__title {
     font-size: 4.2rem;
   }
@@ -503,7 +505,7 @@ img {
   }
 }
 
-@media (min-width:780px) {
+@media (max-width:780px) {
   .sprite__container {
     width: 132px;
   }
