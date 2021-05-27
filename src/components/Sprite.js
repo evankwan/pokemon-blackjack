@@ -16,12 +16,13 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
             </div>
                 {currentBet 
                 ? 
-                    <>
+                    <div className="display-flex">
+                        <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
+                        
                         <div className="sprite__betContainer">
                             <p className="sprite__betAmount">{currentBet}</p>
                         </div>
-                        <p className={`sprite__name ${spriteNamePosition}`}>{name}</p> 
-                    </>
+                    </div>
                 : null}
         </div>
     )
