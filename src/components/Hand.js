@@ -1,5 +1,7 @@
 import { getCardValue, getScore } from '../utils/score';
 
+// shows the player/dealer's hand on screen
+// includes the sprite, bet, and score
 const Hand = ({ cards, currentTurn, dealer = false }) => {
   // calculate the score for the hand
   const score = getScore(cards);
@@ -64,6 +66,7 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
 
   // markup that displays the formattedScore
   const scoreDisplay =
+  // logic to hide dealer's score while player is playing
     <div className={`hand__score-container 
       ${dealer 
         ? (showDealerScore() 
@@ -79,13 +82,16 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
 
   return (
     <div className="hand">
+      {/* display score above hand if dealer */}
       {dealer ? scoreDisplay : ""}
       <ul className="hand__card-list">
+        {/* if there are cards in the hand, map the cards and return appropriate list items */}
         {
           cards
           ? cards.map((card, index) => {
               const { image, value, suit } = card;
               const alt = `${value.toLowerCase()} of ${suit.toLowerCase()}`;
+              // boolean for if the second card should be facedown for the dealer
               const dealerCardFaceDown = (
                 cards.length === 2 && 
                 index === cards.length - 1 && 
@@ -106,6 +112,7 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
           : ""
         }
       </ul>
+      {/* display score underneath hand for player */}
       {dealer ? "" : scoreDisplay}
     </div>
   );

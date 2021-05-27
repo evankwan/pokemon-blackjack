@@ -1,6 +1,7 @@
 import Hand from './Hand';
 import Sprite from './Sprite';
 
+// creates and displays the Hand and Sprite for the player
 const Player = ({ hand, playerPokemon, currentBet }) => {
 
   // grab the first pokemon in the current pokemon array
