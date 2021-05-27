@@ -188,6 +188,8 @@ function App() {
     // loop until dealer can no longer play
     while (dealerScore < 17) {
       // deal another card and set states
+      console.log(deck);
+      console.log(hand);
       const { updatedHand, updatedDeck } = dealOneCard(deck, hand);
       hand = updatedHand;
       deck = updatedDeck;

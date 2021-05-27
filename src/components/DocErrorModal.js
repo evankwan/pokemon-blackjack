@@ -2,6 +2,7 @@ const DocErrorModal = ({ show }) => {
   const handleClick = () => {
     window.location.reload();    
   }
+  //if our DoC API call fails 5 times (see fetchRetry), an error modal will pop up on the landing page
   return (
     <>
       <aside className={`modal${show ? ' show' : ''}`}>

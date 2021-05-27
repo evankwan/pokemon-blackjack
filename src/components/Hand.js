@@ -84,8 +84,13 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
                 currentTurn === 'player1'
               );
               return (
-                <li key={index} className={`hand__card-item ${dealerCardFaceDown ? "card__dealer-facedown" : ""}`}>
-                  <img className="hand__card-img" src={image} alt={alt} />
+                <li 
+                key={index} 
+                className={`hand__card-item ${dealerCardFaceDown ? "card__dealer-facedown" : ""}`}>
+                  <img 
+                  className="hand__card-img" 
+                  src={image} 
+                  alt={alt} />
                 </li>
               );
             })
