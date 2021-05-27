@@ -571,6 +571,9 @@ footer a:hover {
 
   .sprite__betContainer {
     font-size: calc(1rem + 1.5vw);
+    width: 60px;
+    height: 60px;
+    font-size: calc(1rem + .75vw);
   }
 
   footer {
@@ -602,12 +605,6 @@ footer a:hover {
 
   .sprite__betContainer-text {
     width: 100px;
-  }
-
-  .sprite__betContainer {
-    width: 60px;
-    height: 60px;
-    font-size: calc(1rem + .75vw);
   }
 
   .currentBet {
