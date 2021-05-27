@@ -1,8 +1,7 @@
 const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentBet }) => {
 
   // destructure the pokemon this sprite is used for
-  const { name, sprite }  = pokemon
-  console.log(name);
+  const { name, sprite }  = pokemon  
 
   return (
     <div className={`sprite ${imgPosition}`}>
