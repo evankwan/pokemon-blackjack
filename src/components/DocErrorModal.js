@@ -1,5 +1,3 @@
-import './DocErrorModal.css';
-
 const DocErrorModal = ({ show }) => {
   const handleClick = () => {
     window.location.reload();    
