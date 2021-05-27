@@ -21,6 +21,7 @@ const Title = ({ startGame, deckLoaded }) => {
         onClick={startGame}
         disabled={!deckLoaded}
       >
+        {/* wait until the deck is loaded (DoC API has successfully been called) before the text on the button is switche to Play Now */}
         {!deckLoaded ? 'Loading...' : 'Play Now ' }
       </button>
     </header>
