@@ -23,7 +23,7 @@ function App() {
   const [playerPokemon, setPlayerPokemon] = useState([]);
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
-  const [currentBet, setCurrentBet] = useState(0);
+  const [currentBet, setCurrentBet] = useState(false);
   const [balance, setBalance] = useState(1400);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
@@ -431,6 +431,7 @@ function App() {
                   hand={dealerHand}
                   dealerPokemon={dealerPokemon}
                   currentTurn={currentPlayer}
+                  currentBet={currentBet}
                 />
                 {/* GameMessage updates the message in the middle of the screen */}
                 <GameMessage message={currentMessage} />
