@@ -24,7 +24,7 @@ function App() {
   const [currentDeck, setCurrentDeck] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [currentBet, setCurrentBet] = useState(false);
-  const [balance, setBalance] = useState(1400);
+  const [balance, setBalance] = useState(3000);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [hideButtons, setHideButtons] = useState(false);
   const [error, setError] = useState();

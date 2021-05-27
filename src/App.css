@@ -334,6 +334,11 @@ img {
   align-items: center;
   width: var(--sprite-width);
   margin-bottom: 20px;
+  z-index: 20;
+}
+
+.sprite__container img {
+  position: relative;
 }
 
 .sprite {
@@ -348,7 +353,7 @@ img {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: -50px;
+  bottom: 10px;
   left: 20px;
 }
 
@@ -364,10 +369,27 @@ img {
   text-transform: uppercase;
 }
 
+.sprite__dealer .sprite__name-bet-container {
+  position: absolute;
+  top: -5px;
+  height: min-content;
+}
+
+.sprite__name-bet-container {
+  bottom: -28px;
+  left: 0;
+  width: 100%;
+}
+
 .sprite__name-dealer {
   padding: 0;
-  text-align: left;
-  min-width: 150px;
+  text-align: center;
+  width: 100%;
+}
+
+.sprite__name-player {
+  width: 100%;
+  text-align: center;
 }
 
 .sprite__left-img {
@@ -467,13 +489,14 @@ img {
 .sprite::after {  
   content: '';
   position: absolute;  
-  bottom: 0;
+  bottom: 20px;
   display: block;
   width: 45%;
   height: 15px;
   border-radius: 50%;
   background: rgba(0,0,0,0.2);
   animation: float-shadow 2s ease-in-out infinite;
+  z-index: 0;
 }
 
 .sprite {
@@ -518,6 +541,12 @@ footer a:hover {
     font-size: 2rem;
   }
 
+  .sprite__name-bet-container {
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+  }
+
   .sprite__betContainer-text {
     width: 120px;
   }
@@ -527,7 +556,7 @@ footer a:hover {
   }
 
   .currentBet {
-    bottom: -50px;
+    bottom: -60px;
     font-size: 1.6rem;
   }
 }
@@ -547,7 +576,17 @@ footer a:hover {
   }
 
   .sprite__name-bet-container {
-    bottom: -40px;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+  }
+
+  .sprite__name-dealer {
+    font-size: calc(1rem + 1.5vw);
+  }
+
+  .sprite__name-player {
+    font-size: calc(1rem + 1.5vw);
   }
 
   .header__rules-container {
@@ -573,7 +612,6 @@ footer a:hover {
     font-size: calc(1rem + 1.5vw);
     width: 60px;
     height: 60px;
-    font-size: calc(1rem + .75vw);
   }
 
   footer {
@@ -600,7 +638,7 @@ footer a:hover {
   }
 
   .sprite__name-bet-container {
-    bottom: 0;
+    bottom: -15px;
   }
 
   .sprite__betContainer-text {
@@ -608,7 +646,7 @@ footer a:hover {
   }
 
   .currentBet {
-    bottom: -50px;
+    bottom: -57px;
     color: #222;
     font-size: 1.4rem;
     font-weight: bold;
