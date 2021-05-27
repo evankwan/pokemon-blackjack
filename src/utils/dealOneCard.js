@@ -20,7 +20,6 @@ const dealOneCard = (currentDeck, currentHand) => {
     // adding one card to the existing currentHand array (to prevent overriding the player or dealer's hand)
     const updatedHand = [...currentHand, ...cardsDealt]
 
-    console.log({ updatedHand, updatedDeck});
     return {updatedHand, updatedDeck};
 }
 
