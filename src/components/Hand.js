@@ -55,22 +55,31 @@ const Hand = ({ cards, currentTurn, dealer = false }) => {
     return score;
   }
 
-  // markup that displays the formattedScore
-  const scoreDisplay = 
-    <div className="hand__score-container">
-      <p className="hand__score">{formattedScore(score)}</p>
-    </div>;
-
   // boolean logic to determine if we show the Dealer's score
   const showDealerScore = () => {
-    if (dealer && (currentTurn === 'dealer' || currentTurn === 'finished' || currentTurn === 'none')) {
+    if (dealer && (currentTurn === 'dealer' || currentTurn === 'finished' || currentTurn === 'none' )) {
       return true
     }
   }
 
+  // markup that displays the formattedScore
+  const scoreDisplay =
+    <div className={`hand__score-container 
+      ${dealer 
+        ? (showDealerScore() 
+          ? `` 
+          : `hide-score`) 
+        : currentTurn === 'none' 
+          ? `hide-score` 
+          : ``}
+      `}
+      >
+      <p className="hand__score">{score > 0 ? formattedScore(score) : ``}</p>
+    </div>;
+
   return (
     <div className="hand">
-      {showDealerScore() ? scoreDisplay : ""}
+      {dealer ? scoreDisplay : ""}
       <ul className="hand__card-list">
         {
           cards

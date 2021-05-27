@@ -63,8 +63,6 @@ function App() {
     // empty hands
     setDealerHand([])
     setPlayerHand([])
-    // set the current player
-    setCurrentPlayer('player1');
   }
 
   // determines the size of Bet
@@ -87,6 +85,8 @@ function App() {
   }
 
   const handleDeal = async () => {
+    // set the current player
+    setCurrentPlayer('player1');
     // run the initial deal and set the player and dealer hands and the new deck
     const { player, dealer, updatedDeck } = initialDeal(currentDeck);
     setPlayerHand(player);
@@ -443,20 +443,19 @@ function App() {
                     currentBet={currentBet}
                   />
                   : null}
-
-                  <div className="actions">
-                    {/* only show deal when game state is false */}
-                    {playerHand.length === 0
-                    ?  
-                      <ActionBtn
-                        name={"Deal"}
-                        className={"btn btn__deal"}
-                        handleClick={handleDeal}
-                      />
+                  
+                <div className="actions">
+                  {/* only show deal when game state is false */}
+                  {playerHand.length === 0
+                    ?
+                    <ActionBtn
+                      name={"Deal"}
+                      className={"btn btn__deal"}
+                      handleClick={handleDeal}
+                    />
                     :
                     <div className="btn__container">
                       {/* only show hit, double, stand, if game state is true */}
-                      {/* the hit button is hidden when the hand is over */}
                       <ActionBtn
                         name={"Hit"}
                         className={"btn btn__hit"}
@@ -465,8 +464,7 @@ function App() {
                         currentPlayer={currentPlayer}
                       />
                       {/* show double only when player hand is 2 cards */}
-                      {/* the double button is disabled after "hit" or "stand" is clicked */}
-                      {/* the double button is hidden when the hand is over */}
+                        {/* the double button is disabled after "hit" or "stand" is clicked */}
                       <ActionBtn
                         name={"Double"}
                         className={"btn btn__double"}
@@ -475,24 +473,26 @@ function App() {
                         hideButtons={hideButtons}
                         currentPlayer={currentPlayer}
                       />
-                      {/* the stand button is hidden when the hand is over */}
-                        <ActionBtn
-                          name={"Stand"}
-                          className={"btn btn__stand"}
-                          handleClick={() => handleStand(currentDeck)}
-                          hideButtons={hideButtons}
-                          currentPlayer={currentPlayer}
-                        />
-                        <DealAgainButton
-                          dealAgain={dealAgain}
-                          deckLoaded={currentDeck && currentDeck.length > 0}
-                          hideButtons={hideButtons}
-                        />
 
-                      </div>
-                    }
-                  </div>
-              </div> {/* wrapper div */}
+                      <ActionBtn
+                        name={"Stand"}
+                        className={"btn btn__stand"}
+                        handleClick={() => handleStand(currentDeck)}
+                        hideButtons={hideButtons}
+                        currentPlayer={currentPlayer}
+                      />
+                      {/* show the deal again button after each hand is over */}
+                      <DealAgainButton
+                        dealAgain={dealAgain}
+                        deckLoaded={currentDeck && currentDeck.length > 0}
+                        hideButtons={hideButtons}
+                      />
+
+                    </div>
+                  }
+
+                </div>
+                </div> {/* wrapper div */}
             </div> {/* gameBoard div */}
           </>
         )
