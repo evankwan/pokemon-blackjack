@@ -356,7 +356,6 @@ img {
   margin: 0;
   border-radius: 5px;
   padding: 7px 10px;
-  /* background-color: #142b68; */
   color: #222;
   font-size: min(calc(1rem + 1vw), 2rem);
   font-weight: bold;
@@ -365,7 +364,9 @@ img {
 }
 
 .sprite__name-dealer {
-  left: calc(50% - 96px);
+  padding: 0;
+  text-align: left;
+  min-width: 150px;
 }
 
 .sprite__left-img {
