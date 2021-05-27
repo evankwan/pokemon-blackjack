@@ -433,7 +433,7 @@ function App() {
                   dealerPokemon={dealerPokemon}
                   currentTurn={currentPlayer}
                 />
-
+                {/* GameMessage updates the message in the middle of the screen */}
                 <GameMessage message={currentMessage} />
 
                 {playerPokemon.length > 0
@@ -456,6 +456,7 @@ function App() {
                     :
                     <div className="btn__container">
                       {/* only show hit, double, stand, if game state is true */}
+                      {/* the hit button is hidden when the hand is over */}
                       <ActionBtn
                         name={"Hit"}
                         className={"btn btn__hit"}
@@ -464,7 +465,8 @@ function App() {
                         currentPlayer={currentPlayer}
                       />
                       {/* show double only when player hand is 2 cards */}
-                        {/* the double button is disabled after "hit" or "stand" is clicked */}
+                      {/* the double button is disabled after "hit" or "stand" is clicked */}
+                      {/* the double button is hidden when the hand is over */}
                       <ActionBtn
                         name={"Double"}
                         className={"btn btn__double"}
@@ -473,7 +475,7 @@ function App() {
                         hideButtons={hideButtons}
                         currentPlayer={currentPlayer}
                       />
-
+                      {/* the stand button is hidden when the hand is over */}
                       <ActionBtn
                         name={"Stand"}
                         className={"btn btn__stand"}

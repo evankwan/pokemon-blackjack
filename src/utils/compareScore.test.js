@@ -1,5 +1,8 @@
 import compareScore from './compareScore';
 
+//use the command "npm run test" to run the test found in this file
+//this test will test the compareScore function to make sure compareScore is accurately identifying if the result of the hand is a win, loss or tie
+
 const playerHand = [
     {
         image: 'https://deckofcardsapi.com/static/img/5D.png',

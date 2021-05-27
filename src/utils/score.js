@@ -37,6 +37,7 @@ export function getScore(cards) {
     const cardValue = getCardValue(card);
     return cardValue
   })
+  //by sorting the cardValues array with .sort, all of the values that are numbers, will go to the front of the array and any values that are strings will go to the end of the array 
   cardValues.sort();
 
   let score = cardValues.reduce((accumulatedScore, card, index) => {
@@ -47,6 +48,7 @@ export function getScore(cards) {
     }
 
     // if this is the last ace, test if it can be 1 or 11
+    // we know that 'ACE' would be at the end of the array because cardValues has been mutated with .sort
     if(card === 'ACE' && index === (cardValues.length - 1)) {
       if (accumulatedScore + 11 > 21) {
         return accumulatedScore + 1;
