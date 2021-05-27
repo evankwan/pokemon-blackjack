@@ -8,8 +8,13 @@ const Player = ({ hand, playerPokemon, currentBet }) => {
     return (
         <div className="player">
             <div className="player__container">
-                <Hand cards={hand} />
-                <Sprite pokemon={currentPokemon} leftSprite={true} imgPosition='sprite__player'
+                <Hand 
+                cards={hand} />
+                
+                <Sprite 
+                pokemon={currentPokemon} 
+                leftSprite={true} 
+                imgPosition='sprite__player'
                 spriteNamePosition='sprite__name-player'
                 currentBet={currentBet} />
             </div>
