@@ -216,10 +216,7 @@ img {
 .hand__card-item {
   /* -1 * ((width * 4) - width) / 2 */
   width: var(--w);
- 
 }
-
-
 
 .hand__card-img {
   display: block;
@@ -359,9 +356,9 @@ img {
   margin: 0;
   border-radius: 5px;
   padding: 7px 10px;
-  background-color: #142b68;
-  color: #ffff00;
-  font-size: 1.1rem;
+  /* background-color: #142b68; */
+  color: #222;
+  font-size: calc(1rem + 1vw);
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
@@ -383,14 +380,15 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border: 2px solid #142b68;
   border-radius: 50%;
-  background-color: #ffff00;
-  font-size: 1.4rem;
+  background-color: #ffd000;
+  font-size: calc(1rem + .75vw);
   font-weight: bold;
   margin-left: 10px;
+  overflow: hidden;
 }
 
 .sprite__betAmount {
