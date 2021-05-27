@@ -2,6 +2,7 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
 
   // destructure the pokemon this sprite is used for
   const { name, sprite }  = pokemon
+  console.log(name);
 
   return (
     <div className={`sprite ${imgPosition}`}>
@@ -21,7 +22,7 @@ const Sprite = ({ pokemon, leftSprite, imgPosition, spriteNamePosition, currentB
             <p className={`sprite__name ${spriteNamePosition}`}>{name}</p>
 
             {/* if there is a bet, show the bet coin */}
-            {currentBet
+            {name !== 'mr-mime'
               ?
               <div className="sprite__betContainer">
                 <p className="sprite__betAmount">{currentBet}</p>
