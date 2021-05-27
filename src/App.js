@@ -466,7 +466,7 @@ function App() {
                       {/* show double only when player hand is 2 cards */}
                         {/* the double button is disabled after "hit" or "stand" is clicked */}
                       <ActionBtn
-                        name={"Double"}
+                        name={"2x"}
                         className={"btn btn__double"}
                         handleClick={handleDouble}
                         disabled={playerHand.length > 2 || currentPlayer !== 'player1' || (balance < currentBet)}
