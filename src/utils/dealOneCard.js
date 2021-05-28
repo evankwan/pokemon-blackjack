@@ -11,16 +11,16 @@
  */
 
 const dealOneCard = (currentDeck, currentHand) => {
-    // spread currentDeck into new variable
-    const updatedDeck = [...currentDeck];
+  // spread currentDeck into new variable
+  const updatedDeck = [...currentDeck];
 
-    // remove the top card from the deck
-    const cardsDealt = updatedDeck.splice(0, 1);
+  // remove the top card from the deck
+  const cardsDealt = updatedDeck.splice(0, 1);
 
-    // adding one card to the existing currentHand array (to prevent overriding the player or dealer's hand)
-    const updatedHand = [...currentHand, ...cardsDealt]
+  // adding one card to the existing currentHand array (to prevent overriding the player or dealer's hand)
+  const updatedHand = [...currentHand, ...cardsDealt]
 
-    return {updatedHand, updatedDeck};
+  return {updatedHand, updatedDeck};
 }
 
 export default dealOneCard;
