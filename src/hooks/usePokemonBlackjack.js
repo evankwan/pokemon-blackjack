@@ -8,7 +8,6 @@ import sleep from '../utils/sleep';
 import compareScore from '../utils/compareScore';
 
 const dealButton = document.querySelector('.btn__deal');
-const hitButton = document.querySelector('.btn__hit');
 
 // array of usable pokemon families
 const availablePokemon = [
