@@ -585,9 +585,6 @@ footer a:hover {
     width: 100%;
   }
 
-  .sprite__name {
-  }
-
   .sprite__name-dealer {
     font-size: calc(1rem + 1.3vw);
   }
