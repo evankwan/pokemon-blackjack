@@ -538,7 +538,7 @@ footer a:hover {
 /* tablets */
 @media (max-width:780px) {
   .expbar__title {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .sprite__name-bet-container {
@@ -571,6 +571,10 @@ footer a:hover {
     font-size: 1.5rem;
   }
 
+  .game-message {
+    font-size: min(max(3rem, 10vw), 2.8rem);
+  }
+
   .btn {
     font-size: 1.5rem;
   }
@@ -582,11 +586,12 @@ footer a:hover {
   }
 
   .sprite__name-dealer {
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(1rem + 1.3vw);
   }
 
   .sprite__name-player {
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(1rem + 1.3vw);
+    padding: 7px 0;
   }
 
   .header__rules-container {
