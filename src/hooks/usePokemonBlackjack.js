@@ -7,23 +7,25 @@ import { getScore } from '../utils/score';
 import sleep from '../utils/sleep';
 import compareScore from '../utils/compareScore';
 
+const dealButton = document.querySelector('.btn__deal');
+const hitButton = document.querySelector('.btn__hit');
 
-  // array of usable pokemon families
-  const availablePokemon = [
-    // each sub-array is the evolution line of pokemon
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [29, 30, 31],
-    [32, 33, 34],
-    [66, 67, 68],
-    [74, 75, 76],
-    [92, 93, 94],
-    [147, 148, 149],
-    [152, 153, 154],
-    [155, 156, 157],
-    [158, 159, 160]
-  ];
+// array of usable pokemon families
+const availablePokemon = [
+  // each sub-array is the evolution line of pokemon
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [29, 30, 31],
+  [32, 33, 34],
+  [66, 67, 68],
+  [74, 75, 76],
+  [92, 93, 94],
+  [147, 148, 149],
+  [152, 153, 154],
+  [155, 156, 157],
+  [158, 159, 160]
+];
 
 const usePokemonBlackjack = () => {
 
@@ -32,7 +34,7 @@ const usePokemonBlackjack = () => {
   const [dealerHand, setDealerHand] = useState([]);
   const [playerHand, setPlayerHand] = useState([]);
   const [currentBet, setCurrentBet] = useState(false);
-  const [balance, setBalance] = useState(2600);
+  const [balance, setBalance] = useState(1200);
   const [playAgain, setPlayAgain] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState('none');
   const [buttonsHidden, setButtonsHidden] = useState(false);
@@ -98,7 +100,7 @@ const usePokemonBlackjack = () => {
 
     // booleans to determine blackjacks
     const dealerHasBlackjack = getScore(dealer) === 21;
-    const playerHasBlackjack = getScore(player) === 21;
+    const playerHasBlackjack = getScore(player) === 21 && player.length === 2;
 
     // what happens after the initial deal
     if (dealerHasBlackjack) {
@@ -276,6 +278,8 @@ const usePokemonBlackjack = () => {
 
       //hide all buttons and ask to deal again
       setButtonsHidden(true);
+
+      dealButton.focus();
     }
 
     // logic for player losing
@@ -300,10 +304,12 @@ const usePokemonBlackjack = () => {
         //hide all buttons and ask to play again
         setButtonsHidden(true);
         setCurrentMessage(`Play Again?`);
+        dealButton.focus();
       } else {
         //hide all buttons and ask to deal again
         setButtonsHidden(true);
         setCurrentMessage(`Deal Again?`);
+        dealButton.focus();
       }
     }
 
@@ -320,6 +326,8 @@ const usePokemonBlackjack = () => {
       //hide all buttons and ask to deal again
       setCurrentMessage(`Deal Again?`);
       setButtonsHidden(true);
+
+      await dealButton.focus();
     }
 
     // check if game is finished when useEffect is triggered
@@ -339,7 +347,7 @@ const usePokemonBlackjack = () => {
         loseCurrentHand();
       } else if (playerTie) {
         tieCurrentHand(playerTie);
-      } 
+      }
     }
   }, [currentPlayer, balance, currentBet, playerHand, playerPokemon, dealerHand, experienceNeeded])
 
