@@ -20,29 +20,29 @@ import { getScore } from './score';
   */
 
 const compareScore = (playerHand, dealerHand) => {
-    const playerScore = getScore(playerHand)
-    const dealerScore = getScore(dealerHand)
-    const dealerTwentyOne = dealerHand.length > 2 && dealerScore === 21;
-    const playerBlackjack = playerHand.length === 2 && playerScore === 21;
+  const playerScore = getScore(playerHand)
+  const dealerScore = getScore(dealerHand)
+  const dealerTwentyOne = dealerHand.length > 2 && dealerScore === 21;
+  const playerBlackjack = playerHand.length === 2 && playerScore === 21;
 
-    if (dealerScore > 21 ) {
-        return 'player';
-    }
-    if (playerScore > 21) {
-        return 'dealer';
-    }
-    if (playerScore > dealerScore) {
-        return 'player';
-    }
-    if (playerScore < dealerScore) {
-        return 'dealer';
-    }
-    if (playerBlackjack && dealerTwentyOne) {
-        return 'player';
-    }
-    if (playerScore === dealerScore) {
-        return 'tie';
-    }
+  if (dealerScore > 21 ) {
+    return 'player';
+  }
+  if (playerScore > 21) {
+    return 'dealer';
+  }
+  if (playerScore > dealerScore) {
+    return 'player';
+  }
+  if (playerScore < dealerScore) {
+    return 'dealer';
+  }
+  if (playerBlackjack && dealerTwentyOne) {
+    return 'player';
+  }
+  if (playerScore === dealerScore) {
+    return 'tie';
+  }
 }
 
 export default compareScore;
