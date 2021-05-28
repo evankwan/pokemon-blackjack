@@ -1,5 +1,4 @@
 const DealAgainButton = ({ deckLoaded, hideButtons, dealAgain }) => {
-  const hitButton = document.querySelector('.btn__hit');
   return (
       //the DealAgainButton button appears at the end of each hand
       //it is disabled (can not be clicked on) when a new deck has not been loaded (new deck)
@@ -9,14 +8,10 @@ const DealAgainButton = ({ deckLoaded, hideButtons, dealAgain }) => {
       ${!deckLoaded ? 'disabled' : ''}
       ${hideButtons ? "btn btn__deal" : "hideButtons" }`}
       type="button"
-      onClick={async () => {
-        await dealAgain();
-        hitButton.focus();
-      }}
-      disabled={!deckLoaded}
-      >
+      onClick={dealAgain}
+      disabled={!deckLoaded}>
         {!deckLoaded ? 'Loading...' : 'Deal again?'}
-      </button>
+    </button>
   );
 }
 

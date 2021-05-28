@@ -7,8 +7,6 @@ import { getScore } from '../utils/score';
 import sleep from '../utils/sleep';
 import compareScore from '../utils/compareScore';
 
-const dealButton = document.querySelector('.btn__deal');
-
 // array of usable pokemon families
 const availablePokemon = [
   // each sub-array is the evolution line of pokemon
@@ -277,8 +275,6 @@ const usePokemonBlackjack = () => {
 
       //hide all buttons and ask to deal again
       setButtonsHidden(true);
-
-      dealButton.focus();
     }
 
     // logic for player losing
@@ -303,12 +299,10 @@ const usePokemonBlackjack = () => {
         //hide all buttons and ask to play again
         setButtonsHidden(true);
         setCurrentMessage(`Play Again?`);
-        dealButton.focus();
       } else {
         //hide all buttons and ask to deal again
         setButtonsHidden(true);
         setCurrentMessage(`Deal Again?`);
-        dealButton.focus();
       }
     }
 
@@ -325,8 +319,6 @@ const usePokemonBlackjack = () => {
       //hide all buttons and ask to deal again
       setCurrentMessage(`Deal Again?`);
       setButtonsHidden(true);
-
-      await dealButton.focus();
     }
 
     // check if game is finished when useEffect is triggered
