@@ -9,10 +9,9 @@ const DealAgainButton = ({ deckLoaded, hideButtons, dealAgain }) => {
       ${hideButtons ? "btn btn__deal" : "hideButtons" }`}
       type="button"
       onClick={dealAgain}
-      disabled={!deckLoaded}
-      >
+      disabled={!deckLoaded}>
         {!deckLoaded ? 'Loading...' : 'Deal again?'}
-      </button>
+    </button>
   );
 }
 
