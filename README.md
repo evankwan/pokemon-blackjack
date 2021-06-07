@@ -1,5 +1,19 @@
 # Pokémon Blackjack
 
+## Description
+
+Original project built as a group along with Jon Ledo, Raid Naji, and Sid Lee at Juno College.
+
+👷‍♂️ Built using React, Pokémon API, Deck of Cards API and SCSS. 
+
+What you can expect to see soon:
+- Split functionality for the player
+- Play 2 hands at the same time
+- Dealer mode
+- Pick your own Pokémon
+
+### About
+
 A Blackjack game with a Pokémon twist. A virtual card game that pits the player versus the dealer. The objective of the game is to beat the dealer. This can be accomplished by getting Blackjack (your first two cards have a score of 21) or by getting a final score that that is higher than the dealer's score without exceeding 21. In essence, you want to get as close to 21 as possible. 
 
 As you win more hands, your Pokémon will evolve!
